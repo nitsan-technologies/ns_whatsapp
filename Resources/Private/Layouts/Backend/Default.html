@@ -1,0 +1,61 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<f:be.container pageTitle="{f:translate(key: 'pagetitle')}" includeRequireJsModules="{0:'TYPO3/CMS/NsWhatsapp/Main'}">
+	<link rel="stylesheet" type="text/css" href="{f:uri.resource(path:'Vendor/bootstrap4.3.1.min.css', extensionName: 'ns_whatsapp')}" media="all">
+	<link rel="stylesheet" type="text/css" href="{f:uri.resource(path:'Css/global.css', extensionName: 'ns_whatsapp')}" media="all">
+	<link rel="stylesheet" type="text/css" href="{f:uri.resource(path:'Css/main.css', extensionName: 'ns_whatsapp')}" media="all">
+	<link rel="stylesheet" type="text/css" href="{f:uri.resource(path:'Css/nswhatsapp.css', extensionName: 'ns_whatsapp')}" media="all">
+	<link rel="javascript" type="text/javascript" href="{f:uri.resource(path:'JavaScript/custom.js', extensionName: 'ns_whatsapp')}" media="all">
+
+
+	<div class="typo3-fullDoc">
+		<div id="typo3-docheader">
+			<div class="typo3-docheader-functions">
+				<f:be.buttons.csh />
+				<div class="ns-ext-button-bar">
+					<div class="button-group float-sm-right">
+						<a href="javascript:;" class="btn btn-success text-white btn-sm">
+							<em class="fa fa-file-o" aria-hidden="true"></em><f:translate key="documentaiton" extensionName="ns_whatsapp" />
+						</a>
+						<a href="javascript:;" class="btn btn-info text-white btn-sm">
+							<em class="fa fa-question" aria-hidden="true"></em><f:translate key="helpsupport" extensionName="ns_whatsapp" />
+						</a>
+						<a href="javascript:;" class="btn btn-warning text-white btn-sm">
+							<em class="fa fa-dollar" aria-hidden="true"></em><f:translate key="donate" extensionName="ns_whatsapp" />
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div id="typo3-docbody">
+			<div id="typo3-inner-docbody">
+				<div class="ns-ext-navigation">
+					<nav class="navbar navbar-expand-lg">
+						<a class="navbar-brand sdd" href="javascript:;"><f:translate key="brandname" extensionName="ns_whatsapp" /></a>
+						<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#nsextNavbar"
+						        aria-controls="nsextNavbar" aria-expanded="false" aria-label="Toggle navigation">
+							<span class="navbar-toggler-icon"></span>
+						</button>
+						<div class="collapse navbar-collapse" id="nsextNavbar">
+							<ul class="navbar-nav">
+                                <li class="nav-item {f:if(condition: '{action}==chatSettings', then: 'active')}">
+                                    <f:link.action action="chatSettings" additionalParams="{cat:'ns_whatsapp_chat'}" class="nav-link">
+                                        <em class="fa fas fa-comments" aria-hidden="true"></em><f:translate key="chatSettings" />
+                                    </f:link.action>
+                                </li>
+                                
+                                <li class="nav-item {f:if(condition: '{whatsappstyle}', then: 'active')}">
+									<f:link.action action="styleSettings" additionalParams="{cat:'ns_whatsapp_style'}" class="nav-link">
+										<em class="fa fas fa-adjust" aria-hidden="true"></em><f:translate key="styleSettings" />
+									</f:link.action>
+                                </li>
+							</ul>
+						</div>
+					</nav>
+				</div>
+				<f:render section="content" />
+			</div>
+		</div>
+	</div>
+</f:be.container>
+</html>

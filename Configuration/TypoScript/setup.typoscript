@@ -1,0 +1,79 @@
+plugin {
+  tx_nswhasapp_whatsapp {
+    settings {
+      is_enable = {$plugin.tx_nswhasapp_whatsapp.settings.is_enable}
+      whatsapp_number = {$plugin.tx_nswhasapp_whatsapp.settings.whatsapp_number}
+      pre_filled_message = {$plugin.tx_nswhasapp_whatsapp.settings.pre_filled_message}
+      call_to_action = {$plugin.tx_nswhasapp_whatsapp.settings.call_to_action}
+      style_desktop = {$plugin.tx_nswhasapp_whatsapp.settings.style_desktop}
+      style_mobile = {$plugin.tx_nswhasapp_whatsapp.settings.style_mobile}
+      position = {$plugin.tx_nswhasapp_whatsapp.settings.position}
+      web_whatsapp = {$plugin.tx_nswhasapp_whatsapp.settings.web_whatsapp}
+      hide_pages = {$plugin.tx_nswhasapp_whatsapp.settings.hide_pages}
+      hide_mobile = {$plugin.tx_nswhasapp_whatsapp.settings.hide_mobile}
+      hide_desktop = {$plugin.tx_nswhasapp_whatsapp.settings.hide_desktop}
+
+    }
+    view {
+      templateRootPaths.0 = EXT:ns_whasapp/Resources/Private/Templates/
+      templateRootPaths.1 = {$plugin.tx_nswhasapp_whatsapp.view.templateRootPath}
+      partialRootPaths.0 = EXT:ns_whasapp/Resources/Private/Partials/
+      partialRootPaths.1 = {$plugin.tx_nswhasapp_whatsapp.view.partialRootPath}
+      layoutRootPaths.0 = EXT:ns_whasapp/Resources/Private/Layouts/
+      layoutRootPaths.1 = {$plugin.tx_nswhasapp_whatsapp.view.layoutRootPath}
+    }
+
+    features {
+      #skipDefaultArguments = 1
+      # if set to 1, the enable fields are ignored in BE context
+      ignoreAllEnableFieldsInBe = 0
+      # Should be on by default, but can be disabled if all action in the plugin are uncached
+      requireCHashArgumentForActionArguments = 1
+    }
+    mvc {
+      #callDefaultActionIfActionCantBeResolved = 1
+    }
+  }
+}
+
+# Module configuration
+module.tx_nswhatsapp_nitsan_nswhatsappwhatsappmodule {
+  view {
+    templateRootPaths.0 = EXT:ns_whatsapp/Resources/Private/Backend/Templates/
+    templateRootPaths.1 = {$module.tx_nswhatsapp_whatsappmodule.view.templateRootPath}
+    partialRootPaths.0 = EXT:ns_whatsapp/Resources/Private/Backend/Partials/
+    partialRootPaths.1 = {$module.tx_nswhatsapp_whatsappmodule.view.partialRootPath}
+    layoutRootPaths.0 = EXT:ns_whatsapp/Resources/Private/Backend/Layouts/
+    layoutRootPaths.1 = {$module.tx_nswhatsapp_whatsappmodule.view.layoutRootPath}
+  }
+}
+
+
+page {
+  // Initiate all the css-together
+  includeCSS {
+    30001 = typo3conf/ext/ns_whatsapp/Resources/Public/Css/nswhatsapp.css
+  }
+
+  // Initiate all the js-together
+  includeJSFooter {
+    9902 = typo3conf/ext/ns_whatsapp/Resources/Public/JavaScript/nswhatsapp.js
+  }
+
+}
+page.111246 >
+page.111246 = USER
+page.111246 {
+  userFunc = TYPO3\CMS\Extbase\Core\Bootstrap->run
+  pluginName = Whatsapp
+  extensionName = NsWhatsapp
+  controller = Whatsapp
+  vendorName = Nitsan
+  action = list
+  switchableControllerActions{
+    Whatsapp {
+      1 = list
+    }
+  }
+  settings < plugin.tx_nswhasapp_whatsapp.settings
+}

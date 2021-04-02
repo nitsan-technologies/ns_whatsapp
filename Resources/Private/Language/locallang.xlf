@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="messages" date="2020-05-26T10:52:13Z" product-name="ns_whatsapp">
+		<header/>
+		<body>
+
+            <trans-unit id="brandname">
+				<source>Ns Whatsapp</source>
+			</trans-unit>
+            <trans-unit id="documentaiton">
+                <source>Documentaiton</source>
+            </trans-unit>
+            <trans-unit id="helpsupport">
+                <source>Help &amp; Support</source>
+            </trans-unit>
+            <trans-unit id="donate">
+                <source>Donate</source>
+            </trans-unit>
+            <trans-unit id="dashboard">
+                <source>Dashboard</source>
+            </trans-unit>
+            <trans-unit id="premiumExtension">
+                <source>Premium Extension</source>
+            </trans-unit>
+            <trans-unit id="noThemeConfiguration">
+                <source>Sorry, Configuration not available for this!</source>
+            </trans-unit>
+            <trans-unit id="sorry">
+                <source>Sorry!</source>
+            </trans-unit>
+            <trans-unit id="noconstantline1">
+                <source>No Extension Template available for this Page.</source>
+            </trans-unit>
+            <trans-unit id="noconstantline2">
+                <source>Please go the Template Module and create new extension Template for this page.</source>
+            </trans-unit>
+            <trans-unit id="noconstantline3">
+                <source>Please click here</source>
+            </trans-unit>
+            <trans-unit id="templatelinkText">
+                <source>Template</source>
+            </trans-unit>
+            <trans-unit id="save_changes">
+                <source>Save Changes</source>
+            </trans-unit>
+            <trans-unit id="opps">
+                <source>Oops!</source>
+            </trans-unit>
+            <trans-unit id="sorry">
+                <source>Sorry!</source>
+            </trans-unit>
+            <trans-unit id="noconstantline1">
+                <source>No Extension Template available for this Page.</source>
+            </trans-unit>
+            <trans-unit id="noconstantline2">
+                <source>Please go the Template Module and create new extension Template for this page.</source>
+            </trans-unit>
+            <trans-unit id="noconstantline3">
+                <source>Please click here</source>
+            </trans-unit>
+            <trans-unit id="templatelinkText">
+                <source>Template</source>
+            </trans-unit>
+			<trans-unit id="chatSettings">
+				<source>Chat</source>
+			</trans-unit>
+            <trans-unit id="shareSettings">
+                <source>Share</source>
+            </trans-unit>
+            <trans-unit id="groupSettings">
+                <source>Group</source>
+            </trans-unit>
+            <trans-unit id="styleSettings">
+                <source>Style</source>
+            </trans-unit>
+            <trans-unit id="cat_chat">
+                <source>Chat </source>
+            </trans-unit>
+            <trans-unit id="cat_style">
+                <source>Style Settings</source>
+            </trans-unit>
+			<trans-unit id="style1">
+				<source>Style 1</source>
+			</trans-unit>
+			<trans-unit id="buttontext">
+				<source>Button Text</source>
+			</trans-unit>
+			<trans-unit id="textcolor">
+				<source>Text Color</source>
+			</trans-unit>
+			<trans-unit id="bordercolor">
+				<source>Border Color</source>
+			</trans-unit>
+			<trans-unit id="bgcolor">
+				<source>Background Color</source>
+			</trans-unit>
+			<trans-unit id="border">
+				<source>Border</source>
+			</trans-unit>
+			<trans-unit id="hovertextcolor">
+				<source>Hover Text Color</source>
+			</trans-unit>
+			<trans-unit id="hoverbordercolor">
+				<source>Hover Border Color</source>
+			</trans-unit>
+			<trans-unit id="hoverbgcolor">
+				<source>Hover Background Color</source>
+			</trans-unit>
+			<trans-unit id="save">
+				<source>Save</source>
+			</trans-unit>
+			<trans-unit id="headline">
+				<source>Headline</source>
+			</trans-unit>
+			<trans-unit id="image">
+				<source>Image Upload</source>
+			</trans-unit>
+			<trans-unit id="text">
+				<source>Text</source>
+			</trans-unit>
+			<trans-unit id="textsize">
+				<source>Text Size</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

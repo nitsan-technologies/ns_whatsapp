@@ -1,0 +1,203 @@
+.field-info-trigger {
+    cursor: pointer;
+}
+div.sticky{
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    z-index: 99999999;
+    background-color: white;
+}
+
+.field-info-trigger em {
+    font-size: 19px;
+    color: rgba(0, 0, 0, 0.5);
+}
+
+.field-info-text {
+    width: 100%;
+    display: inline-block;
+    position: relative;
+    display: none;
+}
+
+.field-info-text p {
+    font-size: 14px;
+    color: #444;
+    margin-bottom: 0;
+    margin-top: 12px;
+    display: inline-block;
+    width: 100%;
+}
+
+.custom-switch {
+    position: relative;
+    display: inline-block;
+    width: 40px;
+    height: 22px;
+}
+
+.custom-switch .custom-control-label::after {
+    top: calc(.25rem + 4px);
+    left: calc(-2.25rem + 4px);
+    width: calc(1.5rem - 8px);
+    height: calc(1.5rem - 8px);
+}
+
+.custom-control-label::before {
+    height: 1.5rem;
+    border: #adb5bd solid 2px;
+}
+
+.custom-switch .custom-control-label::before {
+    width: 2.5rem;
+}
+
+.custom-switch .custom-control-input:checked~.custom-control-label::after {
+    -webkit-transform: translateX(1rem);
+    transform: translateX(1rem);
+}
+.custom-control.custom-checkbox,
+.custom-control.custom-radio {
+    margin-bottom: 10px;
+}
+.custom-checkbox .custom-control-label::before,
+.custom-radio .custom-control-label::before{
+    width: 19px;
+    height: 19px;
+    top: 0;
+    left: -25px;
+}
+.custom-checkbox .custom-control-label::after
+.custom-radio .custom-control-label::after{
+    -webkit-transition: all 0.3s ease-in-out 0s;
+    transition: all 0.3s ease-in-out 0s;
+}
+.custom-radio .custom-control-label::after {
+    height: 11px;
+    width: 11px;
+    border-radius: 50%;
+    left: -21px;
+    top: 4px;
+}
+.custom-checkbox .custom-control-label::after{
+    background-size: 12px 12px;
+    top: 2px;
+}
+.custom-radio .custom-control-input:checked~.custom-control-label::after {
+    background-color: #fff;
+}
+.ns-ext-form{
+    margin-top: 20px;
+}
+.ns-ext-form .card{
+    margin-bottom: 30px;
+}
+hr{
+    margin: 30px 0;
+}
+.custom-control-label em{
+    color: #666;
+    margin-left: 5px;
+}
+
+.ticket-show-footer .nsbtn {
+    margin-top: -2px;
+    margin-left: 4px;
+}
+.nsbtn-xs {
+    padding: 1px 5px;
+    font-size: 13px;
+    line-height: 1.5;
+    border-radius: 3px;
+    border:none;
+}
+
+.ns-bitbucket {
+    color: #fff;
+    background-color: #205081;
+    border-color: rgba(0,0,0,.2);
+}
+.ns-bitbucket:hover {
+    color: #fff;
+    background-color: #183c60;
+    border-color: rgba(0,0,0,.2);
+}
+
+.ns-close {
+    color: #fff;
+    background-color: #d9534f;
+    border-color: #d43f3a;
+}
+.ns-close:hover {
+    color: #fff;
+    background-color: #c9302c;
+    border-color: #ac2925;
+}
+.ticket-show-footer:last-child {
+    padding-bottom: 0.7em;
+}
+
+@media(min-width:576px) {}
+
+@media(min-width:768px) {
+    .ns-ext-form select.form-control{
+        max-width: 280px;
+        width: 100%;
+    }
+}
+
+@media(min-width:992px) {}
+
+@media(min-width:1200px) {
+    .ns-ext-navigation .navbar-nav .nav-link {
+        padding: 13px 20px;
+    }
+}
+
+
+/* The Modal (background) */
+.mymodal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.category-changed {
+    z-index: 999999999;
+}
+
+.ns-backup-table-block-wrap .ns-backup-table-wrap .collapse.in {
+    display: block;
+}
+.custom-form-inline .form-control {
+    margin-left: 10px;
+}
+.ns-backup-table-block-wrap .ns-backup-table-wrap .collapse {
+	padding-top: 25px;
+}
+.btn-save-changes {
+    width: auto;
+    margin-top: 20px;
+}
+/*.custom-form-inline input[type='radio'] + .form-control {
+    pointer-events: none;
+    cursor: not-allowed !important;
+}
+.custom-form-inline input[type='radio']:checked + .form-control {
+    pointer-events: auto;
+    cursor: initial !important;
+}*/
+.ns-whatsapp-variant--three .ns-whatsapp-custom-img img {
+    max-width: 100%;
+    height: 100px;
+    width: 100px;
+}
