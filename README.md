@@ -1,7 +1,3 @@
-# TS Constant Module
-
-Special repository for Extended backend module eg., EXT:ns_whatsapp > Option modul
-
 # ns_whatsapp
 
 - DEMO version: https://demo.t3terminal.com/t3t-extensions/whatsapp
