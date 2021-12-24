@@ -28,14 +28,19 @@ if (TYPO3_MODE === 'BE') {
                 'name' => 'nitsan',
             ];
         }
-
+        
+        if (version_compare(TYPO3_branch, '11.0', '>=')) {
+            $moduleClass = \Nitsan\NsWhatsapp\Controller\WhatsappController::class;
+        } else {
+            $moduleClass = 'Whatsapp';
+        }
         \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerModule(
             'Nitsan.NsWhatsapp',
             'nitsan', // Make module a submodule of 'nitsan'
             'whatsappmodule', // Submodule key
             '', // Position
             [
-                'Whatsapp' => 'chatSettings,saveConstant, update',
+                $moduleClass => 'chatSettings,saveConstant, update, styleSettings',
             ],
             [
                 'access' => 'user,group',

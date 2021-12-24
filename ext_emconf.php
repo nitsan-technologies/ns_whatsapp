@@ -11,10 +11,10 @@ $EM_CONF['ns_whatsapp'] = [
     'uploadfolder' => 0,
     'createDirs' => '',
     'clearCacheOnLoad' => 0,
-    'version' => '1.0.4',
+    'version' => '2.0.0',
     'constraints' => [
         'depends' => [
-            'typo3' => '8.7.0-10.99.99',
+            'typo3' => '8.7.0-11.5.99',
         ],
         'conflicts' => [],
         'suggests' => [],

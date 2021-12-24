@@ -202,7 +202,7 @@ class TypoScriptParser
         // Conditions
         'error' => ['<span class="ts-error">', '</span>'],
         // Error messages
-        'linenum' => ['<span class="ts-linenum">', '</span>'],
+        'linenum' => ['<span class="ts-linenum">', '</span>']
     ];
 
     /**
@@ -547,7 +547,7 @@ class TypoScriptParser
                 $newValue = str_replace($fromStr, $toStr, $currentValue);
                 break;
             case 'addToList':
-                $newValue = ((string) $currentValue !== '' ? $currentValue . ',' : '') . $modifierArgument;
+                $newValue = ((string)$currentValue !== '' ? $currentValue . ',' : '') . $modifierArgument;
                 break;
             case 'removeFromList':
                 $existingElements = GeneralUtility::trimExplode(',', $currentValue);
@@ -617,7 +617,7 @@ class TypoScriptParser
      */
     protected function rollParseSub($string, array &$setup)
     {
-        if ((string) $string === '') {
+        if ((string)$string === '') {
             return '';
         }
 
@@ -627,8 +627,8 @@ class TypoScriptParser
             $setup[$key] = [];
         }
         $exitSig = $remainingKey === ''
-        ? $this->parseSub($setup[$key])
-        : $this->rollParseSub($remainingKey, $setup[$key]);
+            ? $this->parseSub($setup[$key])
+            : $this->rollParseSub($remainingKey, $setup[$key]);
         return $exitSig ?: '';
     }
 
@@ -642,7 +642,7 @@ class TypoScriptParser
      */
     public function getVal($string, $setup)
     {
-        if ((string) $string === '') {
+        if ((string)$string === '') {
             return [];
         }
 
@@ -675,7 +675,7 @@ class TypoScriptParser
      */
     protected function setVal($string, array &$setup, $value, $wipeOut = false)
     {
-        if ((string) $string === '') {
+        if ((string)$string === '') {
             return;
         }
 
@@ -806,7 +806,7 @@ class TypoScriptParser
             if ($returnFiles) {
                 return [
                     'typoscript' => '',
-                    'files' => $includedFiles,
+                    'files' => $includedFiles
                 ];
             }
             return '
@@ -815,9 +815,10 @@ class TypoScriptParser
 ###
 ';
         }
-        // if ($string !== null) {
-        //     $string = StringUtility::removeByteOrderMark($string);
-        // }
+
+        if ($string !== null) {
+            $string = StringUtility::removeByteOrderMark($string);
+        }
 
         // Checking for @import syntax imported files
         $string = self::addImportsFromExternalFiles($string, $cycle_counter, $returnFiles, $includedFiles, $parentFilenameOrPath);
@@ -899,7 +900,7 @@ class TypoScriptParser
                     $filePointerPathParts = explode('/', substr($filename, 4));
 
                     // remove file part, determine whether to load setup or constants
-                    list($includeType) = explode('.', array_pop($filePointerPathParts));
+                    list($includeType, ) = explode('.', array_pop($filePointerPathParts));
 
                     if (in_array($includeType, ['setup', 'constants'])) {
                         // adapt extension key to required format (no underscores)
@@ -921,7 +922,7 @@ class TypoScriptParser
         if ($returnFiles) {
             return [
                 'typoscript' => $string,
-                'files' => $includedFiles,
+                'files' => $includedFiles
             ];
         }
         return $string;
@@ -981,15 +982,15 @@ class TypoScriptParser
 
         $content = '';
         $absoluteFileName = GeneralUtility::getFileAbsFileName($filename);
-        if ((string) $absoluteFileName === '') {
+        if ((string)$absoluteFileName === '') {
             return self::typoscriptIncludeError('Illegal filepath "' . $filename . '".');
         }
 
         $finder = new Finder();
         $finder
-        // no recursive mode on purpose
-        ->depth(0)
-        // no directories should be fetched
+            // no recursive mode on purpose
+            ->depth(0)
+            // no directories should be fetched
             ->files()
             ->sortByName();
 
@@ -1020,7 +1021,17 @@ class TypoScriptParser
             $readableFileName = rtrim($readableFilePrefix, '/') . '/' . $fileObject->getFilename();
             $content .= LF . '### @import \'' . $readableFileName . '\' begin ###' . LF;
             // Check for allowed files
-            if (!GeneralUtility::verifyFilenameAgainstDenyPattern($fileObject->getFilename())) {
+            $notvalid = false;
+            if (version_compare(TYPO3_branch, '11', '>=')) {
+                if (!GeneralUtility::makeInstance(\TYPO3\CMS\Core\Resource\Security\FileNameValidator::class)->isValid($fileObject->getFilename())) {
+                    $notvalid = true;
+                }
+            } else {
+                if (!GeneralUtility::verifyFilenameAgainstDenyPattern($fileObject->getFilename())) {
+                    $notvalid = true;
+                }
+            }
+            if ($notvalid) {
                 $content .= self::typoscriptIncludeError('File "' . $readableFileName . '" was not included since it is not allowed due to fileDenyPattern.');
             } else {
                 $includedFiles[] = $fileObject->getPathname();
@@ -1088,10 +1099,20 @@ class TypoScriptParser
         $absfilename = GeneralUtility::getFileAbsFileName($absfilename);
 
         $newString .= LF . '### <INCLUDE_TYPOSCRIPT: source="FILE:' . $filename . '"' . $optionalProperties . '> BEGIN:' . LF;
-        if ((string) $filename !== '') {
+        if ((string)$filename !== '') {
             // Must exist and must not contain '..' and must be relative
             // Check for allowed files
-            if (!GeneralUtility::verifyFilenameAgainstDenyPattern($absfilename)) {
+            $notvalid = false;
+            if (version_compare(TYPO3_branch, '11', '>=')) {
+                if (!GeneralUtility::makeInstance(\TYPO3\CMS\Core\Resource\Security\FileNameValidator::class)->isValid($absfilename)) {
+                    $notvalid = true;
+                }
+            } else {
+                if (!GeneralUtility::verifyFilenameAgainstDenyPattern($absfilename)) {
+                    $notvalid = true;
+                }
+            }
+            if ($notvalid) {
                 $newString .= self::typoscriptIncludeError('File "' . $filename . '" was not included since it is not allowed due to fileDenyPattern.');
             } else {
                 $fileExists = false;
@@ -1103,7 +1124,7 @@ class TypoScriptParser
                         $absfilename = substr($absfilename, 0, -4) . '.typoscript';
                         if (@file_exists($absfilename)) {
                             trigger_error('The TypoScript file ' . $filename . ' was renamed to .typoscript extension.'
-                                . ' Update your "<INCLUDE_TYPOSCRIPT" statements.', E_USER_DEPRECATED);
+                                          . ' Update your "<INCLUDE_TYPOSCRIPT" statements.', E_USER_DEPRECATED);
                             $fileExists = true;
                         }
                     }
@@ -1201,7 +1222,7 @@ class TypoScriptParser
      * @param array $array Array with TypoScript in each value
      * @return array Same array but where the values has been parsed for include-commands
      */
-    public static function checkincludelinesArray(array $array)
+    public static function checkIncludeLines_array(array $array)
     {
         foreach ($array as $k => $v) {
             $array[$k] = self::checkIncludeLines($array[$k]);
@@ -1370,7 +1391,7 @@ class TypoScriptParser
      * @param array $array Array with TypoScript in each value
      * @return array Same array but where the values has been processed with extractIncludes
      */
-    public static function extractincludesArray(array $array)
+    public static function extractIncludes_array(array $array)
     {
         foreach ($array as $k => $v) {
             $array[$k] = self::extractIncludes($array[$k]);
@@ -1400,7 +1421,7 @@ class TypoScriptParser
         // This is done in order to prevent empty <span>..</span> sections around CR content. Should not do anything but help lessen the amount of HTML code.
         $string = str_replace(CR, '', $string);
         $this->parse($string);
-        return $this->syntaxhighlightPrint($lineNum, $highlightBlockMode);
+        return $this->syntaxHighlight_print($lineNum, $highlightBlockMode);
     }
 
     /**
@@ -1429,7 +1450,7 @@ class TypoScriptParser
      * @return string HTML content
      * @see doSyntaxHighlight()
      */
-    protected function syntaxhighlightPrint($lineNumDat, $highlightBlockMode)
+    protected function syntaxHighlight_print($lineNumDat, $highlightBlockMode)
     {
         // Registers all error messages in relation to their linenumber
         $errA = [];
