@@ -250,7 +250,7 @@ class TypoScriptParser
                     $preUppercase === '[END]' ||
                     !$this->lastConditionTrue && $preUppercase === '[ELSE]')
             ) {
-                $pre = trim($this->parseSub($this->setup));
+                $pre = trim((string)$this->parseSub($this->setup));
                 $this->lastConditionTrue = true;
             } else {
                 // We're in a specific section. Therefore we log this section
@@ -262,7 +262,7 @@ class TypoScriptParser
                     if ($specificSection) {
                         $this->sectionsMatch[md5($pre)] = $pre;
                     }
-                    $pre = trim($this->parseSub($this->setup));
+                    $pre = trim((string)$this->parseSub($this->setup));
                     $this->lastConditionTrue = true;
                 } else {
                     $pre = $this->nextDivider();
@@ -423,6 +423,7 @@ class TypoScriptParser
                                                 $setup[$objStrName] = trim(substr($line, 1));
                                                 if ($this->lastComment && $this->regComments) {
                                                     // Setting comment..
+                                                    $setup[$objStrName . '..'] = isset($setup[$objStrName . '..']) ? $setup[$objStrName . '..'] : '';
                                                     $setup[$objStrName . '..'] .= $this->lastComment;
                                                 }
                                                 if ($this->regLinenumbers) {
@@ -705,6 +706,7 @@ class TypoScriptParser
                     $setup[$subKey] = $value[1];
                 }
                 if ($this->lastComment && $this->regComments) {
+                    $setup[$key . '..'] = isset($setup[$key . '..']) ? $setup[$key . '..'] : '';
                     $setup[$key . '..'] .= $this->lastComment;
                 }
                 if ($this->regLinenumbers && !$lnRegisDone) {

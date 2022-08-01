@@ -117,9 +117,14 @@ class TypoScriptTemplateConstantEditorModuleFunctionController
         $assigns['LLPrefix'] = 'LLL:EXT:tstemplate/Resources/Private/Language/locallang_ceditor.xlf:';
 
         // initialize
+        $template_uid = isset($template_uid) ? $template_uid : '';
         $existTemplate = $this->initializeEditor($this->id, $template_uid);
         if ($existTemplate) {
-            $saveId = $this->templateRow['_ORIG_uid'] ?: $this->templateRow['uid'];
+            if(isset($this->templateRow['_ORIG_uid'])){
+                $saveId = $this->templateRow['_ORIG_uid'];
+            }else {
+                $saveId = $this->templateRow['uid'];
+            }
             // Update template ?
             if (GeneralUtility::_POST('_savedok')) {
                 $this->templateService->changed = 0;
@@ -162,7 +167,7 @@ class TypoScriptTemplateConstantEditorModuleFunctionController
                 $assigns['constantsMenu'] = BackendUtility::getDropdownMenu($this->id, 'SET[constant_editor_cat]', $this->pObj->MOD_SETTINGS['constant_editor_cat'], $this->pObj->MOD_MENU['constant_editor_cat']);
             }
 
-            $category = strtolower(GeneralUtility::_GP('cat'));
+            $category = strtolower((string)GeneralUtility::_GP('cat'));
             if ($category == '') {
                 $category = 'ns_whatsapp_chat';
             }

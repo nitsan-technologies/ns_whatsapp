@@ -93,10 +93,10 @@ class WhatsappController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
         $cpages = $constant['hide_pages'];
         $cpage = rtrim($cpages, ', ');
         $chat_hidepage = explode(',', $cpage);
-        $spages = $constant['share_hide_pages'];
+        $spages = isset($constant['share_hide_pages']) ? $constant['share_hide_pages'] : '';
         $spage = rtrim($spages, ', ');
         $share_hidepage = explode(',', $spage);
-        $gpages = $constant['group_hide_pages'];
+        $gpages = isset($constant['group_hide_pages']) ? $constant['group_hide_pages'] : '';
         $gpage = rtrim($gpages, ', ');
         $group_hidepage = explode(',', $gpage);
 
