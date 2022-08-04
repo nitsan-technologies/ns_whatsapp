@@ -232,7 +232,7 @@ class TypoScriptParser
      */
     public function parse($string, $matchObj = '')
     {
-        $this->raw = explode(LF, $string);
+        $this->raw = explode(LF, (string)$string);
         $this->rawP = 0;
         $pre = '[GLOBAL]';
         while ($pre) {
@@ -250,7 +250,7 @@ class TypoScriptParser
                     $preUppercase === '[END]' ||
                     !$this->lastConditionTrue && $preUppercase === '[ELSE]')
             ) {
-                $pre = trim($this->parseSub($this->setup));
+                $pre = trim((string)$this->parseSub($this->setup));
                 $this->lastConditionTrue = true;
             } else {
                 // We're in a specific section. Therefore we log this section
@@ -262,7 +262,7 @@ class TypoScriptParser
                     if ($specificSection) {
                         $this->sectionsMatch[md5($pre)] = $pre;
                     }
-                    $pre = trim($this->parseSub($this->setup));
+                    $pre = trim((string)$this->parseSub($this->setup));
                     $this->lastConditionTrue = true;
                 } else {
                     $pre = $this->nextDivider();
@@ -423,6 +423,7 @@ class TypoScriptParser
                                                 $setup[$objStrName] = trim(substr($line, 1));
                                                 if ($this->lastComment && $this->regComments) {
                                                     // Setting comment..
+                                                    $setup[$objStrName . '..'] = isset($setup[$objStrName . '..']) ? $setup[$objStrName . '..'] : '';
                                                     $setup[$objStrName . '..'] .= $this->lastComment;
                                                 }
                                                 if ($this->regLinenumbers) {
@@ -705,6 +706,7 @@ class TypoScriptParser
                     $setup[$subKey] = $value[1];
                 }
                 if ($this->lastComment && $this->regComments) {
+                    $setup[$key . '..'] = isset($setup[$key . '..']) ? $setup[$key . '..'] : '';
                     $setup[$key . '..'] .= $this->lastComment;
                 }
                 if ($this->regLinenumbers && !$lnRegisDone) {
@@ -824,7 +826,7 @@ class TypoScriptParser
         $string = self::addImportsFromExternalFiles($string, $cycle_counter, $returnFiles, $includedFiles, $parentFilenameOrPath);
 
         // If no tags found, no need to do slower preg_split
-        if (strpos($string, '<INCLUDE_TYPOSCRIPT:') !== false) {
+        if (strpos((string)$string, '<INCLUDE_TYPOSCRIPT:') !== false) {
             $splitRegEx = '/\r?\n\s*<INCLUDE_TYPOSCRIPT:\s*(?i)source\s*=\s*"((?i)file|dir):\s*([^"]*)"(.*)>[\ \t]*/';
             $parts = preg_split($splitRegEx, LF . $string . LF, -1, PREG_SPLIT_DELIM_CAPTURE);
             // First text part goes through
@@ -941,7 +943,7 @@ class TypoScriptParser
     protected static function addImportsFromExternalFiles($typoScript, $cycleCounter, $returnFiles, &$includedFiles, &$parentFilenameOrPath)
     {
         // Check for new syntax "@import 'EXT:bennilove/Configuration/TypoScript/*'"
-        if (strpos($typoScript, '@import \'') !== false || strpos($typoScript, '@import "') !== false) {
+        if (strpos((string)$typoScript, '@import \'') !== false || strpos((string)$typoScript, '@import "') !== false) {
             $splitRegEx = '/\r?\n\s*@import\s[\'"]([^\'"]*)[\'"][\ \t]?/';
             $parts = preg_split($splitRegEx, LF . $typoScript . LF, -1, PREG_SPLIT_DELIM_CAPTURE);
             // First text part goes through

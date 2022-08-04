@@ -327,6 +327,7 @@ class ExtendedTemplateService extends TemplateService
      */
     public function generateConfig_constants()
     {
+        $_POST['data'] = isset($_POST['data']) ? $_POST['data'] : '';
         if ($_POST['data']) {
             foreach ($_POST['data'] as $key => $v) {
                 if (is_array($v)) {
@@ -962,6 +963,7 @@ class ExtendedTemplateService extends TemplateService
                                 if ($catSplit[1] && isset($this->subCategories[$catSplit[1]])) {
                                     $editableComments[$const]['subcat_name'] = $catSplit[1];
                                     $orderIdentifier = isset($catSplit[2]) ? trim($catSplit[2]) : $counter;
+                                    $this->subCategories[$catSplit[1]][1] = isset($this->subCategories[$catSplit[1]][1]) ? $this->subCategories[$catSplit[1]][1] : '';
                                     $editableComments[$const]['subcat'] = $this->subCategories[$catSplit[1]][1]
                                         . '/' . $catSplit[1] . '/' . $orderIdentifier . 'z';
                                 } elseif (isset($catSplit[2])) {
@@ -1059,6 +1061,7 @@ class ExtendedTemplateService extends TemplateService
                 $p = trim(substr($type, $m));
                 $reg = [];
                 preg_match('/\\[(.*)\\]/', $p, $reg);
+                $reg[1] = isset($reg[1]) ? $reg[1] : '';
                 $p = trim($reg[1]);
                 if ($p) {
                     $retArr['paramstr'] = $p;
@@ -1119,6 +1122,7 @@ class ExtendedTemplateService extends TemplateService
         reset($theConstants);
         $output = '';
         $subcat = '';
+        $this->categories[$category] = isset($this->categories[$category]) ? $this->categories[$category] : '';
         if (is_array($this->categories[$category])) {
             if (!$this->doNotSortCategoriesBeforeMakingForm) {
                 asort($this->categories[$category]);
@@ -1251,6 +1255,7 @@ class ExtendedTemplateService extends TemplateService
                                 . '</div>';
                             break;
                         case 'boolean':
+                            $typeDat['paramstr'] = isset($typeDat['paramstr']) ? $typeDat['paramstr'] : '';
                             $sel = $fV ? 'checked' : '';
                             $p_field =
                                 '<input type="hidden" name="' . $fN . '" value="0" />'
@@ -1358,7 +1363,7 @@ class ExtendedTemplateService extends TemplateService
     {
         // This runs through the lines of the constants-field of the active template and registers the constants-names
         // and line positions in an array, $this->objReg
-        $this->raw = explode(LF, $constants);
+        $this->raw = explode(LF, (string)$constants);
         $this->rawP = 0;
         // Resetting the objReg if the divider is found!!
         $this->objReg = [];
@@ -1482,13 +1487,13 @@ class ExtendedTemplateService extends TemplateService
      */
     public function ext_procesInput($http_post_vars, $http_post_files, $theConstants, $tplRow)
     {
-        $data = $http_post_vars['data'];
-        $check = $http_post_vars['check'];
-        $Wdata = $http_post_vars['Wdata'];
-        $W2data = $http_post_vars['W2data'];
-        $W3data = $http_post_vars['W3data'];
-        $W4data = $http_post_vars['W4data'];
-        $W5data = $http_post_vars['W5data'];
+        $data = isset($http_post_vars['data']) ? $http_post_vars['data'] : '';
+        $check = isset($http_post_vars['check']) ? $http_post_vars['check'] : '';
+        $Wdata = isset($http_post_vars['Wdata']) ? $http_post_vars['Wdata'] : '';
+        $W2data = isset($http_post_vars['W2data']) ? $http_post_vars['W2data'] : '';
+        $W3data = isset($http_post_vars['W3data']) ? $http_post_vars['W3data'] : '';
+        $W4data = isset($http_post_vars['W4data']) ? $http_post_vars['W4data'] : '';
+        $W5data = isset($http_post_vars['W5data']) ? $http_post_vars['W5data'] : '';
         if (is_array($data)) {
             foreach ($data as $key => $var) {
                 if (isset($theConstants[$key])) {
@@ -1562,6 +1567,7 @@ class ExtendedTemplateService extends TemplateService
                                 break;
                             case 'boolean':
                                 if ($var) {
+                                    $typeDat['paramstr'] = isset($typeDat['paramstr']) ? $typeDat['paramstr'] : '';
                                     $var = $typeDat['paramstr'] ? $typeDat['paramstr'] : 1;
                                 }
                                 break;
