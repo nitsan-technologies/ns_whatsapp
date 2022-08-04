@@ -1363,7 +1363,7 @@ class ExtendedTemplateService extends TemplateService
     {
         // This runs through the lines of the constants-field of the active template and registers the constants-names
         // and line positions in an array, $this->objReg
-        $this->raw = explode(LF, $constants);
+        $this->raw = explode(LF, (string)$constants);
         $this->rawP = 0;
         // Resetting the objReg if the divider is found!!
         $this->objReg = [];
