@@ -119,6 +119,11 @@ class WhatsappController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
      */
     public function chatSettingsAction()
     {
+        $bootstrapVariable = 'data';
+        if (version_compare(TYPO3_branch, '11.0', '>')) {
+            $bootstrapVariable = 'data-bs';
+        }
+        $this->view->assign('bootstrapVariable', $bootstrapVariable);
         $this->view->assign('action', 'chatSettings');
         $this->view->assign('constant', $this->constants);
     }
@@ -163,6 +168,11 @@ class WhatsappController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
             $whatsappstyle = $this->whatsappstyleRepository->findAll();
             $this->view->assign('whatsappstyle', $whatsappstyle);
         }
+        $bootstrapVariable = 'data';
+        if (version_compare(TYPO3_branch, '11.0', '>')) {
+            $bootstrapVariable = 'data-bs';
+        }
+        $this->view->assign('bootstrapVariable', $bootstrapVariable);
     }
 
     /**
