@@ -35,7 +35,7 @@ plugin.tx_nswhasapp_whatsapp {
     # cat=ns_whatsapp_chat/chat/06; type=options[Style1]; label= Style for Mobile
     style_mobile = Select
 
-    # cat=ns_whatsapp_chat/chat/07; type=options[Top-left,Top-right,Bottom-left,Bottom-right]; label= Position: Please select position to display at particular location of your website
+    # cat=ns_whatsapp_chat/chat/07; type=options[Top-left,Top-right,Bottom-left,Bottom-right]; label= Position
     position = Top-left
 
     #cat = ns_whatsapp_chat/chat/08; type=boolean; label=Web Whatsapp: Web Whatsapp on Desktop
@@ -49,20 +49,18 @@ plugin.tx_nswhasapp_whatsapp {
 
     #cat = ns_whatsapp_chat/chat/11; type=boolean; label=Hide on desktop
     hide_desktop = 0
-
-
   }
 
 }
 
-module.tx_nswhasapp_whatsppmodule {
+module.tx_nswhatsapp_nitsan_nswhatsappwhatsappmodule {
   view {
     # cat=module.tx_nswhasapp_whastappmodule/file; type=string; label=Path to template root (BE)
-    templateRootPath = EXT:ns_whasapp/Resources/Private/Backend/Templates/
+    templateRootPath = EXT:ns_whatsapp/Resources/Private/Backend/Templates/
     # cat=module.tx_nswhasapp_whastappmodule/file; type=string; label=Path to template partials (BE)
-    partialRootPath = EXT:ns_whasapp/Resources/Private/Backend/Partials/
-    # cat=module.tx_nswhasapp_whastappmodulee/file; type=string; label=Path to template layouts (BE)
-    layoutRootPath = EXT:ns_whasapp/Resources/Private/Backend/Layouts/
+    partialRootPath = EXT:ns_whatsapp/Resources/Private/Backend/Partials/
+    # cat=module.tx_nswhasapp_whastappmodule/file; type=string; label=Path to template layouts (BE)
+    layoutRootPath = EXT:ns_whatsapp/Resources/Private/Backend/Layouts/
   }
 
 }

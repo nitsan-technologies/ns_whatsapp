@@ -14,7 +14,7 @@ plugin {
       hide_desktop = {$plugin.tx_nswhasapp_whatsapp.settings.hide_desktop}
 
     }
-    view {
+    view {s
       templateRootPaths.0 = EXT:ns_whasapp/Resources/Private/Templates/
       templateRootPaths.1 = {$plugin.tx_nswhasapp_whatsapp.view.templateRootPath}
       partialRootPaths.0 = EXT:ns_whasapp/Resources/Private/Partials/
@@ -47,7 +47,6 @@ module.tx_nswhatsapp_nitsan_nswhatsappwhatsappmodule {
     layoutRootPaths.1 = {$module.tx_nswhatsapp_whatsappmodule.view.layoutRootPath}
   }
 }
-
 
 page {
   // Initiate all the css-together

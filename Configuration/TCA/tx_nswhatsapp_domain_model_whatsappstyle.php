@@ -5,7 +5,7 @@ return [
         'label' => 'heading',
         'tstamp' => 'tstamp',
         'crdate' => 'crdate',
-        'cruser_id' => 'cruser_id',
+        'hideTable' => true,
         'versioningWS' => true,
         'languageField' => 'sys_language_uid',
         'transOrigPointerField' => 'l10n_parent',
@@ -20,19 +20,19 @@ return [
         'iconfile' => 'EXT:ns_whatsapp/Resources/Public/Icons/tx_nswhatsapp_domain_model_whatsappstyle.gif'
     ],
     'interface' => [
-        'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, heading, text, textcolor, bgcolor, height, border, size, font, image, animation, imageposition, style, bordercolor, htextcolor, hbgcolor, hboredrcolor, imageurl, upload',
     ],
     'types' => [
-        '1' => ['showitem' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, heading, text, textcolor, bgcolor, height, border, size, font, image, animation, imageposition, style, bordercolor, htextcolor, hbgcolor, hboredrcolor, imageurl, upload, --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, starttime, endtime'],
+        '1' => ['showitem' => 'sys_language_uid, l10n_diffsource, hidden, heading, text, textcolor, bgcolor, height, border, size, font, image, animation, imageposition, style, bordercolor, htextcolor, hbgcolor, hboredrcolor, imageurl, upload, --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, starttime, endtime'],
     ],
     'columns' => [
         'sys_language_uid' => [
             'exclude' => true,
             'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.language',
             'config' => [
-                'type' => 'select',
+                'type' => 'language',
                 'renderType' => 'selectSingle',
                 'special' => 'languages',
+                'foreign_table' => 'sys_language',
                 'items' => [
                     [
                         'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.allLanguages',
@@ -41,21 +41,6 @@ return [
                     ]
                 ],
                 'default' => 0,
-            ],
-        ],
-        'l10n_parent' => [
-            'displayCond' => 'FIELD:sys_language_uid:>:0',
-            'exclude' => true,
-            'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.l18n_parent',
-            'config' => [
-                'type' => 'select',
-                'renderType' => 'selectSingle',
-                'default' => 0,
-                'items' => [
-                    ['', 0],
-                ],
-                'foreign_table' => 'tx_nswhatsapp_domain_model_whatsappstyle',
-                'foreign_table_where' => 'AND {#tx_nswhatsapp_domain_model_whatsappstyle}.{#pid}=###CURRENT_PID### AND {#tx_nswhatsapp_domain_model_whatsappstyle}.{#sys_language_uid} IN (-1,0)',
             ],
         ],
         'l10n_diffsource' => [
@@ -77,13 +62,6 @@ return [
             'config' => [
                 'type' => 'check',
                 'renderType' => 'checkboxToggle',
-                'items' => [
-                    [
-                        0 => '',
-                        1 => '',
-                        'invertStateDisplay' => true
-                    ]
-                ],
             ],
         ],
         'starttime' => [
@@ -91,7 +69,7 @@ return [
             'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.starttime',
             'config' => [
                 'type' => 'input',
-                'renderType' => 'inputDateTime',
+                'renderType' => 'datetime',
                 'eval' => 'datetime,int',
                 'default' => 0,
                 'behaviour' => [
@@ -104,7 +82,7 @@ return [
             'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.endtime',
             'config' => [
                 'type' => 'input',
-                'renderType' => 'inputDateTime',
+                'renderType' => 'datetime',
                 'eval' => 'datetime,int',
                 'default' => 0,
                 'range' => [
@@ -237,11 +215,6 @@ return [
                             --palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
                             --palette--;;filePalette'
                         ]
-                    ],
-                    'foreign_match_fields' => [
-                        'fieldname' => 'image',
-                        'tablenames' => 'tx_nswhatsapp_domain_model_whatsappstyle',
-                        'table_local' => 'sys_file',
                     ],
                     'maxitems' => 1
                 ],

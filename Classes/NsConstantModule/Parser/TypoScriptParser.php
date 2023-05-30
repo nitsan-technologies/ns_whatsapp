@@ -856,12 +856,8 @@ class TypoScriptParser
 
                     /** @var AbstractConditionMatcher $conditionMatcher */
                     $conditionMatcher = null;
-                    if (TYPO3_REQUESTTYPE & TYPO3_REQUESTTYPE_FE) {
-                        $conditionMatcher = GeneralUtility::makeInstance(FrontendConditionMatcher::class);
-                    } else {
-                        $conditionMatcher = GeneralUtility::makeInstance(BackendConditionMatcher::class);
-                    }
-
+                    $conditionMatcher = GeneralUtility::makeInstance(BackendConditionMatcher::class);
+                    
                     // If it didn't match then proceed to the next include, but prepend next normal (not file) part to output string
                     if (!$conditionMatcher->match($condition)) {
                         $newString .= $tsContentsTillNextInclude . LF;
@@ -1024,15 +1020,11 @@ class TypoScriptParser
             $content .= LF . '### @import \'' . $readableFileName . '\' begin ###' . LF;
             // Check for allowed files
             $notvalid = false;
-            if (version_compare(TYPO3_branch, '11', '>=')) {
-                if (!GeneralUtility::makeInstance(\TYPO3\CMS\Core\Resource\Security\FileNameValidator::class)->isValid($fileObject->getFilename())) {
-                    $notvalid = true;
-                }
-            } else {
-                if (!GeneralUtility::verifyFilenameAgainstDenyPattern($fileObject->getFilename())) {
-                    $notvalid = true;
-                }
+            
+            if (!GeneralUtility::makeInstance(\TYPO3\CMS\Core\Resource\Security\FileNameValidator::class)->isValid($fileObject->getFilename())) {
+                $notvalid = true;
             }
+            
             if ($notvalid) {
                 $content .= self::typoscriptIncludeError('File "' . $readableFileName . '" was not included since it is not allowed due to fileDenyPattern.');
             } else {
@@ -1105,15 +1097,11 @@ class TypoScriptParser
             // Must exist and must not contain '..' and must be relative
             // Check for allowed files
             $notvalid = false;
-            if (version_compare(TYPO3_branch, '11', '>=')) {
-                if (!GeneralUtility::makeInstance(\TYPO3\CMS\Core\Resource\Security\FileNameValidator::class)->isValid($absfilename)) {
-                    $notvalid = true;
-                }
-            } else {
-                if (!GeneralUtility::verifyFilenameAgainstDenyPattern($absfilename)) {
-                    $notvalid = true;
-                }
+            
+            if (!GeneralUtility::makeInstance(\TYPO3\CMS\Core\Resource\Security\FileNameValidator::class)->isValid($absfilename)) {
+                $notvalid = true;
             }
+        
             if ($notvalid) {
                 $newString .= self::typoscriptIncludeError('File "' . $filename . '" was not included since it is not allowed due to fileDenyPattern.');
             } else {
@@ -1189,11 +1177,9 @@ class TypoScriptParser
             // Get alphabetically sorted file index in array
             $fileIndex = GeneralUtility::getAllFilesAndFoldersInPath([], $absDirPath, $includedFileExtensions);
             // Prepend file contents to $newString
-            if (version_compare(TYPO3_branch, '10', '>=')) {
-                $prefixLength = strlen(\TYPO3\CMS\Core\Core\Environment::getPublicPath() . '/');
-            } else {
-                $prefixLength = strlen(PATH_site);
-            }
+            
+            $prefixLength = strlen(\TYPO3\CMS\Core\Core\Environment::getPublicPath() . '/');
+            
             foreach ($fileIndex as $absFileRef) {
                 $relFileRef = substr($absFileRef, $prefixLength);
                 self::includeFile($relFileRef, $cycle_counter, $returnFiles, $newString, $includedFiles, '', $absDirPath);

@@ -3,11 +3,11 @@ namespace Nitsan\NsWhatsapp\Controller;
 
 use Nitsan\NsWhatsapp\NsConstantModule\TypoScriptTemplateConstantEditorModuleFunctionController;
 use Nitsan\NsWhatsapp\Property\TypeConverter\UploadedFileReferenceConverter;
-use TYPO3\CMS\Core\TypoScript\ExtendedTemplateService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Annotation\Inject as inject;
+use TYPO3\CMS\Extbase\Annotation\Inject;
 use TYPO3\CMS\Extbase\Property\PropertyMappingConfiguration;
 use TYPO3\CMS\Tstemplate\Controller\TypoScriptTemplateModuleController;
+use Psr\Http\Message\ResponseInterface;
 
 /***
  *
@@ -26,12 +26,11 @@ use TYPO3\CMS\Tstemplate\Controller\TypoScriptTemplateModuleController;
 class WhatsappController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 {
     /**
-     * WhatsappRepository
+     * whatsappstyleRepository
      *
      * @var \Nitsan\NsWhatsapp\Domain\Repository\WhatsappRepository
-     * @inject
      */
-    protected $WhatsappRepository = null;
+    protected $whatsappstyleRepository = null;
 
     /**
      * @param \Nitsan\NsWhatsapp\Domain\Repository\WhatsappstyleRepository $whatsappstyleRepository
@@ -40,8 +39,6 @@ class WhatsappController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
     {
         $this->whatsappstyleRepository = $whatsappstyleRepository;
     }
-
-    protected $templateService;
 
     protected $constantObj;
 
@@ -64,7 +61,6 @@ class WhatsappController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
     public function initializeObject()
     {
         $this->contentObject = GeneralUtility::makeInstance('TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer');
-        $this->templateService = GeneralUtility::makeInstance(ExtendedTemplateService::class);
         $this->constantObj = GeneralUtility::makeInstance(TypoScriptTemplateConstantEditorModuleFunctionController::class);
     }
 
@@ -84,9 +80,9 @@ class WhatsappController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
     /**
      * action list
      *
-     * @return void
+     * @return ResponseInterface
      */
-    public function listAction()
+    public function listAction(): ResponseInterface
     {
         $currentPid = $GLOBALS['TSFE']->id;
         $constant = $GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_nswhasapp_whatsapp.']['settings.'];
@@ -110,78 +106,60 @@ class WhatsappController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
                 'group_hidepage' => $group_hidepage,
             ]
         );
+        return $this->htmlResponse();
     }
 
     /**
      * action chatSettingsAction
      *
-     * @return void
+     * @return ResponseInterface
      */
-    public function chatSettingsAction()
+    public function chatSettingsAction(): ResponseInterface
     {
-        $bootstrapVariable = 'data';
-        if (version_compare(TYPO3_branch, '11.0', '>')) {
-            $bootstrapVariable = 'data-bs';
-        }
+        $bootstrapVariable = 'data-bs';
         $this->view->assign('bootstrapVariable', $bootstrapVariable);
         $this->view->assign('action', 'chatSettings');
         $this->view->assign('constant', $this->constants);
+        return $this->htmlResponse();
     }
 
-    /**
-     * Set TypeConverter option for image upload
-     */
-    public function initializeUpdateAction()
-    {
-        if (isset($this->arguments['whatsappstyle'])) {
-            if (!empty($this->request->getArguments()['whatsappstyle']['image'][0]['name'])) {
-                $this->setTypeConverterConfigurationForImageUpload('whatsappstyle', 'image');
-            } else {
-                $data = $this->request->getArguments()['whatsappstyle'];
-                unset($data['image']);
-                $this->request->setArgument('whatsappstyle', $data);
-            }
-        }
-        $this->setTypeConverterConfigurationForImageUpload('whatsappstyle');
-    }
     /**
      * action update
      *
      * @param \Nitsan\NsWhatsapp\Domain\Model\Whatsappstyle $whatsappstyle
-     * @return void
+     * @return ResponseInterface
      */
-    public function updateAction(\Nitsan\NsWhatsapp\Domain\Model\Whatsappstyle $whatsappstyle)
+    public function updateAction(\Nitsan\NsWhatsapp\Domain\Model\Whatsappstyle $whatsappstyle): ResponseInterface
     {
         $this->whatsappstyleRepository->update($whatsappstyle);
-        $this->redirect('styleSettings');
+        return $this->redirect('styleSettings');
     }
 
     /**
      * action styleSettings
      *
-     * @return void
+     * @return ResponseInterface
      */
-    public function styleSettingsAction()
+    public function styleSettingsAction(): ResponseInterface
     {
         $id = (int) \TYPO3\CMS\Core\Utility\GeneralUtility::_GP('id');
         if ($id != 0) {
             $whatsappstyle = $this->whatsappstyleRepository->findAll();
             $this->view->assign('whatsappstyle', $whatsappstyle);
         }
-        $bootstrapVariable = 'data';
-        if (version_compare(TYPO3_branch, '11.0', '>')) {
-            $bootstrapVariable = 'data-bs';
-        }
+        $bootstrapVariable = 'data-bs';
         $this->view->assign('bootstrapVariable', $bootstrapVariable);
+        return $this->htmlResponse();
     }
 
     /**
      * action saveConstant
+     * @return ResponseInterface
      */
-    public function saveConstantAction()
+    public function saveConstantAction(): ResponseInterface
     {
         $this->constantObj->main();
-        return false;
+        return $this->redirect('chatSettings');
     }
 
     public function addConstantsConfiguration($constantForDb, $pid)

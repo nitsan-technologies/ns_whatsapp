@@ -356,25 +356,15 @@ class TemplateService
      */
     public function __construct(Context $context = null, PackageManager $packageManager = null)
     {
-        if (version_compare(TYPO3_branch, '10', '>=')) {
-            $this->context = $context ?? GeneralUtility::makeInstance(\TYPO3\CMS\Core\Context\Context::class);
-            $this->packageManager = $packageManager ?? GeneralUtility::makeInstance(PackageManager::class);
-        }
-
+        $this->context = $context ?? GeneralUtility::makeInstance(\TYPO3\CMS\Core\Context\Context::class);
+        $this->packageManager = $packageManager ?? GeneralUtility::makeInstance(PackageManager::class);
+        
         $this->initializeDatabaseQueryRestrictions();
 
-        if (version_compare(TYPO3_branch, '10', '>=')) {
-            if ($this->context->getPropertyFromAspect('visibility', 'includeHiddenContent', false) || $GLOBALS['SIM_ACCESS_TIME'] !== $GLOBALS['ACCESS_TIME']) {
-                $this->simulationHiddenOrTime = 1;
-            }
-        } else {
-            //For TYPO3 8.7.x
-            if ($this->getTypoScriptFrontendController()->showHiddenRecords || $GLOBALS['SIM_ACCESS_TIME'] !== $GLOBALS['ACCESS_TIME']) {
-                // Set the simulation flag, if simulation is detected!
-                $this->simulationHiddenOrTime = 1;
-            }
+        if ($this->context->getPropertyFromAspect('visibility', 'includeHiddenContent', false) || $GLOBALS['SIM_ACCESS_TIME'] !== $GLOBALS['ACCESS_TIME']) {
+            $this->simulationHiddenOrTime = 1;
         }
-
+        
         // Sets the paths from where TypoScript resources are allowed to be used:
         $this->allowedPaths = [
             $GLOBALS['TYPO3_CONF_VARS']['BE']['fileadminDir'],
@@ -392,9 +382,8 @@ class TemplateService
                 $this->allowedPaths[] = $p;
             }
         }
-        if (version_compare(TYPO3_branch, '10', '>=')) {
-            $this->tt_track = $this->verbose = (bool) $this->context->getPropertyFromAspect('backend.user', 'isLoggedIn', false);
-        }
+        
+        $this->tt_track = $this->verbose = (bool) $this->context->getPropertyFromAspect('backend.user', 'isLoggedIn', false);
     }
 
     /**
@@ -431,17 +420,10 @@ class TemplateService
     {
         trigger_error('TemplateService->init() will be removed in TYPO3 v10.0, __construct() does the job.', E_USER_DEPRECATED);
         $this->initializeDatabaseQueryRestrictions();
-        if (version_compare(TYPO3_branch, '10', '>=')) {
-            if ($this->context->getPropertyFromAspect('visibility', 'includeHiddenContent', false) || $GLOBALS['SIM_ACCESS_TIME'] !== $GLOBALS['ACCESS_TIME']) {
-                // Set the simulation flag, if simulation is detected!
-                $this->simulationHiddenOrTime = 1;
-            }
-        } else {
-            //For TYPO3 8.7.x
-            if ($this->getTypoScriptFrontendController()->showHiddenRecords || $GLOBALS['SIM_ACCESS_TIME'] !== $GLOBALS['ACCESS_TIME']) {
-                // Set the simulation flag, if simulation is detected!
-                $this->simulationHiddenOrTime = 1;
-            }
+        
+        if ($this->context->getPropertyFromAspect('visibility', 'includeHiddenContent', false) || $GLOBALS['SIM_ACCESS_TIME'] !== $GLOBALS['ACCESS_TIME']) {
+            // Set the simulation flag, if simulation is detected!
+            $this->simulationHiddenOrTime = 1;
         }
 
         // Sets the paths from where TypoScript resources are allowed to be used:
@@ -468,10 +450,8 @@ class TemplateService
      */
     protected function initializeDatabaseQueryRestrictions()
     {
-        if (version_compare(TYPO3_branch, '10', '>=')) {
-            $includeHiddenRecords = $this->context->getPropertyFromAspect('visibility', 'includeHiddenContent', false);
-        }
-
+        $includeHiddenRecords = $this->context->getPropertyFromAspect('visibility', 'includeHiddenContent', false);
+        
         // $this->whereClause is used only to select templates from sys_template.
         // $GLOBALS['SIM_ACCESS_TIME'] is used so that we're able to simulate a later time as a test...
         $this->whereClause = 'AND deleted=0 ';
@@ -1017,100 +997,58 @@ class TemplateService
     public function addExtensionStatics($idList, $templateID, $pid)
     {
         $this->extensionStaticsProcessed = true;
-        if (version_compare(TYPO3_branch, '10', '>=')) {
-            foreach ($this->packageManager->getActivePackages() as $package) {
-                $extKey = $package->getPackageKey();
-                $packagePath = $package->getPackagePath();
-                $filesToCheck = [
-                    'ext_typoscript_constants.txt',
-                    'ext_typoscript_constants.typoscript',
-                    'ext_typoscript_setup.txt',
-                    'ext_typoscript_setup.typoscript',
-                ];
-                $files = [];
-                $hasExtensionStatics = false;
-                foreach ($filesToCheck as $file) {
-                    $path = $packagePath . $file;
-                    if (@file_exists($path)) {
-                        $files[$file] = $path;
-                        $hasExtensionStatics = true;
-                    } else {
-                        $files[$file] = null;
-                    }
-                }
-
-                if ($hasExtensionStatics) {
-                    $mExtKey = str_replace('_', '', $extKey);
-                    $constants = '';
-                    $config = '';
-
-                    if (!empty($files['ext_typoscript_constants.typoscript'])) {
-                        $constants = @file_get_contents($files['ext_typoscript_constants.typoscript']);
-                    } elseif (!empty($files['ext_typoscript_constants.txt'])) {
-                        $constants = @file_get_contents($files['ext_typoscript_constants.txt']);
-                    }
-
-                    if (!empty($files['ext_typoscript_setup.typoscript'])) {
-                        $config = @file_get_contents($files['ext_typoscript_setup.typoscript']);
-                    } elseif (!empty($files['ext_typoscript_setup.txt'])) {
-                        $config = @file_get_contents($files['ext_typoscript_setup.txt']);
-                    }
-
-                    $this->processTemplate(
-                        $this->prependStaticExtra([
-                            'constants' => $constants,
-                            'config' => $config,
-                            'title' => $extKey,
-                            'uid' => $mExtKey,
-                        ]),
-                        $idList . ',ext_' . $mExtKey,
-                        $pid,
-                        'ext_' . $mExtKey,
-                        $templateID,
-                        $packagePath
-                    );
+        
+        foreach ($this->packageManager->getActivePackages() as $package) {
+            $extKey = $package->getPackageKey();
+            $packagePath = $package->getPackagePath();
+            $filesToCheck = [
+                'ext_typoscript_constants.txt',
+                'ext_typoscript_constants.typoscript',
+                'ext_typoscript_setup.txt',
+                'ext_typoscript_setup.typoscript',
+            ];
+            $files = [];
+            $hasExtensionStatics = false;
+            foreach ($filesToCheck as $file) {
+                $path = $packagePath . $file;
+                if (@file_exists($path)) {
+                    $files[$file] = $path;
+                    $hasExtensionStatics = true;
+                } else {
+                    $files[$file] = null;
                 }
             }
-        } else {
-            foreach ($GLOBALS['TYPO3_LOADED_EXT'] as $extKey => $files) {
-                if ((is_array($files) || $files instanceof \ArrayAccess)
-                    && (
-                        !empty($files['ext_typoscript_constants.txt'])
-                        || !empty($files['ext_typoscript_constants.typoscript'])
-                        || !empty($files['ext_typoscript_setup.txt'])
-                        || !empty($files['ext_typoscript_setup.typoscript'])
-                    )
-                ) {
-                    $mExtKey = str_replace('_', '', $extKey);
-                    $constants = '';
-                    $config = '';
 
-                    if (!empty($files['ext_typoscript_constants.typoscript'])) {
-                        $constants = @file_get_contents($files['ext_typoscript_constants.typoscript']);
-                    } elseif (!empty($files['ext_typoscript_constants.txt'])) {
-                        $constants = @file_get_contents($files['ext_typoscript_constants.txt']);
-                    }
+            if ($hasExtensionStatics) {
+                $mExtKey = str_replace('_', '', $extKey);
+                $constants = '';
+                $config = '';
 
-                    if (!empty($files['ext_typoscript_setup.typoscript'])) {
-                        $config = @file_get_contents($files['ext_typoscript_setup.typoscript']);
-                    } elseif (!empty($files['ext_typoscript_setup.txt'])) {
-                        $config = @file_get_contents($files['ext_typoscript_setup.txt']);
-                    }
-
-                    $this->processTemplate(
-                        $this->prependStaticExtra([
-                            'constants' => $constants,
-                            'config' => $config,
-                            'title' => $extKey,
-                            'uid' => $mExtKey,
-                        ]),
-                        $idList . ',ext_' . $mExtKey,
-                        $pid,
-                        'ext_' . $mExtKey,
-                        $templateID,
-                        ExtensionManagementUtility::extPath($extKey)
-                    );
+                if (!empty($files['ext_typoscript_constants.typoscript'])) {
+                    $constants = @file_get_contents($files['ext_typoscript_constants.typoscript']);
+                } elseif (!empty($files['ext_typoscript_constants.txt'])) {
+                    $constants = @file_get_contents($files['ext_typoscript_constants.txt']);
                 }
+
+                if (!empty($files['ext_typoscript_setup.typoscript'])) {
+                    $config = @file_get_contents($files['ext_typoscript_setup.typoscript']);
+                } elseif (!empty($files['ext_typoscript_setup.txt'])) {
+                    $config = @file_get_contents($files['ext_typoscript_setup.txt']);
+                }
+
+                $this->processTemplate(
+                    $this->prependStaticExtra([
+                        'constants' => $constants,
+                        'config' => $config,
+                        'title' => $extKey,
+                        'uid' => $mExtKey,
+                    ]),
+                    $idList . ',ext_' . $mExtKey,
+                    $pid,
+                    'ext_' . $mExtKey,
+                    $templateID,
+                    $packagePath
+                );
             }
         }
     }
