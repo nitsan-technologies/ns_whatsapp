@@ -4,7 +4,6 @@ namespace Nitsan\NsWhatsapp\Controller;
 use Nitsan\NsWhatsapp\NsConstantModule\TypoScriptTemplateConstantEditorModuleFunctionController;
 use Nitsan\NsWhatsapp\Property\TypeConverter\UploadedFileReferenceConverter;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Annotation\Inject;
 use TYPO3\CMS\Extbase\Property\PropertyMappingConfiguration;
 use TYPO3\CMS\Tstemplate\Controller\TypoScriptTemplateModuleController;
 use Psr\Http\Message\ResponseInterface;
@@ -32,11 +31,9 @@ class WhatsappController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
      */
     protected $whatsappstyleRepository = null;
 
-    /**
-     * @param \Nitsan\NsWhatsapp\Domain\Repository\WhatsappstyleRepository $whatsappstyleRepository
-     */
-    public function injectWhatsappstyleRepository(\Nitsan\NsWhatsapp\Domain\Repository\WhatsappstyleRepository $whatsappstyleRepository)
-    {
+    public function __construct(
+        \Nitsan\NsWhatsapp\Domain\Repository\WhatsappstyleRepository $whatsappstyleRepository
+    ) {
         $this->whatsappstyleRepository = $whatsappstyleRepository;
     }
 
@@ -89,12 +86,6 @@ class WhatsappController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
         $cpages = $constant['hide_pages'];
         $cpage = rtrim($cpages, ', ');
         $chat_hidepage = explode(',', $cpage);
-        $spages = isset($constant['share_hide_pages']) ? $constant['share_hide_pages'] : '';
-        $spage = rtrim($spages, ', ');
-        $share_hidepage = explode(',', $spage);
-        $gpages = isset($constant['group_hide_pages']) ? $constant['group_hide_pages'] : '';
-        $gpage = rtrim($gpages, ', ');
-        $group_hidepage = explode(',', $gpage);
 
         $whatsappstyle = $this->whatsappstyleRepository->findAllstyle();
         $this->view->assignMultiple(
@@ -102,8 +93,6 @@ class WhatsappController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
                 'whatsappstyle' => $whatsappstyle,
                 'currentpid' => $currentPid,
                 'chat_hidepage' => $chat_hidepage,
-                'share_hidepage' => $share_hidepage,
-                'group_hidepage' => $group_hidepage,
             ]
         );
         return $this->htmlResponse();
@@ -116,8 +105,6 @@ class WhatsappController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
      */
     public function chatSettingsAction(): ResponseInterface
     {
-        $bootstrapVariable = 'data-bs';
-        $this->view->assign('bootstrapVariable', $bootstrapVariable);
         $this->view->assign('action', 'chatSettings');
         $this->view->assign('constant', $this->constants);
         return $this->htmlResponse();
@@ -142,13 +129,11 @@ class WhatsappController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
      */
     public function styleSettingsAction(): ResponseInterface
     {
-        $id = (int) \TYPO3\CMS\Core\Utility\GeneralUtility::_GP('id');
+        $id= (int) $this->request->getArguments('id');
         if ($id != 0) {
             $whatsappstyle = $this->whatsappstyleRepository->findAll();
             $this->view->assign('whatsappstyle', $whatsappstyle);
         }
-        $bootstrapVariable = 'data-bs';
-        $this->view->assign('bootstrapVariable', $bootstrapVariable);
         return $this->htmlResponse();
     }
 

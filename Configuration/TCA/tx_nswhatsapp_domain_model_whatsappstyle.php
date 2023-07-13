@@ -17,7 +17,10 @@ return [
             'endtime' => 'endtime',
         ],
         'searchFields' => 'heading,text,textcolor,bgcolor,height,border,size,font,animation,imageposition,style,bordercolor,htextcolor,hbgcolor,hboredrcolor,imageurl,upload',
-        'iconfile' => 'EXT:ns_whatsapp/Resources/Public/Icons/tx_nswhatsapp_domain_model_whatsappstyle.gif'
+        'iconfile' => 'EXT:ns_whatsapp/Resources/Public/Icons/tx_nswhatsapp_domain_model_whatsappstyle.gif',
+        'security' => [
+            'ignorePageTypeRestriction' => true,
+        ],
     ],
     'interface' => [
     ],

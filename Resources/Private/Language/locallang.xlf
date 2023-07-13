@@ -41,7 +41,7 @@
                 <source>Template</source>
             </trans-unit>
             <trans-unit id="save_changes">
-                <source>Save Changes</source>
+                <source>Save</source>
             </trans-unit>
             <trans-unit id="opps">
                 <source>Oops!</source>

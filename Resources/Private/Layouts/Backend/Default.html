@@ -1,22 +1,13 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
 	
-<f:be.pageRenderer
-	includeRequireJsModules="{
-		0:'TYPO3/CMS/NsWhatsapp/Main',
-		1:'TYPO3/CMS/NsWhatsapp/Datatables',
-		2:'@typo3/backend/context-menu.js',
-		3:'@typo3/backend/element/immediate-action-element.js',
-		4:'@typo3/backend/utility/collape-state-persister.js',
-		5:'@typo3/tstemplate/constant-editor.js'
-	}"
-/>
 
 <link rel="stylesheet" type="text/css" href="{f:uri.resource(path:'Vendor/bootstrap4.3.1.min.css', extensionName: 'ns_whatsapp')}" media="all">
 <link rel="stylesheet" type="text/css" href="{f:uri.resource(path:'Css/font-awesome.css', extensionName: 'ns_whatsapp')}" media="all">
 <link rel="stylesheet" type="text/css" href="{f:uri.resource(path:'Css/global.css', extensionName: 'ns_whatsapp')}" media="all">
 <link rel="stylesheet" type="text/css" href="{f:uri.resource(path:'Css/main.css', extensionName: 'ns_whatsapp')}" media="all">
 <link rel="stylesheet" type="text/css" href="{f:uri.resource(path:'Css/nswhatsapp.css', extensionName: 'ns_whatsapp')}" media="all">
-<link rel="javascript" type="text/javascript" href="{f:uri.resource(path:'JavaScript/custom.js', extensionName: 'ns_whatsapp')}" media="all">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script type="text/javascript" src="{f:uri.resource(path:'JavaScript/custom.js', extensionName: 'ns_whatsapp')}"></script>
 
 <div class="typo3-fullDoc">
 	<div id="typo3-docbody">
@@ -26,7 +17,7 @@
 			<div class="ns-ext-navigation">
 				<nav class="navbar navbar-expand-lg">
 					<a class="navbar-brand sdd ns-ext-name" href="javascript:;"><f:translate key="brandname" extensionName="ns_whatsapp" /></a>
-					<button class="navbar-toggler" type="button" {bootstrapVariable}-toggle="collapse" {bootstrapVariable}-target="#nsextNavbar"
+					<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nsextNavbar"
 							aria-controls="nsextNavbar" aria-expanded="false" aria-label="Toggle navigation">
 						<span class="navbar-toggler-icon"></span>
 					</button>
@@ -37,7 +28,6 @@
 									<em class="fa fas fa-comments" aria-hidden="true"></em><f:translate key="chatSettings" />
 								</f:link.action>
 							</li>
-							
 							<li class="nav-item {f:if(condition: '{whatsappstyle}', then: 'active')}">
 								<f:link.action action="styleSettings" additionalParams="{cat:'ns_whatsapp_style'}" class="nav-link">
 									<em class="fa fas fa-adjust" aria-hidden="true"></em><f:translate key="styleSettings" />
