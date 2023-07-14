@@ -348,7 +348,7 @@ class Whatsappstyle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage
      */
-    public function getImage(): string
+    public function getImage()
     {
         return $this->image;
     }
