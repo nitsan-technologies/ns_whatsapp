@@ -153,7 +153,7 @@ class Whatsappstyle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @return string $heading
      */
-    public function getHeading()
+    public function getHeading(): string
     {
         return $this->heading;
     }
@@ -174,7 +174,7 @@ class Whatsappstyle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @return string $text
      */
-    public function getText()
+    public function getText(): string
     {
         return $this->text;
     }
@@ -195,7 +195,7 @@ class Whatsappstyle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @return string $upload
      */
-    public function getUpload()
+    public function getUpload(): string
     {
         return $this->upload;
     }
@@ -216,7 +216,7 @@ class Whatsappstyle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @return string $textcolor
      */
-    public function getTextcolor()
+    public function getTextcolor(): string
     {
         return $this->textcolor;
     }
@@ -237,7 +237,7 @@ class Whatsappstyle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @return string $bgcolor
      */
-    public function getBgcolor()
+    public function getBgcolor(): string
     {
         return $this->bgcolor;
     }
@@ -258,7 +258,7 @@ class Whatsappstyle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @return string $height
      */
-    public function getHeight()
+    public function getHeight(): string
     {
         return $this->height;
     }
@@ -279,7 +279,7 @@ class Whatsappstyle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @return string $border
      */
-    public function getBorder()
+    public function getBorder(): string
     {
         return $this->border;
     }
@@ -300,7 +300,7 @@ class Whatsappstyle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @return string $size
      */
-    public function getSize()
+    public function getSize(): string
     {
         return $this->size;
     }
@@ -321,7 +321,7 @@ class Whatsappstyle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @return string $font
      */
-    public function getFont()
+    public function getFont(): string
     {
         return $this->font;
     }
@@ -358,7 +358,7 @@ class Whatsappstyle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @return string $animation
      */
-    public function getAnimation()
+    public function getAnimation(): string
     {
         return $this->animation;
     }
@@ -379,7 +379,7 @@ class Whatsappstyle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @return string $imageposition
      */
-    public function getImageposition()
+    public function getImageposition(): string
     {
         return $this->imageposition;
     }
@@ -400,7 +400,7 @@ class Whatsappstyle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @return string $style
      */
-    public function getStyle()
+    public function getStyle(): string
     {
         return $this->style;
     }
@@ -421,7 +421,7 @@ class Whatsappstyle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @return string $bordercolor
      */
-    public function getBordercolor()
+    public function getBordercolor(): string
     {
         return $this->bordercolor;
     }
@@ -441,7 +441,7 @@ class Whatsappstyle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @return string $htextcolor
      */
-    public function getHtextcolor()
+    public function getHtextcolor(): string
     {
         return $this->htextcolor;
     }
@@ -462,7 +462,7 @@ class Whatsappstyle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @return string $hbgcolor
      */
-    public function getHbgcolor()
+    public function getHbgcolor(): string
     {
         return $this->hbgcolor;
     }
@@ -483,7 +483,7 @@ class Whatsappstyle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @return string $hboredrcolor
      */
-    public function getHboredrcolor()
+    public function getHboredrcolor(): string
     {
         return $this->hboredrcolor;
     }
@@ -504,7 +504,7 @@ class Whatsappstyle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @return string $imageurl
      */
-    public function getImageurl()
+    public function getImageurl(): string
     {
         return $this->imageurl;
     }

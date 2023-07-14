@@ -1149,3 +1149,21 @@ select.form-control[size="1"]:not(.form-select-no-siblings) {
         padding-top: 15px;
     }
 }
+
+.ns-whatsapp-style input[type="text"]{
+    padding: 10px;
+    min-width: 120px;
+}
+.ns-whatsapp-style input[type="number"]{
+    padding: 10px;
+    min-width: 120px;
+}
+.ns-whatsapp-style input[type="color"]{
+    padding: 5px;
+    min-width: 120px;
+    height: 45px;
+}
+.typo3-fullDoc {
+    overflow: auto;
+    height: 100%;
+}

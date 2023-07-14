@@ -4,7 +4,7 @@
     "description": "Ns Whatsapp",
     "authors": [],
     "require": {
-         "typo3/cms-core": "^8.0  || ^9.0 || ^10.0  || ^11.0"
+        "typo3/cms-core": "^12"
     },
     "autoload": {
         "psr-4": {
@@ -13,5 +13,16 @@
     },
     "replace": {
         "typo3-ter/ns-whatsapp": "self.version"
+    },
+    "config": {
+        "vendor-dir": ".Build/vendor/",
+        "bin-dir": ".Build/bin/"
+    },
+    "extra": {
+        "typo3/cms": {
+            "cms-package-dir": "{$vendor-dir}/typo3/cms",
+            "web-dir": ".Build/public",
+            "extension-key": "ns_whatsapp"
+        }
     }
 }

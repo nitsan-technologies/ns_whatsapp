@@ -20,9 +20,8 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 class WhatsappRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
 {
     /**
-     * Find Constants via sys_template Database Table
-     *
-     * @return array|NULL  Result is array('constants' => queryResult) or NULL
+     * @param array $pid
+     * @return array
      */
     public function fetchConstants($pid)
     {

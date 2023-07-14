@@ -48,16 +48,15 @@ module.tx_nswhatsapp_nitsan_nswhatsappwhatsappmodule {
   }
 }
 
-
 page {
   // Initiate all the css-together
   includeCSS {
-    30001 = typo3conf/ext/ns_whatsapp/Resources/Public/Css/nswhatsapp.css
+    30001 =  EXT:ns_whatsapp/Resources/Public/Css/nswhatsapp.css
   }
 
   // Initiate all the js-together
   includeJSFooter {
-    9902 = typo3conf/ext/ns_whatsapp/Resources/Public/JavaScript/nswhatsapp.js
+    9902 = EXT:ns_whatsapp/Resources/Public/JavaScript/nswhatsapp.js
   }
 
 }
