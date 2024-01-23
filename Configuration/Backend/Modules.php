@@ -1,5 +1,7 @@
 <?php
 
+use Nitsan\NsWhatsapp\Controller\WhatsappController;
+
 return [
     'nitsan_module' => [
         'labels' => 'LLL:EXT:ns_whatsapp/Resources/Private/Language/BackendModule.xlf',
@@ -11,14 +13,14 @@ return [
     'nitsan_NsWhatsappWhatsappmodule' => [
         'parent' => 'nitsan_module',
         'position' => ['before' => 'top'],
-        'access' => 'admin,user,group',
+        'access' => 'user',
         'path' => '/module/nitsan/NsWhatsappWhatsappmodule',
         'icon'   => 'EXT:ns_whatsapp/Resources/Public/Icons/whats_app.svg',
         'labels' => 'LLL:EXT:ns_whatsapp/Resources/Private/Language/locallang_whastappmodule.xlf',
         'navigationComponent' => '@typo3/backend/page-tree/page-tree-element',
         'extensionName' => 'NsWhatsapp',
         'controllerActions' => [
-            \Nitsan\NsWhatsapp\Controller\WhatsappController::class => [
+            WhatsappController::class => [
                 'chatSettings', 
                 'saveConstant',
                 'update', 
