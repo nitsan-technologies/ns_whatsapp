@@ -1,16 +1,18 @@
 <?php
 
 $EM_CONF['ns_whatsapp'] = [
-    'title' => '[NITSAN] TYPO3 WhatsApp Extension',
-    'description' => 'TYPO3 WhatsApp Chat allows your visitors to start a WhatsApp conversation, share messages or join a group from your website with a single click. Live-Demo: https://demo.t3planet.com/t3t-extensions/social-networking/whats-app You can download PRO version for more-features & free-support at https://t3planet.com/typo3-whatsapp-chat-extension',
+    'title' => 'WhatsApp',
+    'description' => 'Introducing the TYPO3 WhatsApp Chat Extension for your TYPO3 websites, seamlessly integrating WhatsApp chat into your site. Customize colors to match your brand, and personalize agent profiles with their image, job title, and button options. Plus, advanced chat settings! 
+    
+    *** Live-Demo: https://demo.t3planet.com/t3-extensions/social-networking/whats-app *** Premium Version, Documentation & Free Support: https://t3planet.com/typo3-whatsapp-extension',
     'category' => 'plugin',
-    'author' => 'Team NITSAN',
+    'author' => 'T3: Nilesh Malankiya, T3: Jay Bhalgamiya, QA: Krishna Dhapa',
     'author_email' => 'sanjay@nitsan.in',
-    'author_company' => 'NITSAN Technologies Pvt Ltd',
+    'author_company' => 'T3Planet // NITSAN',
     'state' => 'stable',
     'uploadfolder' => 0,
     'createDirs' => '',
-    'version' => '12.0.1',
+    'version' => '12.0.2',
     'constraints' => [
         'depends' => [
             'typo3' => '12.0.0-12.4.99',
