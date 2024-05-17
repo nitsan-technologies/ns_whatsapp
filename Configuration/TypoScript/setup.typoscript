@@ -5,8 +5,8 @@ plugin {
       whatsapp_number = {$plugin.tx_nswhasapp_whatsapp.settings.whatsapp_number}
       pre_filled_message = {$plugin.tx_nswhasapp_whatsapp.settings.pre_filled_message}
       call_to_action = {$plugin.tx_nswhasapp_whatsapp.settings.call_to_action}
-      style_desktop = {$plugin.tx_nswhasapp_whatsapp.settings.style_desktop}
-      style_mobile = {$plugin.tx_nswhasapp_whatsapp.settings.style_mobile}
+      style_desktop = Style1
+      style_mobile = Style1
       position = {$plugin.tx_nswhasapp_whatsapp.settings.position}
       web_whatsapp = {$plugin.tx_nswhasapp_whatsapp.settings.web_whatsapp}
       hide_pages = {$plugin.tx_nswhasapp_whatsapp.settings.hide_pages}

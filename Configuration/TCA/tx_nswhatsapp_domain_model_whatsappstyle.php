@@ -16,7 +16,7 @@ return [
             'starttime' => 'starttime',
             'endtime' => 'endtime',
         ],
-        'searchFields' => 'heading,text,textcolor,bgcolor,height,border,size,font,animation,imageposition,style,bordercolor,htextcolor,hbgcolor,hboredrcolor,imageurl,upload',
+        'searchFields' => 'heading,text,textcolor,bgcolor,height,border,size,fon,imageposition,style,bordercolor,htextcolor,hbgcolor,hboredrcolor',
         'iconfile' => 'EXT:ns_whatsapp/Resources/Public/Icons/tx_nswhatsapp_domain_model_whatsappstyle.gif',
         'security' => [
             'ignorePageTypeRestriction' => true,
@@ -25,7 +25,7 @@ return [
     'interface' => [
     ],
     'types' => [
-        '1' => ['showitem' => 'sys_language_uid, l10n_diffsource, hidden, heading, text, textcolor, bgcolor, height, border, size, font, image, animation, imageposition, style, bordercolor, htextcolor, hbgcolor, hboredrcolor, imageurl, upload, --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, starttime, endtime'],
+        '1' => ['showitem' => 'sys_language_uid, l10n_diffsource, hidden, heading, text, textcolor, bgcolor, height, border, size, font, image, imageposition, style, bordercolor, htextcolor, hbgcolor, hboredrcolor, --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, starttime, endtime'],
     ],
     'columns' => [
         'sys_language_uid' => [
@@ -106,15 +106,6 @@ return [
                 'eval' => 'trim'
             ],
         ],
-        'upload' => [
-            'exclude' => true,
-            'label' => 'LLL:EXT:ns_whatsapp/Resources/Private/Language/locallang_db.xlf:tx_nswhatsapp_domain_model_whatsappstyle.upload',
-            'config' => [
-                'type' => 'input',
-                'size' => 30,
-                'eval' => 'trim'
-            ],
-        ],
         'text' => [
             'exclude' => true,
             'label' => 'LLL:EXT:ns_whatsapp/Resources/Private/Language/locallang_db.xlf:tx_nswhatsapp_domain_model_whatsappstyle.text',
@@ -178,62 +169,6 @@ return [
                 'eval' => 'trim'
             ],
         ],
-        'image' => [
-            'exclude' => true,
-            'label' => 'LLL:EXT:ns_whatsapp/Resources/Private/Language/locallang_db.xlf:tx_nswhatsapp_domain_model_whatsappstyle.image',
-            'config' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::getFileFieldTCAConfig(
-                'image',
-                [
-                    'appearance' => [
-                        'createNewRelationLinkTitle' => 'LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:images.addFileReference'
-                    ],
-                    'foreign_types' => [
-                        '0' => [
-                            'showitem' => '
-                            --palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
-                            --palette--;;filePalette'
-                        ],
-                        \TYPO3\CMS\Core\Resource\File::FILETYPE_TEXT => [
-                            'showitem' => '
-                            --palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
-                            --palette--;;filePalette'
-                        ],
-                        \TYPO3\CMS\Core\Resource\File::FILETYPE_IMAGE => [
-                            'showitem' => '
-                            --palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
-                            --palette--;;filePalette'
-                        ],
-                        \TYPO3\CMS\Core\Resource\File::FILETYPE_AUDIO => [
-                            'showitem' => '
-                            --palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
-                            --palette--;;filePalette'
-                        ],
-                        \TYPO3\CMS\Core\Resource\File::FILETYPE_VIDEO => [
-                            'showitem' => '
-                            --palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
-                            --palette--;;filePalette'
-                        ],
-                        \TYPO3\CMS\Core\Resource\File::FILETYPE_APPLICATION => [
-                            'showitem' => '
-                            --palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
-                            --palette--;;filePalette'
-                        ]
-                    ],
-                    'maxitems' => 1
-                ],
-                $GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext']
-            ),
-
-        ],
-        'animation' => [
-            'exclude' => true,
-            'label' => 'LLL:EXT:ns_whatsapp/Resources/Private/Language/locallang_db.xlf:tx_nswhatsapp_domain_model_whatsappstyle.animation',
-            'config' => [
-                'type' => 'input',
-                'size' => 30,
-                'eval' => 'trim'
-            ],
-        ],
         'imageposition' => [
             'exclude' => true,
             'label' => 'LLL:EXT:ns_whatsapp/Resources/Private/Language/locallang_db.xlf:tx_nswhatsapp_domain_model_whatsappstyle.imageposition',
@@ -282,15 +217,6 @@ return [
         'hboredrcolor' => [
             'exclude' => true,
             'label' => 'LLL:EXT:ns_whatsapp/Resources/Private/Language/locallang_db.xlf:tx_nswhatsapp_domain_model_whatsappstyle.hboredrcolor',
-            'config' => [
-                'type' => 'input',
-                'size' => 30,
-                'eval' => 'trim'
-            ],
-        ],
-        'imageurl' => [
-            'exclude' => true,
-            'label' => 'LLL:EXT:ns_whatsapp/Resources/Private/Language/locallang_db.xlf:tx_nswhatsapp_domain_model_whatsappstyle.imageurl',
             'config' => [
                 'type' => 'input',
                 'size' => 30,

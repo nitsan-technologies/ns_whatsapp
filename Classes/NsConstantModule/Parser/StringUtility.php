@@ -16,6 +16,7 @@ namespace Nitsan\NsWhatsapp\NsConstantModule\Parser;
 
 /**
  * Class with helper functions for string handling
+ * // @extensionScannerIgnoreLine
  */
 class StringUtility
 {

@@ -28,6 +28,7 @@ use TYPO3\CMS\Frontend\Configuration\TypoScript\ConditionMatching\ConditionMatch
 
 /**
  * The TypoScript parser
+ * //@extensionScannerIgnoreLine
  */
 class TypoScriptParser
 {
@@ -250,6 +251,7 @@ class TypoScriptParser
                     $preUppercase === '[END]' ||
                     !$this->lastConditionTrue && $preUppercase === '[ELSE]')
             ) {
+                // @extensionScannerIgnoreLine
                 $pre = trim((string)$this->parseSub($this->setup));
                 $this->lastConditionTrue = true;
             } else {
@@ -262,6 +264,7 @@ class TypoScriptParser
                     if ($specificSection) {
                         $this->sectionsMatch[md5($pre)] = $pre;
                     }
+                    // @extensionScannerIgnoreLine
                     $pre = trim((string)$this->parseSub($this->setup));
                     $this->lastConditionTrue = true;
                 } else {
@@ -299,7 +302,7 @@ class TypoScriptParser
 
     /**
      * Parsing the $this->raw TypoScript lines from pointer, $this->rawP
-     *
+     * // @extensionScannerIgnoreLine
      * @param array $setup Reference to the setup array in which to accumulate the values.
      * @return string|null Returns the string of the condition found, the exit signal or possible nothing (if it completed parsing with no interruptions)
      */
@@ -434,6 +437,7 @@ class TypoScriptParser
                                         case '{':
                                             $this->inBrace++;
                                             if (strpos($objStrName, '.') !== false) {
+                                                // @extensionScannerIgnoreLine
                                                 $exitSig = $this->rollParseSub($objStrName, $setup);
                                                 if ($exitSig) {
                                                     return $exitSig;
@@ -442,6 +446,7 @@ class TypoScriptParser
                                                 if (!isset($setup[$objStrName . '.'])) {
                                                     $setup[$objStrName . '.'] = [];
                                                 }
+                                                // @extensionScannerIgnoreLine
                                                 $exitSig = $this->parseSub($setup[$objStrName . '.']);
                                                 if ($exitSig) {
                                                     return $exitSig;
@@ -610,7 +615,7 @@ class TypoScriptParser
     /**
      * Parsing of TypoScript keys inside a curly brace where the key is composite of at least two keys,
      * thus having to recursively call itself to get the value
-     *
+     * // @extensionScannerIgnoreLine
      * @param string $string The object sub-path, eg "thisprop.another_prot
      * @param array $setup The local setup array from the function calling this function
      * @return string Returns the exitSignal
@@ -627,9 +632,12 @@ class TypoScriptParser
         if (!isset($setup[$key])) {
             $setup[$key] = [];
         }
+        // @extensionScannerIgnoreLine
         $exitSig = $remainingKey === ''
-            ? $this->parseSub($setup[$key])
-            : $this->rollParseSub($remainingKey, $setup[$key]);
+            ? // @extensionScannerIgnoreLine 
+            $this->parseSub($setup[$key])
+            : // @extensionScannerIgnoreLine
+            $this->rollParseSub($remainingKey, $setup[$key]);
         return $exitSig ?: '';
     }
 

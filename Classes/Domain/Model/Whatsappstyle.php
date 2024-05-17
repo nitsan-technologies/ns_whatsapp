@@ -15,41 +15,21 @@ namespace Nitsan\NsWhatsapp\Domain\Model;
  * Whatsappstyle
  */
 
-use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
-
 class Whatsappstyle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 {
-    /**
-     * Image
-     *
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference>
-     */
-    protected $image;
-
-    public function __construct()
-    {
-        $this->image = new ObjectStorage();
-    }
-
     /**
      * heading
      *
      * @var string
      */
-    protected $heading = '';
+    protected string $heading = '';
 
     /**
      * text
      *
      * @var string
      */
-    protected $text = '';
-    /**
-     * upload
-     *
-     * @var string
-     */
-    protected $upload = '';
+    protected string $text = '';
 
     /**
      * bordercolor
@@ -77,13 +57,6 @@ class Whatsappstyle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * @var string
      */
     protected $hboredrcolor = '';
-
-    /**
-     * imageurl
-     *
-     * @var string
-     */
-    protected $imageurl = '';
 
     /**
      * textcolor
@@ -126,13 +99,6 @@ class Whatsappstyle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * @var string
      */
     protected $font = '';
-
-    /**
-     * animation
-     *
-     * @var string
-     */
-    protected $animation = '';
 
     /**
      * imageposition
@@ -188,27 +154,6 @@ class Whatsappstyle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     public function setText($text)
     {
         $this->text = $text;
-    }
-
-    /**
-     * Returns the upload
-     *
-     * @return string $upload
-     */
-    public function getUpload(): string
-    {
-        return $this->upload;
-    }
-
-    /**
-     * Sets the upload
-     *
-     * @param string $upload
-     * @return void
-     */
-    public function setUpload($upload)
-    {
-        $this->upload = $upload;
     }
 
     /**
@@ -338,43 +283,6 @@ class Whatsappstyle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     }
 
     /**
-     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage $image
-     */
-    public function setImage($image)
-    {
-        $this->image = $image;
-    }
-
-    /**
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage
-     */
-    public function getImage()
-    {
-        return $this->image;
-    }
-
-    /**
-     * Returns the animation
-     *
-     * @return string $animation
-     */
-    public function getAnimation(): string
-    {
-        return $this->animation;
-    }
-
-    /**
-     * Sets the animation
-     *
-     * @param string $animation
-     * @return void
-     */
-    public function setAnimation($animation)
-    {
-        $this->animation = $animation;
-    }
-
-    /**
      * Returns the imageposition
      *
      * @return string $imageposition
@@ -497,26 +405,5 @@ class Whatsappstyle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     public function setHboredrcolor($hboredrcolor)
     {
         $this->hboredrcolor = $hboredrcolor;
-    }
-
-    /**
-     * Returns the imageurl
-     *
-     * @return string $imageurl
-     */
-    public function getImageurl(): string
-    {
-        return $this->imageurl;
-    }
-
-    /**
-     * Sets the imageurl
-     *
-     * @param string $imageurl
-     * @return void
-     */
-    public function setImageurl($imageurl)
-    {
-        $this->imageurl = $imageurl;
     }
 }

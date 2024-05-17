@@ -6,17 +6,3 @@ services:
 
   Nitsan\NsWhatsapp\:
     resource: '../Classes/*'
-
-  Nitsan\NsWhatsapp\Property\TypeConverter\UploadedFileReferenceConverter:
-    tags:
-      - name: extbase.type_converter
-        priority: 31
-        target: TYPO3\CMS\Extbase\Domain\Model\FileReference
-        sources: array
-
-  Nitsan\NsWhatsapp\Property\TypeConverter\ObjectStorageConverter:
-    tags:
-      - name: extbase.type_converter
-        priority: 20
-        target: TYPO3\CMS\Extbase\Persistence\ObjectStorage
-        sources: array      
