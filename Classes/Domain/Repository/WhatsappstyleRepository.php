@@ -1,5 +1,9 @@
 <?php
+
 namespace Nitsan\NsWhatsapp\Domain\Repository;
+
+use TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings;
+use TYPO3\CMS\Extbase\Persistence\Repository;
 
 /***
  *
@@ -14,15 +18,14 @@ namespace Nitsan\NsWhatsapp\Domain\Repository;
 /**
  * The repository for Whatsappstyles
  */
-class WhatsappstyleRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
+class WhatsappstyleRepository extends Repository
 {
-
     /**
      * Initializes the repository
      */
     public function initializeObject()
     {
-        $querySettings = $this->objectManager->get(\TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings::class);
+        $querySettings = $this->objectManager->get(Typo3QuerySettings::class);
         $querySettings->setRespectStoragePage(false);
         $this->setDefaultQuerySettings($querySettings);
     }

@@ -1,4 +1,5 @@
 <?php
+
 namespace Nitsan\NsWhatsapp\NsConstantModule\Parser;
 
 /*
@@ -28,6 +29,7 @@ use TYPO3\CMS\Frontend\Configuration\TypoScript\ConditionMatching\ConditionMatch
 
 /**
  * The TypoScript parser
+ * @extensionScannerIgnoreLine
  */
 class TypoScriptParser
 {
@@ -628,8 +630,10 @@ class TypoScriptParser
             $setup[$key] = [];
         }
         $exitSig = $remainingKey === ''
-            ? $this->parseSub($setup[$key])
-            : $this->rollParseSub($remainingKey, $setup[$key]);
+            ? // @extensionScannerIgnoreLine
+            $this->parseSub($setup[$key])
+            : // @extensionScannerIgnoreLine
+             $this->rollParseSub($remainingKey, $setup[$key]);
         return $exitSig ?: '';
     }
 

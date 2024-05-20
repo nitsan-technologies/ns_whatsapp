@@ -1,4 +1,5 @@
 <?php
+
 namespace Nitsan\NsWhatsapp\NsConstantModule\Parser;
 
 /*
