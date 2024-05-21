@@ -4,6 +4,15 @@
     "description": "Introducing the TYPO3 WhatsApp Chat Extension for your TYPO3 websites, seamlessly integrating WhatsApp chat into your site. Customize colors to match your brand, and personalize agent profiles with their image, job title, and button options. Plus, advanced chat settings! *** Live-Demo: https://demo.t3planet.com/t3-extensions/social-networking/whats-app *** Premium Version, Documentation & Free Support: https://t3planet.com/typo3-whatsapp-extension",
     "license": "GPL-2.0+",
     "authors": [],
+    "homepage": "https://t3planet.com/typo3-whatsapp-extension",
+    "keywords": [
+        "TYPO3 CMS",
+        "Whatsapp",
+        "NITSAN"
+    ],
+    "support": {
+        "issues": "https://github.com/nitsan-technologies/ns_whatsapp/issues"
+    },
     "require": {
         "typo3/cms-core": "^12"
     },

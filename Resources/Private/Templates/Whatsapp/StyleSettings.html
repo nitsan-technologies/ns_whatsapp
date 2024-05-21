@@ -29,13 +29,11 @@
             color: {whatsappstyle.0.htextcolor} !important;
             }
         </style>
-        <f:for each="{whatsappstyle}" as="whatsapp" iteration="i">
-            <f:switch expression="{whatsapp.style}">
-                <f:case value="1">
-                    <f:render section="style1" arguments="{whatsappstyle: whatsappstyle.0}" />
-                </f:case>
-            </f:switch>
-        </f:for>
+
+        <f:if condition="{whatsappstyle.0}">
+            <f:render section="style1" arguments="{whatsappstyle: whatsappstyle.0}" />
+        </f:if>
+        
         <div class="ns-ext-form-wrap panel-group" id="accordion" role="tablist" aria-multiselectable="false ">
             <f:section name="style1">
                 <div class="ns-backup-table-block-wrap">

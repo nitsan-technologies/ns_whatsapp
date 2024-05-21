@@ -17,12 +17,6 @@ namespace Nitsan\NsWhatsapp\Domain\Model;
 
 class Whatsappstyle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 {
-    /**
-     * heading
-     *
-     * @var string
-     */
-    protected string $heading = '';
 
     /**
      * text
@@ -94,46 +88,11 @@ class Whatsappstyle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     protected $size = '';
 
     /**
-     * font
-     *
-     * @var string
-     */
-    protected $font = '';
-
-    /**
-     * imageposition
-     *
-     * @var string
-     */
-    protected $imageposition = '';
-
-    /**
      * style
      *
      * @var string
      */
     protected $style = '';
-
-    /**
-     * Returns the heading
-     *
-     * @return string $heading
-     */
-    public function getHeading(): string
-    {
-        return $this->heading;
-    }
-
-    /**
-     * Sets the heading
-     *
-     * @param string $heading
-     * @return void
-     */
-    public function setHeading($heading)
-    {
-        $this->heading = $heading;
-    }
 
     /**
      * Returns the text
@@ -259,48 +218,6 @@ class Whatsappstyle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     public function setSize($size)
     {
         $this->size = $size;
-    }
-
-    /**
-     * Returns the font
-     *
-     * @return string $font
-     */
-    public function getFont(): string
-    {
-        return $this->font;
-    }
-
-    /**
-     * Sets the font
-     *
-     * @param string $font
-     * @return void
-     */
-    public function setFont($font)
-    {
-        $this->font = $font;
-    }
-
-    /**
-     * Returns the imageposition
-     *
-     * @return string $imageposition
-     */
-    public function getImageposition(): string
-    {
-        return $this->imageposition;
-    }
-
-    /**
-     * Sets the imageposition
-     *
-     * @param string $imageposition
-     * @return void
-     */
-    public function setImageposition($imageposition)
-    {
-        $this->imageposition = $imageposition;
     }
 
     /**
