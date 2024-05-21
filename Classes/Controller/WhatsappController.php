@@ -4,6 +4,7 @@ namespace Nitsan\NsWhatsapp\Controller;
 use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use Nitsan\NsWhatsapp\Domain\Model\Whatsappstyle;
+use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use Nitsan\NsWhatsapp\Domain\Repository\WhatsappstyleRepository;
 use TYPO3\CMS\Tstemplate\Controller\TypoScriptTemplateModuleController;
@@ -48,7 +49,7 @@ class WhatsappController extends ActionController
      *
      * @return void
      */
-    public function initializeObject()
+    public function initializeObject(): void
     {
         $this->contentObject = GeneralUtility::makeInstance('TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer');
         $this->constantObj = GeneralUtility::makeInstance(TypoScriptTemplateConstantEditorModuleFunctionController::class);
@@ -59,7 +60,7 @@ class WhatsappController extends ActionController
      *
      * @return void
      */
-    public function initializeAction()
+    public function initializeAction(): void
     {
         //GET CONSTANTs
         // @extensionScannerIgnoreLine
@@ -75,9 +76,9 @@ class WhatsappController extends ActionController
     public function listAction(): ResponseInterface
     {
         $currentPid = $GLOBALS['TSFE']->id;
-        $configurationManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Configuration\\ConfigurationManagerInterface');
+        $configurationManager = GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Configuration\\ConfigurationManagerInterface');
         $extensions = $configurationManager->getConfiguration(
-            \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT
+            ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT
         );
         $constant = $extensions['plugin.']['tx_nswhasapp_whatsapp.']['settings.'];
         $cpages = $constant['hide_pages'];
@@ -126,10 +127,10 @@ class WhatsappController extends ActionController
      */
     public function styleSettingsAction(): ResponseInterface
     {
-        $id= (int) $this->request->getArguments('id');
+        $id= $this->request->hasArgument('id') ? (int)$this->request->getArguments('id') : 0 ;
         if ($id != 0) {
-            $whatsappstyle = $this->whatsappstyleRepository->findAll();
-            $this->view->assign('whatsappstyle', $whatsappstyle);
+            $whatsappStyle = $this->whatsappstyleRepository->findAll();
+            $this->view->assign('whatsappstyle', $whatsappStyle);
         }
         return $this->htmlResponse();
     }

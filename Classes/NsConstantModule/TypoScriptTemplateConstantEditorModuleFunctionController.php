@@ -15,7 +15,6 @@ namespace Nitsan\NsWhatsapp\NsConstantModule;
  */
 
 use TYPO3\CMS\Backend\Routing\UriBuilder;
-use TYPO3\CMS\Backend\Utility\BackendUtility;
 use TYPO3\CMS\Core\DataHandling\DataHandler;
 use TYPO3\CMS\Core\Localization\LanguageService;
 use TYPO3\CMS\Core\Page\PageRenderer;
@@ -168,10 +167,10 @@ class TypoScriptTemplateConstantEditorModuleFunctionController
                     'id' => $id,
                     'template' => 'all',
                 ];
-                
+
                 $uriBuilder = GeneralUtility::makeInstance(UriBuilder::class);
                 $aHref = (string) $uriBuilder->buildUriFromRoute('web_ts', $urlParameters);
-                
+
                 $view->assign('link', $aHref);
             }
             $view->setTemplatePathAndFilename(GeneralUtility::getFileAbsFileName(
