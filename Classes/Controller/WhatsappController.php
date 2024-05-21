@@ -142,7 +142,7 @@ class WhatsappController extends ActionController
      */
     public function styleSettingsAction()
     {
-        $id = (int) GeneralUtility::_GP('id');
+        $id = (int) \TYPO3\CMS\Core\Utility\GeneralUtility::_GP('id');
         if ($id != 0) {
             $whatsappStyle = $this->whatsappstyleRepository->findAll();
             $this->view->assign('whatsappstyle', $whatsappStyle);
