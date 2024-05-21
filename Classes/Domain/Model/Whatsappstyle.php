@@ -20,24 +20,6 @@ use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
 class Whatsappstyle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 {
-    /**
-     * Image
-     *
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference>
-     */
-    protected $image;
-
-    public function __construct()
-    {
-        $this->image = new ObjectStorage();
-    }
-
-    /**
-     * heading
-     *
-     * @var string
-     */
-    protected $heading = '';
 
     /**
      * text
@@ -45,12 +27,6 @@ class Whatsappstyle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * @var string
      */
     protected $text = '';
-    /**
-     * upload
-     *
-     * @var string
-     */
-    protected $upload = '';
 
     /**
      * bordercolor
@@ -78,13 +54,6 @@ class Whatsappstyle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * @var string
      */
     protected $hboredrcolor = '';
-
-    /**
-     * imageurl
-     *
-     * @var string
-     */
-    protected $imageurl = '';
 
     /**
      * textcolor
@@ -122,53 +91,11 @@ class Whatsappstyle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     protected $size = '';
 
     /**
-     * font
-     *
-     * @var string
-     */
-    protected $font = '';
-
-    /**
-     * animation
-     *
-     * @var string
-     */
-    protected $animation = '';
-
-    /**
-     * imageposition
-     *
-     * @var string
-     */
-    protected $imageposition = '';
-
-    /**
      * style
      *
      * @var string
      */
     protected $style = '';
-
-    /**
-     * Returns the heading
-     *
-     * @return string $heading
-     */
-    public function getHeading()
-    {
-        return $this->heading;
-    }
-
-    /**
-     * Sets the heading
-     *
-     * @param string $heading
-     * @return void
-     */
-    public function setHeading($heading)
-    {
-        $this->heading = $heading;
-    }
 
     /**
      * Returns the text
@@ -189,27 +116,6 @@ class Whatsappstyle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     public function setText($text)
     {
         $this->text = $text;
-    }
-
-    /**
-     * Returns the upload
-     *
-     * @return string $upload
-     */
-    public function getUpload()
-    {
-        return $this->upload;
-    }
-
-    /**
-     * Sets the upload
-     *
-     * @param string $upload
-     * @return void
-     */
-    public function setUpload($upload)
-    {
-        $this->upload = $upload;
     }
 
     /**
@@ -318,85 +224,6 @@ class Whatsappstyle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     }
 
     /**
-     * Returns the font
-     *
-     * @return string $font
-     */
-    public function getFont()
-    {
-        return $this->font;
-    }
-
-    /**
-     * Sets the font
-     *
-     * @param string $font
-     * @return void
-     */
-    public function setFont($font)
-    {
-        $this->font = $font;
-    }
-
-    /**
-     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage $image
-     */
-    public function setImage($image)
-    {
-        $this->image = $image;
-    }
-
-    /**
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage
-     */
-    public function getImage()
-    {
-        return $this->image;
-    }
-
-    /**
-     * Returns the animation
-     *
-     * @return string $animation
-     */
-    public function getAnimation()
-    {
-        return $this->animation;
-    }
-
-    /**
-     * Sets the animation
-     *
-     * @param string $animation
-     * @return void
-     */
-    public function setAnimation($animation)
-    {
-        $this->animation = $animation;
-    }
-
-    /**
-     * Returns the imageposition
-     *
-     * @return string $imageposition
-     */
-    public function getImageposition()
-    {
-        return $this->imageposition;
-    }
-
-    /**
-     * Sets the imageposition
-     *
-     * @param string $imageposition
-     * @return void
-     */
-    public function setImageposition($imageposition)
-    {
-        $this->imageposition = $imageposition;
-    }
-
-    /**
      * Returns the style
      *
      * @return string $style
@@ -498,26 +325,5 @@ class Whatsappstyle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     public function setHboredrcolor($hboredrcolor)
     {
         $this->hboredrcolor = $hboredrcolor;
-    }
-
-    /**
-     * Returns the imageurl
-     *
-     * @return string $imageurl
-     */
-    public function getImageurl()
-    {
-        return $this->imageurl;
-    }
-
-    /**
-     * Sets the imageurl
-     *
-     * @param string $imageurl
-     * @return void
-     */
-    public function setImageurl($imageurl)
-    {
-        $this->imageurl = $imageurl;
     }
 }

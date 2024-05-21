@@ -1819,7 +1819,7 @@ class TemplateService
      */
     protected function getTypoScriptFrontendController()
     {
-        $GLOBALS['TSFE'] = isset($GLOBALS['TSFE']) ? $GLOBALS['TSFE'] : '';
+        $GLOBALS['TSFE'] = isset($GLOBALS['TSFE']) ? $GLOBALS['TSFE'] : null;
         return $GLOBALS['TSFE'];
     }
 
