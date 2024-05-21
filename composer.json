@@ -1,8 +1,18 @@
 {
     "name": "nitsan/ns-whatsapp",
     "type": "typo3-cms-extension",
-    "description": "Ns Whatsapp",
+    "description": "Introducing the TYPO3 WhatsApp Chat Extension for your TYPO3 websites, seamlessly integrating WhatsApp chat into your site. Customize colors to match your brand, and personalize agent profiles with their image, job title, and button options. Plus, advanced chat settings! *** Live-Demo: https://demo.t3planet.com/t3-extensions/social-networking/whats-app *** Premium Version, Documentation & Free Support: https://t3planet.com/typo3-whatsapp-extension",
     "authors": [],
+    "homepage": "https://t3planet.com/typo3-whatsapp-extension",
+    "license": "GPL-2.0+",
+    "keywords": [
+        "TYPO3 CMS",
+        "Whatsapp",
+        "NITSAN"
+    ],
+    "support": {
+        "issues": "https://github.com/nitsan-technologies/ns_whatsapp/issues"
+    },
     "require": {
          "typo3/cms-core": "^8.0  || ^9.0 || ^10.0  || ^11.0"
     },
@@ -13,5 +23,16 @@
     },
     "replace": {
         "typo3-ter/ns-whatsapp": "self.version"
+    },
+    "config": {
+        "vendor-dir": ".Build/vendor/",
+        "bin-dir": ".Build/bin/"
+    },
+    "extra": {
+        "typo3/cms": {
+            "cms-package-dir": "{$vendor-dir}/typo3/cms",
+            "web-dir": ".Build/public",
+            "extension-key": "ns_whatsapp"
+        }
     }
 }

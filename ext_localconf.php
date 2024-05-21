@@ -1,8 +1,10 @@
 <?php
+
 defined('TYPO3_MODE') || die('Access denied.');
 
 call_user_func(
     function () {
+        // @extensionScannerIgnoreLine
         if (version_compare(TYPO3_branch, '10.0', '>=')) {
             $moduleClass = \Nitsan\NsWhatsapp\Controller\WhatsappController::class;
         } else {
@@ -35,6 +37,3 @@ call_user_func(
         );
     }
 );
-
-\TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerTypeConverter('Nitsan\\NsWhatsapp\\Property\\TypeConverter\\UploadedFileReferenceConverter');
-\TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerTypeConverter('Nitsan\\NsWhatsapp\\Property\\TypeConverter\\ObjectStorageConverter');

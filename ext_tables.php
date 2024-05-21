@@ -1,10 +1,12 @@
 <?php
+
 // TYPO3 Security Check
 defined('TYPO3_MODE') or die();
 
 $_EXTKEY = $GLOBALS['_EXTKEY'] = 'ns_whatsapp';
 
 //Add Modules
+// @extensionScannerIgnoreLine
 if (TYPO3_MODE === 'BE') {
     $isVersion9Up = \TYPO3\CMS\Core\Utility\VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) >= 9000000;
 
@@ -28,7 +30,7 @@ if (TYPO3_MODE === 'BE') {
                 'name' => 'nitsan',
             ];
         }
-        
+
         if (version_compare(TYPO3_branch, '11.0', '>=')) {
             $moduleClass = \Nitsan\NsWhatsapp\Controller\WhatsappController::class;
         } else {

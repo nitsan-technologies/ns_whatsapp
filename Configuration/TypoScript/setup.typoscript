@@ -55,11 +55,6 @@ page {
     30001 = typo3conf/ext/ns_whatsapp/Resources/Public/Css/nswhatsapp.css
   }
 
-  // Initiate all the js-together
-  includeJSFooter {
-    9902 = typo3conf/ext/ns_whatsapp/Resources/Public/JavaScript/nswhatsapp.js
-  }
-
 }
 page.111246 >
 page.111246 = USER

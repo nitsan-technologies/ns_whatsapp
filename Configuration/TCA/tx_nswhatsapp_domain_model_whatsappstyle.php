@@ -1,4 +1,5 @@
 <?php
+
 return [
     'ctrl' => [
         'title' => 'LLL:EXT:ns_whatsapp/Resources/Private/Language/locallang_db.xlf:tx_nswhatsapp_domain_model_whatsappstyle',

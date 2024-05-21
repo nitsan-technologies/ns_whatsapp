@@ -1,12 +1,13 @@
 <?php
+
 namespace Nitsan\NsWhatsapp\Controller;
 
+use Nitsan\NsWhatsapp\Domain\Model\Whatsappstyle;
 use Nitsan\NsWhatsapp\NsConstantModule\TypoScriptTemplateConstantEditorModuleFunctionController;
-use Nitsan\NsWhatsapp\Property\TypeConverter\UploadedFileReferenceConverter;
 use TYPO3\CMS\Core\TypoScript\ExtendedTemplateService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Annotation\Inject as inject;
-use TYPO3\CMS\Extbase\Property\PropertyMappingConfiguration;
+use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Tstemplate\Controller\TypoScriptTemplateModuleController;
 
 /***
@@ -23,15 +24,16 @@ use TYPO3\CMS\Tstemplate\Controller\TypoScriptTemplateModuleController;
 /**
  * WhatsappController
  */
-class WhatsappController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
+class WhatsappController extends ActionController
 {
     /**
-     * WhatsappRepository
+     * WhatsappstyleRepository
      *
-     * @var \Nitsan\NsWhatsapp\Domain\Repository\WhatsappRepository
+     * @var \Nitsan\NsWhatsapp\Domain\Repository\WhatsappstyleRepository
+     * @extensionScannerIgnoreLine
      * @inject
      */
-    protected $WhatsappRepository = null;
+    protected $whatsappstyleRepository = null;
 
     /**
      * @param \Nitsan\NsWhatsapp\Domain\Repository\WhatsappstyleRepository $whatsappstyleRepository
@@ -75,8 +77,8 @@ class WhatsappController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
      */
     public function initializeAction()
     {
-
         //GET CONSTANTs
+        // @extensionScannerIgnoreLine
         $this->constantObj->init($this->pObj);
         $this->constants = $this->constantObj->main();
     }
@@ -93,21 +95,14 @@ class WhatsappController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
         $cpages = $constant['hide_pages'];
         $cpage = rtrim($cpages, ', ');
         $chat_hidepage = explode(',', $cpage);
-        $spages = isset($constant['share_hide_pages']) ? $constant['share_hide_pages'] : '';
-        $spage = rtrim($spages, ', ');
-        $share_hidepage = explode(',', $spage);
-        $gpages = isset($constant['group_hide_pages']) ? $constant['group_hide_pages'] : '';
-        $gpage = rtrim($gpages, ', ');
-        $group_hidepage = explode(',', $gpage);
 
-        $whatsappstyle = $this->whatsappstyleRepository->findAllstyle();
+        $whatsappStyle = $this->whatsappstyleRepository->findAllstyle();
+
         $this->view->assignMultiple(
             [
-                'whatsappstyle' => $whatsappstyle,
+                'whatsappstyle' => $whatsappStyle,
                 'currentpid' => $currentPid,
                 'chat_hidepage' => $chat_hidepage,
-                'share_hidepage' => $share_hidepage,
-                'group_hidepage' => $group_hidepage,
             ]
         );
     }
@@ -129,28 +124,12 @@ class WhatsappController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
     }
 
     /**
-     * Set TypeConverter option for image upload
-     */
-    public function initializeUpdateAction()
-    {
-        if (isset($this->arguments['whatsappstyle'])) {
-            if (!empty($this->request->getArguments()['whatsappstyle']['image'][0]['name'])) {
-                $this->setTypeConverterConfigurationForImageUpload('whatsappstyle', 'image');
-            } else {
-                $data = $this->request->getArguments()['whatsappstyle'];
-                unset($data['image']);
-                $this->request->setArgument('whatsappstyle', $data);
-            }
-        }
-        $this->setTypeConverterConfigurationForImageUpload('whatsappstyle');
-    }
-    /**
      * action update
      *
-     * @param \Nitsan\NsWhatsapp\Domain\Model\Whatsappstyle $whatsappstyle
+     * @param Whatsappstyle $whatsappstyle
      * @return void
      */
-    public function updateAction(\Nitsan\NsWhatsapp\Domain\Model\Whatsappstyle $whatsappstyle)
+    public function updateAction(Whatsappstyle $whatsappstyle)
     {
         $this->whatsappstyleRepository->update($whatsappstyle);
         $this->redirect('styleSettings');
@@ -165,8 +144,8 @@ class WhatsappController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
     {
         $id = (int) \TYPO3\CMS\Core\Utility\GeneralUtility::_GP('id');
         if ($id != 0) {
-            $whatsappstyle = $this->whatsappstyleRepository->findAll();
-            $this->view->assign('whatsappstyle', $whatsappstyle);
+            $whatsappStyle = $this->whatsappstyleRepository->findAll();
+            $this->view->assign('whatsappstyle', $whatsappStyle);
         }
         $bootstrapVariable = 'data';
         if (version_compare(TYPO3_branch, '11.0', '>')) {
@@ -182,34 +161,5 @@ class WhatsappController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
     {
         $this->constantObj->main();
         return false;
-    }
-
-    public function addConstantsConfiguration($constantForDb, $pid)
-    {
-        $getConstants = $this->WhatsappRepository->fetchConstants($pid)['constants'];
-        $buildAdditionalConstant = $constantForDb;
-        return $getConstants . $buildAdditionalConstant;
-    }
-
-    protected function setTypeConverterConfigurationForImageUpload($argumentName)
-    {
-        \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Extbase\Object\Container\Container::class)
-            ->registerImplementation(
-                \TYPO3\CMS\Extbase\Domain\Model\FileReference::class,
-                \Nitsan\NsWhatsapp\Domain\Model\FileReference::class
-            );
-
-        $uploadConfiguration = [
-            UploadedFileReferenceConverter::CONFIGURATION_ALLOWED_FILE_EXTENSIONS => $GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext'],
-            UploadedFileReferenceConverter::CONFIGURATION_UPLOAD_FOLDER => '1:/user_upload/',
-        ];
-
-        /** @var PropertyMappingConfiguration $newProductInquiryConfiguration */
-        $newProductInquiryConfiguration = $this->arguments[$argumentName]->getPropertyMappingConfiguration();
-        $newProductInquiryConfiguration->forProperty('image')
-            ->setTypeConverterOptions(
-                UploadedFileReferenceConverter::class,
-                $uploadConfiguration
-            );
     }
 }
