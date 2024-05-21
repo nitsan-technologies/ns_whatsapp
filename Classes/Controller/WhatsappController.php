@@ -3,7 +3,6 @@
 namespace Nitsan\NsWhatsapp\Controller;
 
 use Nitsan\NsWhatsapp\Domain\Model\Whatsappstyle;
-use Nitsan\NsWhatsapp\Domain\Repository\WhatsappstyleRepository;
 use Nitsan\NsWhatsapp\NsConstantModule\TypoScriptTemplateConstantEditorModuleFunctionController;
 use TYPO3\CMS\Core\TypoScript\ExtendedTemplateService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -30,16 +29,16 @@ class WhatsappController extends ActionController
     /**
      * WhatsappstyleRepository
      *
-     * @var WhatsappstyleRepository
+     * @var \Nitsan\NsWhatsapp\Domain\Repository\WhatsappstyleRepository
      * @extensionScannerIgnoreLine
      * @inject
      */
     protected $whatsappstyleRepository = null;
 
     /**
-     * @param WhatsappstyleRepository $whatsappstyleRepository
+     * @param \Nitsan\NsWhatsapp\Domain\Repository\WhatsappstyleRepository $whatsappstyleRepository
      */
-    public function injectWhatsappstyleRepository(WhatsappstyleRepository $whatsappstyleRepository)
+    public function injectWhatsappstyleRepository(\Nitsan\NsWhatsapp\Domain\Repository\WhatsappstyleRepository $whatsappstyleRepository)
     {
         $this->whatsappstyleRepository = $whatsappstyleRepository;
     }
