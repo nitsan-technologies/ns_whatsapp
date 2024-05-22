@@ -4,7 +4,6 @@ plugin {
       is_enable = {$plugin.tx_nswhasapp_whatsapp.settings.is_enable}
       whatsapp_number = {$plugin.tx_nswhasapp_whatsapp.settings.whatsapp_number}
       pre_filled_message = {$plugin.tx_nswhasapp_whatsapp.settings.pre_filled_message}
-      call_to_action = {$plugin.tx_nswhasapp_whatsapp.settings.call_to_action}
       style_desktop = Style1
       style_mobile = Style1
       position = {$plugin.tx_nswhasapp_whatsapp.settings.position}

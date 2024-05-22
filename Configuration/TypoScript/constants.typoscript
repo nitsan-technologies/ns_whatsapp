@@ -26,9 +26,6 @@ plugin.tx_nswhasapp_whatsapp {
     #cat = ns_whatsapp_chat/chat/03; type=string; label=Pre-Filled Message
     pre_filled_message =
 
-    #cat = ns_whatsapp_chat/chat/04; type=string; label=Call to Action
-    call_to_action = Whatsapp Us
-
     # cat=ns_whatsapp_chat/chat/07; type=options[Top-left,Top-right,Bottom-left,Bottom-right]; label= Position
     position = Top-left
 
