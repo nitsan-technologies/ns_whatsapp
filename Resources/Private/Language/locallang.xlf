@@ -5,7 +5,7 @@
 		<body>
 
             <trans-unit id="brandname">
-				<source>Ns Whatsapp</source>
+				<source>Whatsapp</source>
 			</trans-unit>
             <trans-unit id="documentaiton">
                 <source>Documentaiton</source>

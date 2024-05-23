@@ -4,9 +4,8 @@ plugin {
       is_enable = {$plugin.tx_nswhasapp_whatsapp.settings.is_enable}
       whatsapp_number = {$plugin.tx_nswhasapp_whatsapp.settings.whatsapp_number}
       pre_filled_message = {$plugin.tx_nswhasapp_whatsapp.settings.pre_filled_message}
-      call_to_action = {$plugin.tx_nswhasapp_whatsapp.settings.call_to_action}
-      style_desktop = {$plugin.tx_nswhasapp_whatsapp.settings.style_desktop}
-      style_mobile = {$plugin.tx_nswhasapp_whatsapp.settings.style_mobile}
+      style_desktop = Style1
+      style_mobile = Style1
       position = {$plugin.tx_nswhasapp_whatsapp.settings.position}
       web_whatsapp = {$plugin.tx_nswhasapp_whatsapp.settings.web_whatsapp}
       hide_pages = {$plugin.tx_nswhasapp_whatsapp.settings.hide_pages}
@@ -52,11 +51,6 @@ page {
   // Initiate all the css-together
   includeCSS {
     30001 =  EXT:ns_whatsapp/Resources/Public/Css/nswhatsapp.css
-  }
-
-  // Initiate all the js-together
-  includeJSFooter {
-    9902 = EXT:ns_whatsapp/Resources/Public/JavaScript/nswhatsapp.js
   }
 
 }
