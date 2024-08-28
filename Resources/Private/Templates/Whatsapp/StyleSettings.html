@@ -3,6 +3,10 @@
 <f:layout name="Backend/Default" />
 
 <f:section name="content">
+    <f:be.pageRenderer includeJavaScriptModules="{
+        0:'TYPO3/CMS/NsWhatsapp/Main',
+        1:'TYPO3/CMS/NsWhatsapp/Datatables',
+    }" />
     
 <f:if condition="{whatsappstyle} == ''">
    <f:then>
