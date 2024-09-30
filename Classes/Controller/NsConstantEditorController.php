@@ -22,7 +22,7 @@ use TYPO3\CMS\Core\TypoScript\AST\Visitor\AstConstantCommentVisitor;
 use TYPO3\CMS\Tstemplate\Controller\AbstractTemplateModuleController;
 use TYPO3\CMS\Core\TypoScript\IncludeTree\Traverser\IncludeTreeTraverser;
 use TYPO3\CMS\Core\TypoScript\IncludeTree\Visitor\IncludeTreeCommentAwareAstBuilderVisitor;
-use TYPO3\CMS\Core\Imaging\IconSize;
+
 
 class NsConstantEditorController extends AbstractTemplateModuleController
 {
@@ -491,7 +491,7 @@ class NsConstantEditorController extends AbstractTemplateModuleController
             ->setValue('1')
             ->setForm('TypoScriptConstantEditorController')
             ->setTitle($languageService->sL('LLL:EXT:core/Resources/Private/Language/locallang_core.xlf:rm.saveDoc'))
-            ->setIcon($this->iconFactory->getIcon('actions-document-save', IconSize::SMALL))
+            ->setIcon($this->iconFactory->getIcon('actions-document-save', 'small'))
             ->setShowLabelText(true);
         $buttonBar->addButton($saveButton);
     }
