@@ -23,7 +23,7 @@ div.sticky{
 
 .field-info-text p {
     font-size: 14px;
-    color: #444;
+    color: light-dark(#444, #c4c4c4);
     margin-bottom: 0;
     margin-top: 12px;
     display: inline-block;
@@ -137,25 +137,6 @@ hr{
 .ticket-show-footer:last-child {
     padding-bottom: 0.7em;
 }
-
-@media(min-width:576px) {}
-
-@media(min-width:768px) {
-    .ns-ext-form select.form-control{
-        max-width: 280px;
-        width: 100%;
-    }
-}
-
-@media(min-width:992px) {}
-
-@media(min-width:1200px) {
-    .ns-ext-navigation .navbar-nav .nav-link {
-        padding: 13px 20px;
-    }
-}
-
-
 /* The Modal (background) */
 .mymodal {
     display: none; /* Hidden by default */
@@ -188,15 +169,13 @@ hr{
     width: auto;
     margin-top: 20px;
 }
-/*.custom-form-inline input[type='radio'] + .form-control {
-    pointer-events: none;
-    cursor: not-allowed !important;
-}
-.custom-form-inline input[type='radio']:checked + .form-control {
-    pointer-events: auto;
-    cursor: initial !important;
-}*/
 .ns-whatsapp-variant--three .ns-whatsapp-custom-img img {
+    max-width: 100%;
+    height: 100px;
+    width: 100px;
+}
+
+.ns-whatsapp-variant--fifth .ns-whatsapp-custom-img img {
     max-width: 100%;
     height: 100px;
     width: 100px;
