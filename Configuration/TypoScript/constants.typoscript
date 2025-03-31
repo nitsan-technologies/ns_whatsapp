@@ -20,8 +20,8 @@ plugin.tx_nswhasapp_whatsapp {
     #cat = ns_whatsapp_chat/chat/01; type=boolean; label=Is Enable
     is_enable = 1
 
-    #cat = ns_whatsapp_chat/chat/02; type=string; label=Whatsapp Number:Enter Country code and Whatsapp Number
-    whatsapp_number =
+    #cat = ns_whatsapp_chat/chat/02; type=int+; label=Whatsapp Number:Enter Country code and Whatsapp Number
+    whatsapp_number = 
 
     #cat = ns_whatsapp_chat/chat/03; type=string; label=Pre-Filled Message
     pre_filled_message =
