@@ -6,6 +6,34 @@
 <f:layout name="Module"/>
 
 <f:section name="Content">
+    <f:if condition="!{relevantCategories}">
+        <f:then>
+            <h1>
+                <f:if condition="{templateTitle}">
+                    <f:then>
+                        <f:translate
+                            key="LLL:EXT:tstemplate/Resources/Private/Language/locallang_ceditor.xlf:submodule.titleWithRecord"
+                            arguments="{
+                                0: '{templateTitle}'
+                            }"
+                        />
+                    </f:then>
+                    <f:else>
+                        <f:translate key="LLL:EXT:tstemplate/Resources/Private/Language/locallang_ceditor.xlf:submodule.title" />
+                    </f:else>
+                </f:if>
+            </h1>
+            <p><f:translate key="LLL:EXT:tstemplate/Resources/Private/Language/locallang_ceditor.xlf:submodule.description" /></p>
+            <f:if condition="!{relevantCategories}">
+                <f:then>
+                    <f:be.infobox message="{f:translate(key:'LLL:EXT:tstemplate/Resources/Private/Language/locallang_ceditor.xlf:infobox.message.noConstants')}" state="{f:constant(name: 'TYPO3\CMS\Fluid\ViewHelpers\Be\InfoboxViewHelper::STATE_INFO')}" />
+                </f:then>
+                <f:else>
+                    <f:render partial="ConstantEditorFields" arguments="{_all}" />
+                </f:else>
+            </f:if>
+        </f:then>
+        <f:else>
 
     <f:be.pageRenderer
         includeCssFiles="{
@@ -32,16 +60,10 @@
             selectedCategory: selectedCategory
         }"
     />
-    <f:if condition="!{relevantCategories}">
-        <f:then>
-            <f:be.infobox title="{f:translate(key:'LLL:EXT:tstemplate/Resources/Private/Language/locallang_ceditor.xlf:noConstants')}">
-                {f:translate(key:'LLL:EXT:tstemplate/Resources/Private/Language/locallang_ceditor.xlf:noConstantsDescription')}
-            </f:be.infobox>
-        </f:then>
-        <f:else>
-            <f:render partial="ConstantEditorFields" arguments="{_all}" />
-        </f:else>
-    </f:if>
+    <f:render partial="ConstantEditorFields" arguments="{_all}" />
+</f:else>
+</f:if>
+
 </f:section>
 
 </html>
