@@ -880,6 +880,17 @@ label {
     padding: 0px !important;
 }
 
+.custom-alert-container {
+    margin-top: 20px; /* Add space below .module-body */
+    padding: 15px;
+    background-color: #fff3cd; /* Light yellow background */
+    border: 1px solid #ffeeba; /* Border matching Bootstrap alert-warning */
+    color: #856404; /* Dark text for warning */
+    border-radius: 5px;
+    font-weight: bold;
+    text-align: center;
+}
+
 /*
 New Common Style
 */

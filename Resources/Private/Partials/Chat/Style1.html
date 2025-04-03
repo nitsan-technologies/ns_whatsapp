@@ -12,5 +12,6 @@
 </f:asset.css>
 <div class="ns-whatsapp-variant ns-whatsapp-variant--one ">
     <f:link.external class="ns-whatsapp-btn style1"
-        uri="https://{f:if(condition: '{settings.web_whatsapp}', then: 'web', else: 'api')}.whatsapp.com/send/?phone={settings.whatsapp_number}&text={settings.pre_filled_message}{f:if(condition: '{settings.web_whatsapp}', then: '',  else: '&app_absent=0')}" target="_blank">{whatsapp.text}</f:link.external>
+        uri="https://{f:if(condition: '{settings.web_whatsapp}', then: 'web', else: 'api')}.whatsapp.com/send/?phone={settings.whatsapp_number}&text={settings.pre_filled_message}{f:if(condition: '{settings.web_whatsapp}', then: '',  else: '&app_absent=0')}" target="_blank">{f:if(condition: whatsapp.text, then: whatsapp.text, else:
+                                                    'WhatsApp Us')}</f:link.external>
 </div>
