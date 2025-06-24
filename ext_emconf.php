@@ -1,14 +1,13 @@
 <?php
 
 $EM_CONF['ns_whatsapp'] = [
-    'title' => 'WhatsApp',
-    'description' => 'Introducing the TYPO3 WhatsApp Chat Extension for your TYPO3 websites, seamlessly integrating WhatsApp chat into your site. Customize colors to match your brand, and personalize agent profiles with their image, job title, and button options. Plus, advanced chat settings! 
+    'title' => 'TYPO3 WhatsApp Chat Integration',
+    'description' => 'Easily integrate WhatsApp chat into your TYPO3 website. Customize chat button styles, agent profiles, and color themes to match your brand. Enhance visitor engagement with advanced chat configurations.', 
     
-    *** Live-Demo: https://demo.t3planet.com/t3-extensions/social-networking/whats-app *** Premium Version, Documentation & Free Support: https://t3planet.com/typo3-whatsapp-extension',
     'category' => 'plugin',
-    'author' => 'T3: Nilesh Malankiya, T3: Jay Bhalgamiya, QA: Krishna Dhapa',
-    'author_email' => 'sanjay@nitsan.in',
-    'author_company' => 'T3Planet // NITSAN',
+    'author' => 'Team T3Planet',
+    'author_email' => 'info@t3planet.de',
+    'author_company' => 'T3Planet',
     'state' => 'stable',
     'uploadfolder' => 0,
     'createDirs' => '',
