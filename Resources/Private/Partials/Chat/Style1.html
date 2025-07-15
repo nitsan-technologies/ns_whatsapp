@@ -1,17 +1,37 @@
 <f:asset.css identifier="ns-whatsapp">
     .style1 {
-    background-color: {whatsapp.bgcolor} !important;
-    border: {whatsapp.bordercolor} {whatsapp.border}px solid !important;
-    color: {whatsapp.textcolor} !important;
+        background-color: {whatsapp.bgcolor} !important;
+        border: {whatsapp.bordercolor} {whatsapp.border}px solid !important;
+        color: {whatsapp.textcolor} !important;
     }
     .style1:hover {
-    background-color: {whatsapp.hbgcolor} !important;
-    border: {whatsapp.hboredrcolor} {whatsapp.border}px solid !important;
-    color: {whatsapp.htextcolor} !important;
+        background-color: {whatsapp.hbgcolor} !important;
+        border: {whatsapp.hboredrcolor} {whatsapp.border}px solid !important;
+        color: {whatsapp.htextcolor} !important;
     }
 </f:asset.css>
-<div class="ns-whatsapp-variant ns-whatsapp-variant--one ">
-    <f:link.external class="ns-whatsapp-btn style1"
-        uri="https://{f:if(condition: '{settings.web_whatsapp}', then: 'web', else: 'api')}.whatsapp.com/send/?phone={settings.whatsapp_number}&text={settings.pre_filled_message}{f:if(condition: '{settings.web_whatsapp}', then: '',  else: '&app_absent=0')}" target="_blank">{f:if(condition: whatsapp.text, then: whatsapp.text, else:
-                                                    'WhatsApp Us')}</f:link.external>
+
+<f:if condition="{settings.web_whatsapp}">
+    <f:then>
+        <f:variable name="whatsappUrl" value="https://web.whatsapp.com/send/?phone={settings.whatsapp_number}&text={settings.pre_filled_message}" />
+    </f:then>
+    <f:else>
+        <f:variable name="whatsappUrl" value="https://api.whatsapp.com/send/?phone={settings.whatsapp_number}&text={settings.pre_filled_message}&app_absent=0" />
+    </f:else>
+</f:if>
+
+<f:if condition="{whatsapp.text}">
+    <f:variable name="whatsappLabel" value="{whatsapp.text}" />
+</f:if>
+<f:if condition="{whatsapp.text} == ''">
+    <f:variable name="whatsappLabel" value="WhatsApp Us" />
+</f:if>
+
+<div class="ns-whatsapp-variant ns-whatsapp-variant--one">
+    <f:link.external
+        class="ns-whatsapp-btn style1"
+        uri="{whatsappUrl}"
+        target="_blank">
+        {whatsappLabel}
+    </f:link.external>
 </div>
