@@ -1,0 +1,69 @@
+<html
+    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    data-namespace-typo3-fluid="true"
+>
+
+<f:layout name="Module"/>
+
+<f:section name="Content">
+    <f:if condition="!{relevantCategories}">
+        <f:then>
+            <h1>
+                <f:if condition="{templateTitle}">
+                    <f:then>
+                        <f:translate
+                            key="LLL:EXT:tstemplate/Resources/Private/Language/locallang_ceditor.xlf:submodule.titleWithRecord"
+                            arguments="{
+                                0: '{templateTitle}'
+                            }"
+                        />
+                    </f:then>
+                    <f:else>
+                        <f:translate key="LLL:EXT:tstemplate/Resources/Private/Language/locallang_ceditor.xlf:submodule.title" />
+                    </f:else>
+                </f:if>
+            </h1>
+            <p><f:translate key="LLL:EXT:tstemplate/Resources/Private/Language/locallang_ceditor.xlf:submodule.description" /></p>
+            <f:if condition="!{relevantCategories}">
+                <f:then>
+                    <f:be.infobox message="{f:translate(key:'LLL:EXT:tstemplate/Resources/Private/Language/locallang_ceditor.xlf:infobox.message.noConstants')}" state="{f:constant(name: 'TYPO3\CMS\Fluid\ViewHelpers\Be\InfoboxViewHelper::STATE_INFO')}" />
+                </f:then>
+                <f:else>
+                    <f:render partial="ConstantEditorFields" arguments="{_all}" />
+                </f:else>
+            </f:if>
+        </f:then>
+        <f:else>
+
+    <f:be.pageRenderer
+        includeCssFiles="{
+            0: 'EXT:ns_whatsapp/Resources/Public/Css/global.css',
+            1: 'EXT:ns_whatsapp/Resources/Public/Css/main.css',
+            3: 'EXT:ns_whatsapp/Resources/Public/Css/font-awesome.css'
+        }"
+
+        includeJavaScriptModules="{
+            0: '@typo3/backend/context-menu.js',
+            1: '@typo3/backend/element/immediate-action-element.js',
+            4: '@typo3/tstemplate/constant-editor.js',
+            5: '@nitsan/ns-whatsapp/fieldToggle.js'
+        }"
+    />
+    <f:variable name="args" value="{0: 'nitsan', 1: pageUid}" />
+    <f:render
+        partial="ConstantEditorOptions"
+        arguments="{
+            allTemplatesOnPage: allTemplatesOnPage,
+            pageUid: pageUid,
+            selectedTemplateUid: selectedTemplateUid,
+            relevantCategories: relevantCategories,
+            selectedCategory: selectedCategory
+        }"
+    />
+    <f:render partial="ConstantEditorFields" arguments="{_all}" />
+</f:else>
+</f:if>
+
+</f:section>
+
+</html>

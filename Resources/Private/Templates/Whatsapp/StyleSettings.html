@@ -1,4 +1,4 @@
-<html xmlns:f="https://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
 {namespace n=Nitsan\NsWhatsapp\ViewHelpers}
 <f:layout name="Backend/Default" />
 
@@ -50,7 +50,8 @@
                                 <div class="row">
                                     <div class="col-sm-12">
                                         <div class="ns-whatsapp-variant ns-whatsapp-variant--one text-center">
-                                            <a class="ns-whatsapp-btn style1" role="button" data-parent="#accordion" data-toggle="collapse" href="#collapseone" aria-expanded="true" aria-controls="collapseone" >{whatsappstyle.text}</a>
+                                            <a class="ns-whatsapp-btn style1" role="button" data-parent="#accordion" data-toggle="collapse" href="#collapseone" aria-expanded="true" aria-controls="collapseone" >{f:if(condition: whatsappstyle.text, then: whatsappstyle.text, else:
+                                                'WhatsApp Us')}</a>
                                         </div>
                                     </div>
                                     <div class="col-sm-12 collapse in" role="tabpanel" id="collapseone" >
@@ -63,7 +64,7 @@
                                                             <label><f:translate key="buttontext" extensionName="ns_whatsapp"/></label>
                                                         </div>
                                                         <div class="col-sm-6">
-                                                            <f:form.textfield property="text"  class="form-control"  />
+                                                            <f:form.textfield property="text"  class="form-control" maxlength="50" />
                                                         </div>
                                                     </div>
                                                     <div class="row pb-3">

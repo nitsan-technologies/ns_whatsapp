@@ -52,7 +52,6 @@ class WhatsappController extends ActionController
     public function initializeObject(): void
     {
         $this->contentObject = GeneralUtility::makeInstance('TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer');
-        $this->constantObj = GeneralUtility::makeInstance(TypoScriptTemplateConstantEditorModuleFunctionController::class);
     }
 
     /**
@@ -64,8 +63,8 @@ class WhatsappController extends ActionController
     {
         //GET CONSTANTs
         // @extensionScannerIgnoreLine
-        $this->constantObj->init($this->pObj);
-        $this->constants = $this->constantObj->main();
+        // $this->constantObj->init($this->pObj);
+        // $this->constants = $this->constantObj->main();
     }
 
     /**

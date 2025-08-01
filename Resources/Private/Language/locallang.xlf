@@ -32,7 +32,7 @@
                 <source>No Extension Template available for this Page.</source>
             </trans-unit>
             <trans-unit id="noconstantline2">
-                <source>Please go the Template Module and create new extension Template for this page.</source>
+                <source>Please go the TypoScript Module and create new extension TypoScript for this page.</source>
             </trans-unit>
             <trans-unit id="noconstantline3">
                 <source>Please click here</source>
@@ -53,7 +53,7 @@
                 <source>No Extension Template available for this Page.</source>
             </trans-unit>
             <trans-unit id="noconstantline2">
-                <source>Please go the Template Module and create new extension Template for this page.</source>
+                <source>Please go the TypoScript Module and create new extension TypoScript for this page.</source>
             </trans-unit>
             <trans-unit id="noconstantline3">
                 <source>Please click here</source>
