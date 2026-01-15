@@ -1,4 +1,9 @@
 $( document ).ready(function() {
+  $('.ns-whatsapp-btn').on('click', function() {
+    $(this).parents('[class*="col-"]').siblings().slideToggle();
+    $(this).parents('[class*="col-"]').siblings().toggleClass("show");
+  });
+
   $(document).on("click", ".save", function () {
     $('.flashmessage').html("<p class='alert alert-success'>Your changes has been saved successfully</p>");
   });
@@ -15,7 +20,6 @@ $( document ).ready(function() {
     $(this).parents('.form-group').find('.field-info-text').slideToggle();
   });
 
-  $('.dataTables_length select,\ .dataTables_filter input').addClass('form-control');
 
   $('#TypoScriptTemplateModuleController').on('submit',function(e){
     e.preventDefault();
@@ -55,5 +59,42 @@ $( document ).ready(function() {
       $('.google-fonts').append("'" + font.family + "' => array('title' => '" + font.family + "'),<br>")
     });
   });
+  if (document.getElementById("resetStyle6")){
+    document.getElementById("resetStyle6").addEventListener("click",function (){
 
+      $("#deleteImage").val(1)
+      $('#submit6').click();
+    })
+  }
+if (document.querySelectorAll(".addValidrequired").length>0){
+  document.querySelectorAll(".addValidrequired").forEach(el => el.addEventListener('click', event => {
+    if (el.getAttribute("data-id") == 0) {
+      $("#imageurl").attr('required', 'required')
+      $("#image-upload").removeAttr('required', 'required')
+    } else {
+      $("#imageurl").removeAttr('required', 'required')
+      $("#image-upload").attr('required', 'required')
+    }
+  }));
+}
+  if (document.getElementById("validStyle7")) {
+    document.getElementById("validStyle7").addEventListener("click",function (e){
+      if ($("#imageurlradio").prop("checked")) {
+        if (!isImgLink($("#imageurl").val())){
+          $(".urlvalid").removeClass('d-none');
+          e.preventDefault();
+        }else{
+          $(".urlvalid").addClass('d-none');
+        }
+      }else{
+        $(".urlvalid").addClass('d-none');
+      }
+
+    });
+  }
+
+  function isImgLink(url) {
+    if(typeof url !== 'string') return false;
+    return(url.match(/^http[^\?]*.(jpg|jpeg|gif|png|tiff|bmp)(\?(.*))?$/gmi) != null);
+  }
 });  

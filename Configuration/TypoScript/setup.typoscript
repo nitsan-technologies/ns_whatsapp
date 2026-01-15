@@ -1,72 +1,108 @@
 plugin {
-  tx_nswhasapp_whatsapp {
-    settings {
-      is_enable = {$plugin.tx_nswhasapp_whatsapp.settings.is_enable}
-      whatsapp_number = {$plugin.tx_nswhasapp_whatsapp.settings.whatsapp_number}
-      pre_filled_message = {$plugin.tx_nswhasapp_whatsapp.settings.pre_filled_message}
-      style_desktop = Style1
-      style_mobile = Style1
-      position = {$plugin.tx_nswhasapp_whatsapp.settings.position}
-      web_whatsapp = {$plugin.tx_nswhasapp_whatsapp.settings.web_whatsapp}
-      hide_pages = {$plugin.tx_nswhasapp_whatsapp.settings.hide_pages}
-      hide_mobile = {$plugin.tx_nswhasapp_whatsapp.settings.hide_mobile}
-      hide_desktop = {$plugin.tx_nswhasapp_whatsapp.settings.hide_desktop}
+    tx_nswhasapp_whatsapp {
+        settings {
+            is_enable = {$plugin.tx_nswhasapp_whatsapp.settings.is_enable}
+            whatsapp_number = {$plugin.tx_nswhasapp_whatsapp.settings.whatsapp_number}
+            pre_filled_message = {$plugin.tx_nswhasapp_whatsapp.settings.pre_filled_message}
+            call_to_action = {$plugin.tx_nswhasapp_whatsapp.settings.call_to_action}
+            style_desktop = {$plugin.tx_nswhasapp_whatsapp.settings.style_desktop}
+            style_mobile = {$plugin.tx_nswhasapp_whatsapp.settings.style_mobile}
+            position = {$plugin.tx_nswhasapp_whatsapp.settings.position}
+            web_whatsapp = {$plugin.tx_nswhasapp_whatsapp.settings.web_whatsapp}
+            show_all = {$plugin.tx_nswhasapp_whatsapp.settings.show_all}
+            show_pages = {$plugin.tx_nswhasapp_whatsapp.settings.show_pages}
+            hide_mobile = {$plugin.tx_nswhasapp_whatsapp.settings.hide_mobile}
+            hide_desktop = {$plugin.tx_nswhasapp_whatsapp.settings.hide_desktop}
+            share_is_enable = {$plugin.tx_nswhasapp_whatsapp.settings.share_is_enable}
+            share_text_message = {$plugin.tx_nswhasapp_whatsapp.settings.share_text_message}
+            share_call_to_action = {$plugin.tx_nswhasapp_whatsapp.settings.share_call_to_action}
+            share_style_desktop = {$plugin.tx_nswhasapp_whatsapp.settings.share_style_desktop}
+            share_style_mobile = {$plugin.tx_nswhasapp_whatsapp.settings.share_style_mobile}
+            share_position = {$plugin.tx_nswhasapp_whatsapp.settings.share_position}
+            share_web_whatsapp = {$plugin.tx_nswhasapp_whatsapp.settings.share_web_whatsapp}
+            share_show_all = {$plugin.tx_nswhasapp_whatsapp.settings.share_show_all}
+            share_show_pages = {$plugin.tx_nswhasapp_whatsapp.settings.share_show_pages}
+            share_hide_mobile = {$plugin.tx_nswhasapp_whatsapp.settings.share_hide_mobile}
+            share_hide_desktop = {$plugin.tx_nswhasapp_whatsapp.settings.share_hide_desktop}
+            group_id = {$plugin.tx_nswhasapp_whatsapp.settings.group_id}
+            group_is_enable = {$plugin.tx_nswhasapp_whatsapp.settings.group_is_enable}
+            group_text_message = {$plugin.tx_nswhasapp_whatsapp.settings.group_text_message}
+            group_call_to_action = {$plugin.tx_nswhasapp_whatsapp.settings.group_call_to_action}
+            group_style_desktop = {$plugin.tx_nswhasapp_whatsapp.settings.group_style_desktop}
+            group_style_mobile = {$plugin.tx_nswhasapp_whatsapp.settings.group_style_mobile}
+            group_position = {$plugin.tx_nswhasapp_whatsapp.settings.group_position}
+            group_web_whatsapp = {$plugin.tx_nswhasapp_whatsapp.settings.group_web_whatsapp}
+            group_show_all = {$plugin.tx_nswhasapp_whatsapp.settings.group_show_all}
+            group_show_pages = {$plugin.tx_nswhasapp_whatsapp.settings.group_show_pages}
+            group_hide_mobile = {$plugin.tx_nswhasapp_whatsapp.settings.group_hide_mobile}
+            group_hide_desktop = {$plugin.tx_nswhasapp_whatsapp.settings.group_hide_desktop}
 
-    }
-    view {
-      templateRootPaths.0 = EXT:ns_whasapp/Resources/Private/Templates/
-      templateRootPaths.1 = {$plugin.tx_nswhasapp_whatsapp.view.templateRootPath}
-      partialRootPaths.0 = EXT:ns_whasapp/Resources/Private/Partials/
-      partialRootPaths.1 = {$plugin.tx_nswhasapp_whatsapp.view.partialRootPath}
-      layoutRootPaths.0 = EXT:ns_whasapp/Resources/Private/Layouts/
-      layoutRootPaths.1 = {$plugin.tx_nswhasapp_whatsapp.view.layoutRootPath}
-    }
+        }
+        view {
+            templateRootPaths {
+                0 = EXT:ns_whasapp/Resources/Private/Templates/
+                1 = {$plugin.tx_nswhasapp_whatsapp.view.templateRootPath}
+            }
+            partialRootPaths {
+                0 = EXT:ns_whasapp/Resources/Private/Partials/
+                1 = {$plugin.tx_nswhasapp_whatsapp.view.partialRootPath}
+            }
+            layoutRootPaths {
+                0 = EXT:ns_whasapp/Resources/Private/Layouts/
+                1 = {$plugin.tx_nswhasapp_whatsapp.view.layoutRootPath}
+            }
+        }
 
-    features {
-      #skipDefaultArguments = 1
-      # if set to 1, the enable fields are ignored in BE context
-      ignoreAllEnableFieldsInBe = 0
-      # Should be on by default, but can be disabled if all action in the plugin are uncached
-      requireCHashArgumentForActionArguments = 1
+        features {
+            # if set to 1, the enable fields are ignored in BE context
+            ignoreAllEnableFieldsInBe = 0
+            # Should be on by default, but can be disabled if all action in the plugin are uncached
+            requireCHashArgumentForActionArguments = 1
+        }
     }
-    mvc {
-      #callDefaultActionIfActionCantBeResolved = 1
-    }
-  }
 }
 
 # Module configuration
 module.tx_nswhatsapp_nitsan_nswhatsappwhatsappmodule {
-  view {
-    templateRootPaths.0 = EXT:ns_whatsapp/Resources/Private/Backend/Templates/
-    templateRootPaths.1 = {$module.tx_nswhatsapp_whatsappmodule.view.templateRootPath}
-    partialRootPaths.0 = EXT:ns_whatsapp/Resources/Private/Backend/Partials/
-    partialRootPaths.1 = {$module.tx_nswhatsapp_whatsappmodule.view.partialRootPath}
-    layoutRootPaths.0 = EXT:ns_whatsapp/Resources/Private/Backend/Layouts/
-    layoutRootPaths.1 = {$module.tx_nswhatsapp_whatsappmodule.view.layoutRootPath}
-  }
+    view {
+        templateRootPaths {
+            0 = EXT:ns_whatsapp/Resources/Private/Backend/Templates/
+            1 = {$module.tx_nswhatsapp_whatsappmodule.view.templateRootPath}
+        }
+        partialRootPaths {
+            0 = EXT:ns_whatsapp/Resources/Private/Backend/Partials/
+            1 = {$module.tx_nswhatsapp_whatsappmodule.view.partialRootPath}
+        }
+        layoutRootPaths {
+            0 = EXT:ns_whatsapp/Resources/Private/Backend/Layouts/
+            1 = {$module.tx_nswhatsapp_whatsappmodule.view.layoutRootPath}
+        }
+    }
 }
+
 
 page {
-  // Initiate all the css-together
-  includeCSS {
-    30001 =  EXT:ns_whatsapp/Resources/Public/Css/nswhatsapp.css
-  }
+    // Initiate all the css-together
+    includeCSS {
+        30001 = EXT:ns_whatsapp/Resources/Public/Css/nswhatsapp.css
+    }
+
+    111246 >
+    111246 = USER
+    111246 {
+        userFunc = TYPO3\CMS\Extbase\Core\Bootstrap->run
+        pluginName = Whatsapp
+        extensionName = NsWhatsapp
+        controller = Whatsapp
+        vendorName = Nitsan
+        action = list
+        switchableControllerActions {
+            Whatsapp {
+                1 = list
+            }
+        }
+        settings < plugin.tx_nswhasapp_whatsapp.settings
+    }
 
 }
-page.111246 >
-page.111246 = USER
-page.111246 {
-  userFunc = TYPO3\CMS\Extbase\Core\Bootstrap->run
-  pluginName = Whatsapp
-  extensionName = NsWhatsapp
-  controller = Whatsapp
-  vendorName = Nitsan
-  action = list
-  switchableControllerActions{
-    Whatsapp {
-      1 = list
-    }
-  }
-  settings < plugin.tx_nswhasapp_whatsapp.settings
-}
+

@@ -7,6 +7,20 @@ services:
   Nitsan\NsWhatsapp\:
     resource: '../Classes/*'
 
+  Nitsan\NsWhatsapp\Setup:
+    tags:
+      - name: event.listener
+        identifier: 'ns-whatsapp'
+        method: 'executeOnSignal'
+        event: TYPO3\CMS\Core\Package\Event\AfterPackageActivationEvent  
+
+  Nitsan\NsWhatsapp\Event\BackendUserLogin:
+    tags:
+      - name: event.listener
+        identifier: 'ns-whatsapp-backend-login'
+        method: 'dispatch'
+        event: TYPO3\CMS\Core\Authentication\Event\AfterUserLoggedInEvent
+
   Nitsan\NsWhatsapp\Controller\NsConstantEditorController:
     public: true
     arguments:

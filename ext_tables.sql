@@ -5,6 +5,7 @@ CREATE TABLE tx_nswhatsapp_domain_model_whatsappstyle (
   uid int(11) NOT NULL auto_increment,
   pid int(11) DEFAULT '0' NOT NULL,
 
+  heading varchar(255) DEFAULT '' NOT NULL,
   text varchar(255) DEFAULT '' NOT NULL,
   textcolor varchar(255) DEFAULT '' NOT NULL,
   bgcolor varchar(255) DEFAULT '' NOT NULL,
@@ -12,11 +13,16 @@ CREATE TABLE tx_nswhatsapp_domain_model_whatsappstyle (
   border varchar(255) DEFAULT '' NOT NULL,
   size varchar(255) DEFAULT '' NOT NULL,
   font varchar(255) DEFAULT '' NOT NULL,
+  image int(11) unsigned NOT NULL default '0',
+  animation varchar(255) DEFAULT '' NOT NULL,
+  imageposition varchar(255) DEFAULT '' NOT NULL,
   style varchar(255) DEFAULT '' NOT NULL,
   bordercolor varchar(255) DEFAULT '' NOT NULL,
   htextcolor varchar(255) DEFAULT '' NOT NULL,
   hbgcolor varchar(255) DEFAULT '' NOT NULL,
   hboredrcolor varchar(255) DEFAULT '' NOT NULL,
+  imageurl varchar(255) DEFAULT '' NOT NULL,
+  upload varchar(255) DEFAULT '' NOT NULL,
 
   tstamp int(11) unsigned DEFAULT '0' NOT NULL,
   crdate int(11) unsigned DEFAULT '0' NOT NULL,
@@ -44,4 +50,6 @@ CREATE TABLE tx_nswhatsapp_domain_model_whatsappstyle (
   KEY language (l10n_parent,sys_language_uid)
 
 );
+
+
 

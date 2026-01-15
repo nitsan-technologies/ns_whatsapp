@@ -29,7 +29,7 @@
                 <source>Sorry!</source>
             </trans-unit>
             <trans-unit id="noconstantline1">
-                <source>No Extension Template available for this Page.</source>
+                <source>No Extension TypoScript available for this Page.</source>
             </trans-unit>
             <trans-unit id="noconstantline2">
                 <source>Please go the TypoScript Module and create new extension TypoScript for this page.</source>
@@ -41,7 +41,7 @@
                 <source>Template</source>
             </trans-unit>
             <trans-unit id="save_changes">
-                <source>Save</source>
+                <source>Save Changes</source>
             </trans-unit>
             <trans-unit id="opps">
                 <source>Oops!</source>
@@ -50,7 +50,7 @@
                 <source>Sorry!</source>
             </trans-unit>
             <trans-unit id="noconstantline1">
-                <source>No Extension Template available for this Page.</source>
+                <source>No Extension TypoScript available for this Page.</source>
             </trans-unit>
             <trans-unit id="noconstantline2">
                 <source>Please go the TypoScript Module and create new extension TypoScript for this page.</source>
@@ -76,11 +76,35 @@
             <trans-unit id="cat_chat">
                 <source>Chat </source>
             </trans-unit>
+            <trans-unit id="cat_share">
+                <source>Share </source>
+            </trans-unit>
+            <trans-unit id="cat_group">
+                <source>Group </source>
+            </trans-unit>
             <trans-unit id="cat_style">
                 <source>Style Settings</source>
             </trans-unit>
 			<trans-unit id="style1">
 				<source>Style 1</source>
+			</trans-unit>
+			<trans-unit id="style2">
+				<source>Style 2</source>
+			</trans-unit>
+			<trans-unit id="style3">
+				<source>Style 3</source>
+			</trans-unit>
+			<trans-unit id="style4">
+				<source>Style 4</source>
+			</trans-unit>
+			<trans-unit id="style5">
+				<source>Style 5</source>
+			</trans-unit>
+			<trans-unit id="style6">
+				<source>Style 6</source>
+			</trans-unit>
+			<trans-unit id="style7">
+				<source>Style 7</source>
 			</trans-unit>
 			<trans-unit id="buttontext">
 				<source>Button Text</source>
@@ -121,6 +145,28 @@
 			<trans-unit id="textsize">
 				<source>Text Size</source>
 			</trans-unit>
+			<trans-unit id="imageposition">
+				<source>Image Position</source>
+			</trans-unit>
+			<trans-unit id="left">
+				<source>Left</source>
+			</trans-unit>
+			<trans-unit id="right">
+				<source>Right</source>
+			</trans-unit>
+			<trans-unit id="imageurl">
+				<source>Image URL</source>
+			</trans-unit>
+			<trans-unit id="fromurl">
+				<source>From URL</source>
+			</trans-unit>
+			<trans-unit id="upload">
+				<source>Upload</source>
+			</trans-unit>
+			<trans-unit id="error.url.valid">
+				<source>Image url is not valid</source>
+			</trans-unit>
+
 		</body>
 	</file>
 </xliff>

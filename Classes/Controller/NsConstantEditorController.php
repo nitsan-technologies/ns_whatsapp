@@ -2,6 +2,7 @@
 
 namespace Nitsan\NsWhatsapp\Controller;
 
+use TYPO3\CMS\Core\Imaging\Icon;
 use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Core\Utility\MathUtility;
 use TYPO3\CMS\Core\Http\RedirectResponse;
@@ -22,7 +23,6 @@ use TYPO3\CMS\Core\TypoScript\AST\Visitor\AstConstantCommentVisitor;
 use TYPO3\CMS\Tstemplate\Controller\AbstractTemplateModuleController;
 use TYPO3\CMS\Core\TypoScript\IncludeTree\Traverser\IncludeTreeTraverser;
 use TYPO3\CMS\Core\TypoScript\IncludeTree\Visitor\IncludeTreeCommentAwareAstBuilderVisitor;
-
 
 class NsConstantEditorController extends AbstractTemplateModuleController
 {
@@ -124,10 +124,10 @@ class NsConstantEditorController extends AbstractTemplateModuleController
         $constantAst = $constantAstBuilderVisitor->getAst();
         $astConstantCommentVisitor = GeneralUtility::makeInstance(AstConstantCommentVisitor::class);
         $currentTemplateFlatConstants = $this->astBuilder->build(
-            $this->losslessTokenizer->tokenize($currentTemplateConstants),
-            new RootNode()
+        $this->losslessTokenizer->tokenize($currentTemplateConstants),
+        new RootNode()
         )
-            ->flatten();
+        ->flatten();
         $astConstantCommentVisitor->setCurrentTemplateFlatConstants($currentTemplateFlatConstants);
         $this->astTraverser->traverse($constantAst, [$astConstantCommentVisitor]);
 
@@ -147,8 +147,8 @@ class NsConstantEditorController extends AbstractTemplateModuleController
         if (array_key_exists($selectedCategoryFromModuleData, $relevantCategories)) {
             $selectedCategory = $selectedCategoryFromModuleData;
         }
-        if (($parsedBody['selectedCategory'] ?? '') &&
-            array_key_exists($parsedBody['selectedCategory'], $relevantCategories)) {
+        if (($parsedBody['selectedCategory'] ?? '') && 
+        array_key_exists($parsedBody['selectedCategory'], $relevantCategories)) {
             $selectedCategory = (string)$parsedBody['selectedCategory'];
         }
         if ($selectedCategory && $selectedCategory !== $selectedCategoryFromModuleData) {
@@ -160,8 +160,8 @@ class NsConstantEditorController extends AbstractTemplateModuleController
         foreach ($constants as $constant) {
             if ($constant['cat'] === $selectedCategory) {
                 $displayConstants[$constant['subcat_sorting_first']]['label'] = $constant['subcat_label'];
-                $displayConstants[$constant['subcat_sorting_first']]['items'][$constant['subcat_sorting_second']]
-                    = $constant;
+                $displayConstants[$constant['subcat_sorting_first']]['items'][$constant['subcat_sorting_second']] 
+                = $constant;
             }
         }
         ksort($displayConstants);
@@ -196,7 +196,7 @@ class NsConstantEditorController extends AbstractTemplateModuleController
 
         $pageUid = (int)($queryParams['id'] ?? 0);
         if ($pageUid === 0) {
-            throw new \UnexpectedValueException('No proper page uid given', 1661333862);
+            throw new \RuntimeException('No proper page uid given', 1661333862);
         }
 
         $allTemplatesOnPage = $this->getAllTemplateRecordsOnPage($pageUid);
@@ -213,7 +213,7 @@ class NsConstantEditorController extends AbstractTemplateModuleController
             $selectedTemplateUid = (int)($templateRow['uid'] ?? 0);
         }
         if ($selectedTemplateUid < 1) {
-            throw new \UnexpectedValueException('No template found on page', 1661350211);
+            throw new \RuntimeException('No template found on page', 1661350211);
         }
         if(!defined('LF')) {
             define('LF', chr(10));
@@ -232,9 +232,9 @@ class NsConstantEditorController extends AbstractTemplateModuleController
         $constants = $astConstantCommentVisitor->getConstants();
         $updatedTemplateConstantsArray = $this->updateTemplateConstants(
             $request,
-            $constants,
-            $templateRow['constants'] ?? ''
-        );
+$constants,
+ $templateRow['constants'] ?? ''
+);
         if ($updatedTemplateConstantsArray) {
             $templateUid = empty($templateRow['_ORIG_uid']) ? $templateRow['uid'] : $templateRow['_ORIG_uid'];
             $recordData = [];
@@ -246,7 +246,7 @@ class NsConstantEditorController extends AbstractTemplateModuleController
 
         return new RedirectResponse($this->uriBuilder->buildUriFromRoute(
             'nitsan_nswhatsappnitsan_configuration',
-            ['id' => $pageUid]
+             ['id' => $pageUid]
         ));
     }
 
@@ -257,7 +257,7 @@ class NsConstantEditorController extends AbstractTemplateModuleController
         $currentModuleIdentifier = $currentModule->getIdentifier();
         $pageUid = (int)($request->getQueryParams()['id'] ?? 0);
         if ($pageUid === 0) {
-            throw new \UnexpectedValueException('No proper page uid given', 1661365944);
+            throw new \RuntimeException('No proper page uid given', 1661365944);
         }
         $pageRecord = BackendUtility::readPageAccess($pageUid, '1=1') ?: [];
         if (empty($pageRecord)) {
@@ -270,7 +270,6 @@ class NsConstantEditorController extends AbstractTemplateModuleController
         $view = $this->moduleTemplateFactory->create($request);
         $view->setTitle($languageService->sL($currentModule->getTitle()), $pageRecord['title']);
         $view->getDocHeaderComponent()->setMetaInformation($pageRecord);
-        // $this->addPreviewButtonToDocHeader($view, $pageRecord);
         $view->makeDocHeaderModuleMenu(['id' => $pageUid]);
         $view->assignMultiple([
             'pageUid' => $pageUid,
@@ -281,10 +280,10 @@ class NsConstantEditorController extends AbstractTemplateModuleController
     }
 
     private function updateTemplateConstants(
-        ServerRequestInterface $request,
-        array $constantDefinitions,
+        ServerRequestInterface $request, 
+        array $constantDefinitions, 
         string $rawTemplateConstants
-    ): ?array {
+        ): ?array {
         if(!defined('LF')) {
             define('LF', chr(10));
         }
@@ -307,9 +306,9 @@ class NsConstantEditorController extends AbstractTemplateModuleController
                     // Remove value if the checkbox is not set, indicating "value to be dropped from template"
                     $rawTemplateConstantsArray = $this->removeValueFromConstantsArray(
                         $rawTemplateConstantsArray,
-                        $constantPositions,
-                        $key
-                    );
+                         $constantPositions,
+                          $key
+                        );
                     $valuesHaveChanged = true;
                     continue;
                 }
@@ -342,13 +341,9 @@ class NsConstantEditorController extends AbstractTemplateModuleController
                                 $col[] = (int)hexdec($value[4]);
                                 $col[] = (int)hexdec($value[5]);
                             }
-                            $value = substr('0' . dechex($col[0]), -1) .
-                                substr('0' . dechex($col[1]), -1) .
-                                substr('0' . dechex($col[2]), -1);
+                            $value = substr('0' . dechex($col[0]), -1) . substr('0' . dechex($col[1]), -1) . substr('0' . dechex($col[2]), -1);
                             if ($useFulHex) {
-                                $value .= substr('0' . dechex($col[3]), -1) .
-                                    substr('0' . dechex($col[4]), -1) .
-                                    substr('0' . dechex($col[5]), -1);
+                                $value .= substr('0' . dechex($col[3]), -1) . substr('0' . dechex($col[4]), -1) . substr('0' . dechex($col[5]), -1);
                             }
                             $value = '#' . strtoupper($value);
                         }
@@ -383,10 +378,10 @@ class NsConstantEditorController extends AbstractTemplateModuleController
                     // Put value in, if changed.
                     $rawTemplateConstantsArray = $this->addOrUpdateValueInConstantsArray(
                         $rawTemplateConstantsArray,
-                        $constantPositions,
-                        $key,
-                        $value
-                    );
+                         $constantPositions,
+                          $key,
+                           $value
+                        );
                     $valuesHaveChanged = true;
                 }
             }
@@ -422,10 +417,10 @@ class NsConstantEditorController extends AbstractTemplateModuleController
                         $braceLevel++;
                         $this->calculateConstantPositions(
                             $rawTemplateConstantsArray,
-                            $constantPositions,
-                            $prefix . $key . '.',
-                            $braceLevel,
-                            $lineCounter
+                         $constantPositions,
+                          $prefix . $key . '.', 
+                          $braceLevel,
+                           $lineCounter
                         );
                     }
                 }
@@ -447,11 +442,11 @@ class NsConstantEditorController extends AbstractTemplateModuleController
      * or add key/value at the end if it does not exist yet.
      */
     private function addOrUpdateValueInConstantsArray(
-        array $templateConstantsArray,
-        array $constantPositions,
+        array $templateConstantsArray, 
+        array $constantPositions, 
         string $constantKey,
-        string $value
-    ): array {
+         string $value
+         ): array {
         $theValue = ' ' . trim($value);
         if (isset($constantPositions[$constantKey])) {
             $lineNum = $constantPositions[$constantKey];
@@ -471,9 +466,9 @@ class NsConstantEditorController extends AbstractTemplateModuleController
      */
     private function removeValueFromConstantsArray(
         array $templateConstantsArray,
-        array $constantPositions,
-        string $constantKey
-    ): array {
+         array $constantPositions,
+          string $constantKey
+          ): array {
         if (isset($constantPositions[$constantKey])) {
             $lineNum = $constantPositions[$constantKey];
             unset($templateConstantsArray[$lineNum]);
@@ -490,17 +485,17 @@ class NsConstantEditorController extends AbstractTemplateModuleController
             ->setValue('1')
             ->setForm('TypoScriptConstantEditorController')
             ->setTitle($languageService->sL('LLL:EXT:core/Resources/Private/Language/locallang_core.xlf:rm.saveDoc'))
-            ->setIcon($this->iconFactory->getIcon('actions-document-save', 'small'))
+            ->setIcon($this->iconFactory->getIcon('actions-document-save', Icon::SIZE_SMALL))
             ->setShowLabelText(true);
         $buttonBar->addButton($saveButton);
     }
 
     private function addShortcutButtonToDocHeader(
         ModuleTemplate $view,
-        string $moduleIdentifier,
-        array $pageInfo,
-        int $pageUid
-    ): void {
+         string $moduleIdentifier,
+          array $pageInfo,
+           int $pageUid
+           ): void {
         $languageService = $this->getLanguageService();
         $buttonBar = $view->getDocHeaderComponent()->getButtonBar();
         $shortcutTitle = sprintf(

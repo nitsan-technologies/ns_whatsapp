@@ -7,51 +7,127 @@
 # customsubcategory=style=LLL:EXT:ns_whatsapp/Resources/Private/Language/locallang.xlf:cat_style
 
 plugin.tx_nswhasapp_whatsapp {
-  view {
-    # cat=plugin.tx_nswhasapp_whatsapp/file; type=string; label=Path to template root (FE)
-    templateRootPath = EXT:ns_whasapp/Resources/Private/Templates/
-    # cat=plugin.tx_nswhasapp_whatsapp/file; type=string; label=Path to template partials (FE)
-    partialRootPath = EXT:ns_whasapp/Resources/Private/Partials/
-    # cat=plugin.tx_nswhasapp_whatsapp/file; type=string; label=Path to template layouts (FE)
-    layoutRootPath = EXT:ns_whasapp/Resources/Private/Layouts/
-  }
-  settings {
+    view {
+        # cat=plugin.tx_nswhasapp_whatsapp/file; type=string; label=Path to template root (FE)
+        templateRootPath = EXT:ns_whasapp/Resources/Private/Templates/
+        # cat=plugin.tx_nswhasapp_whatsapp/file; type=string; label=Path to template partials (FE)
+        partialRootPath = EXT:ns_whasapp/Resources/Private/Partials/
+        # cat=plugin.tx_nswhasapp_whatsapp/file; type=string; label=Path to template layouts (FE)
+        layoutRootPath = EXT:ns_whasapp/Resources/Private/Layouts/
+    }
+    settings {
 
-    #cat = ns_whatsapp_chat/chat/01; type=boolean; label=Is Enable
-    is_enable = 1
+        #cat = ns_whatsapp_chat/chat/01; type=boolean; label=Is Enable
+        is_enable = 1
 
-    #cat = ns_whatsapp_chat/chat/02; type=int+; label=Whatsapp Number:Enter Country code and Whatsapp Number
-    whatsapp_number = 
+        #cat = ns_whatsapp_chat/chat/02; type=string; label=Whatsapp Number:Enter Country code and Whatsapp Number
+        whatsapp_number =
 
-    #cat = ns_whatsapp_chat/chat/03; type=string; label=Pre-Filled Message
-    pre_filled_message =
+        #cat = ns_whatsapp_chat/chat/03; type=string; label=Pre-Filled Message
+        pre_filled_message =
 
-    # cat=ns_whatsapp_chat/chat/07; type=options[Top-left,Top-right,Bottom-left,Bottom-right]; label= Position
-    position = Top-left
+        #cat = ns_whatsapp_chat/chat/04; type=string; label=Call to Action: For style6 and style7
+        call_to_action = Whatsapp Us
 
-    #cat = ns_whatsapp_chat/chat/08; type=boolean; label=Web Whatsapp: Web Whatsapp on Desktop
-    web_whatsapp = 1
+        # cat=ns_whatsapp_chat/chat/05; type=options[Style 1=Style1 ,Style 2=Style2,Style 3=Style3,Style 4=Style4,Style 5=Style5,Style 6=Style6,Style 7=Style7]; label= Style for Desktop
+        style_desktop = Select
 
-    #cat = ns_whatsapp_chat/chat/09; type=string; label=Hide on selected pages: Add Pages IDs with comma separated
-    hide_pages =
+        # cat=ns_whatsapp_chat/chat/06; type=options[Style 1=Style1 ,Style 2=Style2,Style 3=Style3,Style 4=Style4,Style 5=Style5,Style 6=Style6,Style 7=Style7]; label= Style for Mobile
+        style_mobile = Select
 
-    #cat = ns_whatsapp_chat/chat/10; type=boolean; label=Hide on Mobile
-    hide_mobile = 0
+        # cat=ns_whatsapp_chat/chat/07; type=options[Top-left,Top-right,Bottom-left,Bottom-right]; label= Position: Please select position to display at particular location of your website
+        position = Top-left
 
-    #cat = ns_whatsapp_chat/chat/11; type=boolean; label=Hide on desktop
-    hide_desktop = 0
-  }
+        #cat = ns_whatsapp_chat/chat/08; type=boolean; label=Web Whatsapp
+        web_whatsapp = 1
+
+        #cat = ns_whatsapp_chat/chat/09; type=boolean; label=Show on All Pages
+        show_all =
+
+        #cat = ns_whatsapp_chat/chat/10; type=string; label=Show on selected pages: Add Pages IDs with comma separated (Only work if "Show in All Pages" field is Disabled)
+        show_pages =
+
+        #cat = ns_whatsapp_chat/chat/11; type=boolean; label=Hide on Mobile
+        hide_mobile = 0
+
+        #cat = ns_whatsapp_chat/chat/12; type=boolean; label=Hide on desktop
+        hide_desktop = 0
+
+        #cat = ns_whatsapp_share/share/01; type=boolean; label=Is Enable
+        share_is_enable = 1
+
+        #cat = ns_whatsapp_share/share/02; type=string; label=Share Text Message: Checkout this Awesome Page url
+        share_text_message =
+
+        #cat = ns_whatsapp_share/share/03; type=string; label=Call to Action: For style6 and style7
+        share_call_to_action = Whatsapp Us
+
+        # cat=ns_whatsapp_share/share/04; type=options[Style 1=Style1 ,Style 2=Style2,Style 3=Style3,Style 4=Style4,Style 5=Style5,Style 6=Style6,Style 7=Style7]; label= Style for Desktop
+        share_style_desktop = Select
+
+        # cat=ns_whatsapp_share/share/05; type=options[Style 1=Style1 ,Style 2=Style2,Style 3=Style3,Style 4=Style4,Style 5=Style5,Style 6=Style6,Style 7=Style7]; label= Style for Mobile
+        share_style_mobile = Select
+
+        # cat=ns_whatsapp_share/share/06; type=options[Top-left,Top-right,Bottom-left,Bottom-right]; label= Position: Please select position to display at particular location of your website
+        share_position = Top-right
+
+        #cat = ns_whatsapp_share/share/07; type=boolean; label=Web Whatsapp: Web Whatsapp on Desktop
+        share_web_whatsapp = 1
+
+        #cat = ns_whatsapp_share/share/08; type=boolean; label=Show on All Pages:
+        share_show_all =
+
+        #cat = ns_whatsapp_share/share/09; type=string; label=Show on selected pages: Add Pages IDs with comma separated (Only work if "Show in All Pages" field is Disabled)
+        share_show_pages =
+
+        #cat = ns_whatsapp_share/share/10; type=boolean; label=Hide on Mobile
+        share_hide_mobile = 0
+
+        #cat = ns_whatsapp_share/share/11; type=boolean; label=Hide on desktop
+        share_hide_desktop = 0
+
+        #cat = ns_whatsapp_group/group/02; type=string; label=Whatsapp Group ID
+        group_id =
+
+        #cat = ns_whatsapp_group/group/01; type=boolean; label=Is Enable
+        group_is_enable = 1
+
+        #cat = ns_whatsapp_group/group/03; type=string; label=Call to Action: For style6 and style7
+        group_call_to_action = Whatsapp Us
+
+        # cat=ns_whatsapp_group/group/04; type=options[Style 1=Style1 ,Style 2=Style2,Style 3=Style3,Style 4=Style4,Style 5=Style5,Style 6=Style6,Style 7=Style7]; label= Style for Desktop
+        group_style_desktop = Select
+
+        # cat=ns_whatsapp_group/group/05; type=options[Style 1=Style1 ,Style 2=Style2,Style 3=Style3,Style 4=Style4,Style 5=Style5,Style 6=Style6,Style 7=Style7]; label= Style for Mobile
+        group_style_mobile = Select
+
+        # cat=ns_whatsapp_group/group/06; type=options[Top-left,Top-right,Bottom-left,Bottom-right]; label= Position: Please select position to display at particular location of your website
+        group_position = Bottom-left
+
+        #cat = ns_whatsapp_group/group/07; type=boolean; label=Show on All Pages:
+        group_show_all =
+
+        #cat = ns_whatsapp_group/group/08; type=string; label=Show on selected pages: Add Pages IDs with comma separated (Only work if "Show in All Pages" field is Disabled)
+        group_show_pages =
+
+        #cat = ns_whatsapp_group/group/09; type=boolean; label=Hide on Mobile
+        group_hide_mobile = 0
+
+        #cat = ns_whatsapp_group/group/10; type=boolean; label=Hide on desktop
+        group_hide_desktop = 0
+
+    }
 
 }
 
 module.tx_nswhatsapp_nitsan_nswhatsappwhatsappmodule {
-  view {
-    # cat=module.tx_nswhasapp_whastappmodule/file; type=string; label=Path to template root (BE)
-    templateRootPath = EXT:ns_whatsapp/Resources/Private/Backend/Templates/
-    # cat=module.tx_nswhasapp_whastappmodule/file; type=string; label=Path to template partials (BE)
-    partialRootPath = EXT:ns_whatsapp/Resources/Private/Backend/Partials/
-    # cat=module.tx_nswhasapp_whastappmodule/file; type=string; label=Path to template layouts (BE)
-    layoutRootPath = EXT:ns_whatsapp/Resources/Private/Backend/Layouts/
-  }
+    view {
+        # cat=module.tx_nswhasapp_whastappmodule/file; type=string; label=Path to template root (BE)
+        templateRootPath = EXT:ns_whasapp/Resources/Private/Backend/Templates/
+        # cat=module.tx_nswhasapp_whastappmodule/file; type=string; label=Path to template partials (BE)
+        partialRootPath = EXT:ns_whasapp/Resources/Private/Backend/Partials/
+        # cat=module.tx_nswhasapp_whastappmodule/file; type=string; label=Path to template layouts (BE)
+        layoutRootPath = EXT:ns_whasapp/Resources/Private/Backend/Layouts/
+    }
 
 }

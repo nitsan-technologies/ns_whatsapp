@@ -1,4 +1,5 @@
 <?php
+
 return [
     'ctrl' => [
         'title' => 'LLL:EXT:ns_whatsapp/Resources/Private/Language/locallang_db.xlf:tx_nswhatsapp_domain_model_whatsappstyle',
@@ -8,7 +9,6 @@ return [
         'hideTable' => true,
         'versioningWS' => true,
         'languageField' => 'sys_language_uid',
-        'transOrigPointerField' => 'l10n_parent',
         'transOrigDiffSourceField' => 'l10n_diffsource',
         'delete' => 'deleted',
         'enablecolumns' => [
@@ -16,7 +16,7 @@ return [
             'starttime' => 'starttime',
             'endtime' => 'endtime',
         ],
-        'searchFields' => 'heading,text,textcolor,bgcolor,height,border,size,fon,imageposition,style,bordercolor,htextcolor,hbgcolor,hboredrcolor',
+        'searchFields' => 'heading,text,textcolor,bgcolor,height,border,size,font,animation,imageposition,style,bordercolor,htextcolor,hbgcolor,hboredrcolor,imageurl,upload',
         'iconfile' => 'EXT:ns_whatsapp/Resources/Public/Icons/tx_nswhatsapp_domain_model_whatsappstyle.gif',
         'security' => [
             'ignorePageTypeRestriction' => true,
@@ -25,7 +25,7 @@ return [
     'interface' => [
     ],
     'types' => [
-        '1' => ['showitem' => 'sys_language_uid, l10n_diffsource, hidden, heading, text, textcolor, bgcolor, height, border, size, font, image, imageposition, style, bordercolor, htextcolor, hbgcolor, hboredrcolor, --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, starttime, endtime'],
+        '1' => ['showitem' => 'sys_language_uid, l10n_diffsource, hidden, heading, text, textcolor, bgcolor, height, border, size, font, image, animation, imageposition, style, bordercolor, htextcolor, hbgcolor, hboredrcolor, imageurl, upload, --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, starttime, endtime'],
     ],
     'columns' => [
         'sys_language_uid' => [
@@ -106,6 +106,24 @@ return [
                 'eval' => 'trim'
             ],
         ],
+        'upload' => [
+            'exclude' => true,
+            'label' => 'LLL:EXT:ns_whatsapp/Resources/Private/Language/locallang_db.xlf:tx_nswhatsapp_domain_model_whatsappstyle.upload',
+            'config' => [
+                'type' => 'input',
+                'size' => 30,
+                'eval' => 'trim'
+            ],
+        ],
+        'deleteImage' => [
+            'exclude' => true,
+            'label' => 'LLL:EXT:ns_whatsapp/Resources/Private/Language/locallang_db.xlf:tx_nswhatsapp_domain_model_whatsappstyle.height',
+            'config' => [
+                'type' => 'input',
+                'size' => 30,
+                'eval' => 'trim'
+            ],
+        ],
         'text' => [
             'exclude' => true,
             'label' => 'LLL:EXT:ns_whatsapp/Resources/Private/Language/locallang_db.xlf:tx_nswhatsapp_domain_model_whatsappstyle.text',
@@ -169,6 +187,24 @@ return [
                 'eval' => 'trim'
             ],
         ],
+        'image' => [
+            'exclude' => true,
+            'label' => 'Image for marker',
+            'config' => [
+                'type' => 'file',
+                'maxitems' => 1,
+                'allowed' => 'jpg,jpeg,png,svg',
+            ],
+        ],
+        'animation' => [
+            'exclude' => true,
+            'label' => 'LLL:EXT:ns_whatsapp/Resources/Private/Language/locallang_db.xlf:tx_nswhatsapp_domain_model_whatsappstyle.animation',
+            'config' => [
+                'type' => 'input',
+                'size' => 30,
+                'eval' => 'trim'
+            ],
+        ],
         'imageposition' => [
             'exclude' => true,
             'label' => 'LLL:EXT:ns_whatsapp/Resources/Private/Language/locallang_db.xlf:tx_nswhatsapp_domain_model_whatsappstyle.imageposition',
@@ -217,6 +253,15 @@ return [
         'hboredrcolor' => [
             'exclude' => true,
             'label' => 'LLL:EXT:ns_whatsapp/Resources/Private/Language/locallang_db.xlf:tx_nswhatsapp_domain_model_whatsappstyle.hboredrcolor',
+            'config' => [
+                'type' => 'input',
+                'size' => 30,
+                'eval' => 'trim'
+            ],
+        ],
+        'imageurl' => [
+            'exclude' => true,
+            'label' => 'LLL:EXT:ns_whatsapp/Resources/Private/Language/locallang_db.xlf:tx_nswhatsapp_domain_model_whatsappstyle.imageurl',
             'config' => [
                 'type' => 'input',
                 'size' => 30,

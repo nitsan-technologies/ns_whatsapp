@@ -12,15 +12,14 @@
         <f:for each="{displayConstants}" as="mainCategory" key="mainCategoryKey">
             <div class="tstemplate-constanteditor">
                 <div class="card custom-card">
-                    <div class="card-header d-flex justify-content-between align-items-center">
-                        <h4 class="mb-0">
+                    <div class="card-header">
+                        <h5>
                             {mainCategory.label}
-                        </h4>
+                        </h5>
                         <button name="_savedok" class="btn btn-primary" value="1" title="Save" form="TypoScriptConstantEditorController">
                             <f:translate key="LLL:EXT:ns_whatsapp/Resources/Private/Language/locallang.xlf:save" />
                         </button>
                     </div>
-                    
                     <div class="card-body">
                         <f:for each="{mainCategory.items}" as="constantItem">
                             <div class="form-group">

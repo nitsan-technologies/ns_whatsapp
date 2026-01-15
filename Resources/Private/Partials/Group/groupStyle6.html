@@ -1,0 +1,17 @@
+<div class="ns-whatsapp-variant ns-whatsapp-variant--six">
+    <f:link.external  class="ns-whatsapp-img-link"  uri="{urlConnection}chat.whatsapp.com/{settings.group_id}" target="_blank">
+        <f:if condition="{whatsapp.image}">
+            <f:then>
+                <f:for each="{whatsapp.image}" as="img">
+                    <f:image image="{img}" alt="ns whatsapp" />
+                </f:for>
+            </f:then>
+            <f:else>
+                <f:image src="EXT:ns_whatsapp/Resources/Public/Icons/icon-whatsapp.svg" />
+            </f:else>
+        </f:if>
+        <f:if condition="{settings.group_call_to_action}">
+            <div class="ns-whatsapp-text">{settings.group_call_to_action}</div>
+        </f:if>
+    </f:link.external>
+</div>
