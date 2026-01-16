@@ -14,6 +14,7 @@ use Nitsan\NsWhatsapp\Domain\Repository\WhatsappstyleRepository;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Extbase\Persistence\Exception\UnknownObjectException;
 use TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException;
+use TYPO3\CMS\Core\Type\ContextualFeedbackSeverity;
 
 /***
  *
@@ -169,6 +170,14 @@ class WhatsappController extends ActionController
                 );
             }
         }
+
+        $this->addFlashMessage(
+            'Great choice! Your new WhatsApp style is now active.',
+            'Style Changed',
+            ContextualFeedbackSeverity::OK,
+            true
+        );
+
         return $this->redirect('styleSettings');
     }
 

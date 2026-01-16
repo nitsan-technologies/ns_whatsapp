@@ -71,7 +71,7 @@ class NsConstantEditorController extends AbstractTemplateModuleController
     {
         $queryParams = $request->getQueryParams();
         $parsedBody = $request->getParsedBody();
-
+        
         $languageService = $this->getLanguageService();
         $backendUser = $this->getBackendUser();
 

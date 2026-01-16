@@ -2,6 +2,8 @@
 <f:layout name="Backend/Default" />
 <f:section name="content">
 
+<f:flashMessages />
+
 <f:if condition="{whatsappstyle} == ''">
    <f:then>
        <div class="alert alert-danger" role="alert">
@@ -216,7 +218,7 @@
                                                             <label><f:translate key="image" extensionName="ns_whatsapp"/></label>
                                                         </div>
                                                         <div class="col-sm-5 ">
-                                                            <f:form.upload name="image" />
+                                                            <f:form.upload name="image" accept=".jpg,.jpeg,.png,.svg" />
                                                         </div>
                                                     </div>
                                                 </div>
@@ -244,6 +246,23 @@
                                                         </div>
                                                         <div class="col-sm-1">
                                                             <f:form.textfield property="hbgcolor" type="color" class="form-control" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="row pb-3">
+                                                        <div class="col-sm-3 ">
+                                                            <label>Image name</label>
+                                                        </div>
+                                                        <div class="col-sm-5 ">
+                                                            <f:if condition="{whatsappstyle.image}">
+                                                                <f:then>
+                                                                    <f:for each="{whatsappstyle.image}" as="img">
+                                                                        {img.originalResource.originalFile.name}
+                                                                    </f:for>
+                                                                </f:then>
+                                                                <f:else>
+                                                                    Please select Image
+                                                                </f:else>
+                                                            </f:if>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -321,7 +340,7 @@
                                                             <label><f:translate key="image" extensionName="ns_whatsapp"/></label>
                                                         </div>
                                                         <div class="col-sm-5 ">
-                                                            <f:form.upload name="image" />
+                                                            <f:form.upload name="image" accept=".jpg,.jpeg,.png,.svg" />
                                                         </div>
                                                     </div>
                                                 </div>
@@ -340,6 +359,23 @@
                                                         </div>
                                                         <div class="col-sm-1">
                                                             <f:form.textfield property="htextcolor" type="color" class="form-control"  />
+                                                        </div>
+                                                    </div>
+                                                    <div class="row pb-3">
+                                                        <div class="col-sm-3 ">
+                                                            <label>Image name</label>
+                                                        </div>
+                                                        <div class="col-sm-5 ">
+                                                            <f:if condition="{whatsappstyle.image}">
+                                                                <f:then>
+                                                                    <f:for each="{whatsappstyle.image}" as="img">
+                                                                        {img.originalResource.originalFile.name}
+                                                                    </f:for>
+                                                                </f:then>
+                                                                <f:else>
+                                                                    Please select Image
+                                                                </f:else>
+                                                            </f:if>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -502,7 +538,7 @@
                                                             <label><f:translate key="image" extensionName="ns_whatsapp"/></label>
                                                         </div>
                                                         <div class="col-sm-2">
-                                                            <f:form.upload name="image" />
+                                                            <f:form.upload name="image" accept=".jpg,.jpeg,.png,.svg" />
                                                         </div>
                                                     </div>
                                                     <div class="row pb-3">
@@ -546,6 +582,23 @@
                                                         </div>
                                                         <div class="col-sm-1">
                                                             <f:form.textfield property="htextcolor" type="color" class="form-control" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="row pb-3">
+                                                        <div class="col-sm-3 ">
+                                                            <label>Image name</label>
+                                                        </div>
+                                                        <div class="col-sm-5 ">
+                                                            <f:if condition="{whatsappstyle.image}">
+                                                                <f:then>
+                                                                    <f:for each="{whatsappstyle.image}" as="img">
+                                                                        {img.originalResource.originalFile.name}
+                                                                    </f:for>
+                                                                </f:then>
+                                                                <f:else>
+                                                                    Please select Image
+                                                                </f:else>
+                                                            </f:if>
                                                         </div>
                                                     </div>
                                                     <div class="row pb-3">
@@ -613,32 +666,57 @@
                                         <f:form action="update" controller="Whatsapp" enctype="multipart/form-data" name="whatsappstyle"  object="{whatsappstyle}" class="ns-ext-form ns-ext-form--style-6">
                                             <f:form.hidden property="style" value="6" />
                                             <f:form.hidden property="deleteImg" id="deleteImage" value="0" />
-
-                                            <div class="row pb-3">
-                                                <div class="col-sm-3">
-                                                    <label><f:translate key="image" extensionName="ns_whatsapp"/></label>
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <div class="row pb-3 pb-3">
+                                                        <div class="col-sm-3">
+                                                            <label><f:translate key="image" extensionName="ns_whatsapp"/></label>
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <div class="form-inline custom-form-inline addValidrequired" data-id="0">
+                                                                <f:form.upload name="image" class="form-control image-upload" id="image-upload" accept=".jpg,.jpeg,.png,.svg" />
+                                                            </div>
+                                                            <p class="alert alert-danger d-none mt-2 urlvalid"><f:translate key="error.url.valid" /></p>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                                 <div class="col-sm-6">
-                                                    <f:form.upload name="image" id="file" />
-
+                                                    <div class="row pb-3">
+                                                        <div class="col-sm-4">
+                                                            <label class="text-nowrap">Image name</label>
+                                                        </div>
+                                                        <div class="col-sm-8">
+                                                            <f:if condition="{whatsappstyle.image}">
+                                                                <f:then>
+                                                                    <f:for each="{whatsappstyle.image}" as="img">
+                                                                        {img.originalResource.originalFile.name}
+                                                                    </f:for>
+                                                                </f:then>
+                                                                <f:else>
+                                                                    Please select Image
+                                                                </f:else>
+                                                            </f:if>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                                
-
                                             </div>
-                                            <div class="row">
+                                            <div class="row pt-3">
                                                 <div class="col-sm-2">
-                                                    <f:form.submit id="submit6" value="{f:translate(key: 'save', extensionName: 'ns_whatsapp')}" class="form-control btn btn-success" />
+                                                    <f:form.submit id="submit6"
+                                                                value="{f:translate(key: 'save', extensionName: 'ns_whatsapp')}"
+                                                                class="form-control btn btn-success" />
                                                 </div>
-                                                <div class="col-sm-1">
-                                                    
-                                                </div>
+                                                <div class="col-sm-1"></div>
                                                 <div class="col-sm-3">
-                                                    <button id="resetStyle6" class="form-control btn btn-success">Reset</button>
+                                                    <button id="resetStyle6"
+                                                            type="button"
+                                                            class="form-control btn btn-success">
+                                                        Reset
+                                                    </button>
                                                 </div>
                                             </div>
                                         </f:form>
                                     </div>
-
                                 </div>
                             </div>
                         </div>
@@ -692,11 +770,23 @@
                                             <f:form.hidden property="style" value="7" />
                                             <div class="row">
                                                 <div class="col-sm-6">
-                                                   <div class="row pb-3 custom-form-inline">
+                                                    <div class="row pb-3 pb-3">
+                                                        <div class="col-sm-3">
+                                                            <label><f:translate key="image" extensionName="ns_whatsapp"/></label>
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <div class="form-inline custom-form-inline addValidrequired" data-id="0">
+                                                                <f:form.radio property="upload" value="1" class="upload" />
+                                                                <f:form.upload name="image" class="form-control image-upload" id="image-upload" accept=".jpg,.jpeg,.png,.svg" />
+                                                            </div>
+                                                            <p class="alert alert-danger d-none mt-2 urlvalid"><f:translate key="error.url.valid" /></p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row pb-3 pb-3">
                                                         <div class="col-sm-3">
                                                             <label><f:translate key="imageurl" extensionName="ns_whatsapp"/></label>
                                                         </div>
-                                                        <div class="col-sm-8">
+                                                        <div class="col-sm-6">
                                                             <div class="form-inline custom-form-inline addValidrequired" data-id="0">
                                                                 <f:form.radio property="upload" value="0" class="url" id="imageurlradio"/>
                                                                 <f:form.textfield property="imageurl"  class="form-control add-url" id="imageurl"/>
@@ -707,14 +797,20 @@
                                                 </div>
                                                 <div class="col-sm-6">
                                                     <div class="row pb-3">
-                                                        <div class="col-sm-3">
-                                                            <label><f:translate key="image" extensionName="ns_whatsapp"/></label>
+                                                        <div class="col-sm-4">
+                                                            <label class="text-nowrap">Image name</label>
                                                         </div>
-                                                        <div class="col-sm-9">
-                                                            <div class="form-inline custom-form-inline addValidrequired" data-id="1">
-                                                                <f:form.radio property="upload" value="1" class="upload" />
-                                                                <f:form.upload name="image" class="form-control image-upload" id="image-upload"/>
-                                                            </div>
+                                                        <div class="col-sm-8">
+                                                            <f:if condition="{whatsappstyle.image}">
+                                                                <f:then>
+                                                                    <f:for each="{whatsappstyle.image}" as="img">
+                                                                        {img.originalResource.originalFile.name}
+                                                                    </f:for>
+                                                                </f:then>
+                                                                <f:else>
+                                                                    Please select Image
+                                                                </f:else>
+                                                            </f:if>
                                                         </div>
                                                     </div>
                                                 </div>

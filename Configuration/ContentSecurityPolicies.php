@@ -22,15 +22,9 @@ return Map::fromEntries([
         ),
         new Mutation(
             MutationMode::Extend,
-            Directive::DefaultSrc,
-            SourceScheme::data,
-            new UriValue('https://www.googleapis.com')
-        ),
-        new Mutation(
-            MutationMode::Extend,
             Directive::ImgSrc,
             SourceScheme::data,
-            new UriValue('https://demo.t3planet.com/')
+            new UriValue('*')
         ),
     )
 ]);
