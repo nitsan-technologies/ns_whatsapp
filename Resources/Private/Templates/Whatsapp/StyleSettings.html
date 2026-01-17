@@ -3,7 +3,6 @@
 <f:section name="content">
 
 <f:flashMessages />
-
 <f:if condition="{whatsappstyle} == ''">
    <f:then>
        <div class="alert alert-danger" role="alert">
@@ -626,7 +625,6 @@
                                             </div>
                                         </f:form>
                                     </div>
-
                                 </div>
                             </div>
                         </div>
@@ -662,30 +660,27 @@
                                             </a>
                                         </div>
                                     </div>
-                                    <div class="col-sm-6 collapse" id="collapseExample6">
+                                    <div class="col-sm-12 collapse" id="collapseExample6">
                                         <f:form action="update" controller="Whatsapp" enctype="multipart/form-data" name="whatsappstyle"  object="{whatsappstyle}" class="ns-ext-form ns-ext-form--style-6">
                                             <f:form.hidden property="style" value="6" />
                                             <f:form.hidden property="deleteImg" id="deleteImage" value="0" />
                                             <div class="row">
                                                 <div class="col-sm-6">
-                                                    <div class="row pb-3 pb-3">
+                                                    <div class="row pb-3">
                                                         <div class="col-sm-3">
                                                             <label><f:translate key="image" extensionName="ns_whatsapp"/></label>
                                                         </div>
                                                         <div class="col-sm-6">
-                                                            <div class="form-inline custom-form-inline addValidrequired" data-id="0">
-                                                                <f:form.upload name="image" class="form-control image-upload" id="image-upload" accept=".jpg,.jpeg,.png,.svg" />
-                                                            </div>
-                                                            <p class="alert alert-danger d-none mt-2 urlvalid"><f:translate key="error.url.valid" /></p>
+                                                            <f:form.upload name="image" id="file" class="form-control image-upload" accept=".jpg,.jpeg,.png,.svg" />
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-6">
                                                     <div class="row pb-3">
-                                                        <div class="col-sm-4">
+                                                        <div class="col-sm-3">
                                                             <label class="text-nowrap">Image name</label>
                                                         </div>
-                                                        <div class="col-sm-8">
+                                                        <div class="col-sm-3">
                                                             <f:if condition="{whatsappstyle.image}">
                                                                 <f:then>
                                                                     <f:for each="{whatsappstyle.image}" as="img">
@@ -706,8 +701,8 @@
                                                                 value="{f:translate(key: 'save', extensionName: 'ns_whatsapp')}"
                                                                 class="form-control btn btn-success" />
                                                 </div>
-                                                <div class="col-sm-1"></div>
-                                                <div class="col-sm-3">
+                                                <div class="col-sm-4"></div>
+                                                <div class="col-sm-2">
                                                     <button id="resetStyle6"
                                                             type="button"
                                                             class="form-control btn btn-success">
