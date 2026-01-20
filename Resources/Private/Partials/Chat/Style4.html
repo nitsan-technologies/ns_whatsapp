@@ -1,21 +1,20 @@
-<f:asset.css identifier="1716359682">
-.style1 {
-    background-color: {whatsapp.bgcolor} !important;
-    border: {whatsapp.bordercolor} {whatsapp.border}px solid !important;
+<f:asset.css identifier="17163596835">
+    .style4 {
+    font-size: {whatsapp.size}px !important;
     color: {whatsapp.textcolor} !important;
     }
-    .style1:hover {
-    background-color: {whatsapp.hbgcolor} !important;
-    border: {whatsapp.hboredrcolor} {whatsapp.border}px solid !important;
+    .style4:hover {
+    font-size: {whatsapp.size}px !important;
     color: {whatsapp.htextcolor} !important;
-	}
+    }
 </f:asset.css>
 <f:variable name="whatsappUrl">{urlConnection}{f:if(condition: '{settings.web_whatsapp}', then: 'web', else: 'api')}.whatsapp.com/send/?phone={settings.whatsapp_number}&text={settings.pre_filled_message}{f:if(condition: '{settings.web_whatsapp}',then: '',  else: '&app_absent=0')}</f:variable>
 <f:if condition="{settings.mobile}">
     <f:variable name="whatsappUrl">{urlConnection}{f:if(condition: '{settings.web_whatsapp}', then: 'web', else: 'api')}.whatsapp.com/send?phone={settings.whatsapp_number}&text={settings.pre_filled_message}{f:if(condition: '{settings.web_whatsapp}',then: '',  else: '&app_absent=0')}</f:variable>
 </f:if>
 
-<div class="ns-whatsapp-variant ns-whatsapp-variant--one ">
-    <f:link.external class="ns-whatsapp-btn style1"
-    uri="{whatsappUrl}" target="_blank">{whatsapp.text}</f:link.external>
+<div class="ns-whatsapp-variant ns-whatsapp-variant--four">
+    <f:link.external  class="ns-whatsapp-link style4"  uri="{whatsappUrl}" target="_blank">
+        {whatsapp.text}
+    </f:link.external>
 </div>

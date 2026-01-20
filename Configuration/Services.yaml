@@ -5,7 +5,7 @@ services:
     public: false
 
   Nitsan\NsWhatsapp\:
-    resource: '../Classes/*'
+    resource: '../Classes/*' 
 
   Nitsan\NsWhatsapp\Controller\NsConstantEditorController:
     public: true

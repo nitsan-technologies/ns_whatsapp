@@ -1,0 +1,37 @@
+<f:variable name="whatsappUrl">{urlConnection}{f:if(condition: '{settings.web_whatsapp}', then: 'web', else: 'api')}.whatsapp.com/send/?phone={settings.whatsapp_number}&text={settings.pre_filled_message}{f:if(condition: '{settings.web_whatsapp}',then: '',  else: '&app_absent=0')}</f:variable>
+<f:if condition="{settings.mobile}">
+    <f:variable name="whatsappUrl">{urlConnection}{f:if(condition: '{settings.web_whatsapp}', then: 'web', else: 'api')}.whatsapp.com/send?phone={settings.whatsapp_number}&text={settings.pre_filled_message}{f:if(condition: '{settings.web_whatsapp}',then: '',  else: '&app_absent=0')}</f:variable>
+</f:if>
+
+<div class="ns-whatsapp-variant ns-whatsapp-variant--seven">
+    <f:link.external  class="ns-whatsapp-img-link"  uri="{whatsappUrl}" target="_blank">
+        <f:if condition="{whatsapp.image} || {whatsapp.imageurl}">
+            <f:then>
+                <f:if condition="{whatsapp.upload} == 0">
+                    <img src="{whatsapp.imageurl}" height="50c" width="50c" />
+                    <f:if condition="{settings.call_to_action}">
+                        <div class="ns-whatsapp-text">{settings.call_to_action}</div>
+                    </f:if>
+                </f:if>
+                <f:if condition="{whatsapp.upload} == 1">
+                    <f:if condition="{whatsapp.image}">
+                        <f:then>
+                            <f:for each="{whatsapp.image}" as="img">
+                                <f:image image="{img}" alt="ns whatsapp" height="50c" width="50c" />
+                                <f:if condition="{settings.call_to_action}">
+                                    <div class="ns-whatsapp-text">{settings.call_to_action}</div>
+                                </f:if>
+                            </f:for>
+                        </f:then>
+                        <f:else>
+                            <img src="{whatsapp.imageurl}" height="50c" width="50c" />
+                        </f:else>
+                    </f:if>
+                </f:if>
+            </f:then>
+            <f:else>
+                <f:image src="EXT:ns_whatsapp/Resources/Public/Icons/icon-whatsapp.svg" />
+            </f:else>
+        </f:if>
+    </f:link.external>
+</div>

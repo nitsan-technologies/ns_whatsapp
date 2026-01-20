@@ -1,0 +1,30 @@
+<f:asset.css identifier="17163596834">
+    .style3 {
+    font-size: {whatsapp.size}px !important;
+    color: {whatsapp.textcolor} !important;
+    }
+    .style3:hover {
+    font-size: {whatsapp.size}px !important;
+    color: {whatsapp.htextcolor} !important;
+    }
+</f:asset.css>
+<f:variable name="whatsappUrl">{urlConnection}{f:if(condition: '{settings.web_whatsapp}', then: 'web', else: 'api')}.whatsapp.com/send/?phone={settings.whatsapp_number}&text={settings.pre_filled_message}{f:if(condition: '{settings.web_whatsapp}',then: '',  else: '&app_absent=0')}</f:variable>
+<f:if condition="{settings.mobile}">
+    <f:variable name="whatsappUrl">{urlConnection}{f:if(condition: '{settings.web_whatsapp}', then: 'web', else: 'api')}.whatsapp.com/send?phone={settings.whatsapp_number}&text={settings.pre_filled_message}{f:if(condition: '{settings.web_whatsapp}',then: '',  else: '&app_absent=0')}</f:variable>
+</f:if>
+
+<div class="ns-whatsapp-variant ns-whatsapp-variant--three">
+    <f:link.external   uri="{whatsappUrl}" target="_blank">
+        <f:if condition="{whatsapp.image}">
+            <f:then>
+                <f:for each="{whatsapp.image}" as="img">
+                        <f:image image="{img}" alt="ns whatsapp" />
+                </f:for>
+            </f:then>
+            <f:else>
+                <f:image src="EXT:ns_whatsapp/Resources/Public/Icons/icon-whatsapp.svg" />
+            </f:else>
+        </f:if>
+        <div class="ns-whatsapp-headline style3">{whatsapp.text}</div>
+    </f:link.external>
+</div>

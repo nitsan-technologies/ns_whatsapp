@@ -1,0 +1,36 @@
+<f:asset.css identifier="17163596839">
+    .style5 {
+    background-color: {whatsapp.bgcolor} !important;
+    border: {whatsapp.bordercolor} {whatsapp.border}px solid !important;
+    color: {whatsapp.textcolor} !important;
+    }
+    .style5:hover {
+    background-color: {whatsapp.hbgcolor} !important;
+    border: {whatsapp.hboredrcolor} {whatsapp.border}px solid !important;
+    color: {whatsapp.htextcolor} !important;
+    }
+    .style51 {
+    color: {whatsapp.textcolor} !important;
+    }
+    .style51:hover *{
+    color: {whatsapp.htextcolor} !important;
+    }
+</f:asset.css>
+<div class="ns-whatsapp-variant ns-whatsapp-variant--fifth">
+    <f:link.external  class="s-whatsapp-custom-img style51 {f:if(condition: '{whatsapp.imageposition} == right', then: 'ns-whatsapp-custom-img--right')}"  uri="{urlConnection}chat.whatsapp.com/{settings.group_id}" target="_blank">
+        <f:if condition="{whatsapp.image}">
+            <f:then>
+                <f:for each="{whatsapp.image}" as="img">
+                    <f:image image="{img}" alt="ns whatsapp" class="{whatsapp.imageposition}" />
+                </f:for>
+            </f:then>
+            <f:else>
+                <f:image src="EXT:ns_whatsapp/Resources/Public/Icons/placeholder.png" />
+            </f:else>
+        </f:if>
+        <div class="ns-whatsapp-text-wrap style5 style51">
+            <div class="ns-whatsapp-headline style51">{whatsapp.heading}</div>
+            <div class="ns-whatsapp-text style51">{whatsapp.text}</div>
+        </div>
+    </f:link.external>
+</div>

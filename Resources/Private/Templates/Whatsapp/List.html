@@ -1,27 +1,13 @@
 <f:layout name="Default" />
-
 <f:section name="main">
-    
     <main class="main">
         <div class="wrapper">
             <div class="container-wrap">
-
                 <f:for as="whatsapp" each="{whatsappstyle}">
                     <f:variable name="stylename" value="Style{whatsapp.style}" />
-
-                    <f:variable name="hidepages">{chat_hidepage}</f:variable>
-                    <f:variable name="flagdata" value="1" />
-                    <f:for as="hide" each="{hidepages}" iteration="i">
-                        <f:if condition="{currentpid} == {hide}">
-                            <f:then>
-                                <f:variable name="flagdata" value="0" />
-                            </f:then>
-                        </f:if>
-                    </f:for>
-                    <f:if condition="{flagdata} == '1'">
+                    <f:if condition="{chatFlag}">
                         <f:if condition="{settings.is_enable} && {settings.whatsapp_number}">
                             <f:then>
-
                                 <f:switch expression="{settings.position}">
                                     <f:case value="Top-left">
                                         <f:variable name="top-left">ns-whatsapp-wrap--left ns-whatsapp-wrap--top</f:variable>
@@ -33,15 +19,49 @@
                                         <f:variable name="top-right">ns-whatsapp-wrap--top</f:variable>
                                     </f:case>
                                 </f:switch>
-                                <f:if condition="{stylename}=={settings.style_desktop}">
+                                <f:variable name="style_desktop">{f:if(condition: '{settings.style_desktop} == Select', then: 'Style1', else: '{settings.style_desktop}')}</f:variable>
+                                <f:variable name="style_mobile">{f:if(condition: '{settings.style_mobile} == Select', then: 'Style1', else: '{settings.style_mobile}')}</f:variable>
+                                <f:if condition="{stylename}=={style_desktop}">
                                     <div class="ns-whatsapp-wrap {top-left} {bottom-left} {top-right} ns-whatsapp-hide-mobile  {f:if(condition: '{settings.hide_mobile}', then: 'ns-whatsapp-hide-mobile')} {f:if(condition: '{settings.hide_desktop}', then: 'ns-whatsapp-hide-desktop')}">
-                                        <f:render partial="Chat/{settings.style_desktop}" arguments="{whatsapp: whatsapp}" />
+                                        <f:render partial="Chat/{style_desktop}" arguments="{whatsapp: whatsapp}" />
                                     </div>
 
                                 </f:if>
-                                <f:if condition="{stylename}=={settings.style_mobile}">
+                                <f:if condition="{stylename}=={style_mobile}">
                                     <div class="ns-whatsapp-wrap {top-left} {bottom-left} {top-right} ns-whatsapp-hide-desktop  {f:if(condition: '{settings.hide_mobile}', then: 'ns-whatsapp-hide-mobile')} {f:if(condition: '{settings.hide_desktop}', then: 'ns-whatsapp-hide-desktop')}">
-                                        <f:render partial="Chat/{settings.style_mobile}" arguments="{whatsapp: whatsapp}" />
+                                        <f:render partial="Chat/{style_mobile}" arguments="{whatsapp: whatsapp}" />
+                                    </div>
+                                </f:if>
+                            </f:then>
+                        </f:if>
+                    </f:if>
+
+                    <f:if condition="{shareFlag}">
+                        <f:if condition="{settings.share_is_enable} && {settings.share_text_message}">
+                            <f:then>
+                                <f:switch expression="{settings.share_position}">
+                                    <f:case value="Top-left">
+                                        <f:variable name="stop-left">ns-whatsapp-wrap--left ns-whatsapp-wrap--top</f:variable>
+                                    </f:case>
+                                    <f:case value="Bottom-left">
+                                        <f:variable name="sbottom-left">ns-whatsapp-wrap--left</f:variable>
+                                    </f:case>
+                                    
+                                    <f:case value="Top-right">
+                                        <f:variable name="stop-right">ns-whatsapp-wrap--top</f:variable>
+                                    </f:case>
+                                </f:switch>
+                                <f:variable name="share_style_desktop">{f:if(condition: '{settings.share_style_desktop} == Select', then: 'Style1', else: '{settings.share_style_desktop}')}</f:variable>
+                                <f:variable name="share_style_mobile">{f:if(condition: '{settings.share_style_mobile} == Select', then: 'Style1', else: '{settings.share_style_mobile}')}</f:variable>
+
+                                <f:if condition="{stylename}=={share_style_desktop}">
+                                    <div class="ns-whatsapp-wrap  {stop-left} {sbottom-left} {stop-right} ns-whatsapp-hide-mobile  {f:if(condition: '{settings.share_hide_mobile}', then: 'ns-whatsapp-hide-mobile')} {f:if(condition: '{settings.share_hide_desktop}', then: 'ns-whatsapp-hide-desktop')}">
+                                        <f:render partial="Share/share{share_style_desktop}" arguments="{whatsapp: whatsapp}" />
+                                    </div>
+                                </f:if>
+                                <f:if condition="{stylename}=={share_style_mobile}">
+                                    <div class="ns-whatsapp-wrap  {stop-left} {sbottom-left} {stop-right} ns-whatsapp-hide-desktop {f:if(condition: '{settings.share_hide_mobile}', then: 'ns-whatsapp-hide-mobile')} {f:if(condition: '{settings.share_hide_desktop}', then: 'ns-whatsapp-hide-desktop')}">
+                                        <f:render partial="Share/share{share_style_mobile}" arguments="{whatsapp: whatsapp}" />
                                     </div>
                                 </f:if>
                                
@@ -49,9 +69,39 @@
                         </f:if>
                     </f:if>
 
+                    <f:if condition="{groupFlag}">
+                        <f:if condition="{settings.group_is_enable} && {settings.group_id}">
+                            <f:then>
+                                <f:switch expression="{settings.group_position}">
+                                    <f:case value="Top-left">
+                                        <f:variable name="gtop-left">ns-whatsapp-wrap--left ns-whatsapp-wrap--top</f:variable>
+                                    </f:case>
+                                    <f:case value="Bottom-left">
+                                        <f:variable name="gbottom-left">ns-whatsapp-wrap--left</f:variable>
+                                    </f:case>
+                                    
+                                    <f:case value="Top-right">
+                                        <f:variable name="gtop-right">ns-whatsapp-wrap--top</f:variable>
+                                    </f:case>
+                                </f:switch>
+                                <f:variable name="group_style_desktop">{f:if(condition: '{settings.group_style_desktop} == Select', then: 'Style1', else: '{settings.group_style_desktop}')}</f:variable>
+                                <f:variable name="group_style_mobile">{f:if(condition: '{settings.group_style_mobile} == Select', then: 'Style1', else: '{settings.group_style_mobile}')}</f:variable>
+
+                                <f:if condition="{stylename}=={group_style_desktop}">
+                                    <div class="ns-whatsapp-wrap {gtop-left} {gbottom-left} {gtop-right} ns-whatsapp-hide-mobile  {f:if(condition: '{settings.group_hide_mobile}', then: 'ns-whatsapp-hide-mobile')} {f:if(condition: '{settings.group_hide_desktop}', then: 'ns-whatsapp-hide-desktop')}">
+                                        <f:render partial="Group/group{group_style_desktop}" arguments="{whatsapp: whatsapp}" />
+                                    </div>
+                                </f:if>
+                                <f:if condition="{stylename}=={group_style_mobile}">
+                                    <div class="ns-whatsapp-wrap {gtop-left} {gbottom-left} {gtop-right} ns-whatsapp-hide-desktop {f:if(condition: '{settings.group_hide_mobile}', then: 'ns-whatsapp-hide-mobile')} {f:if(condition: '{settings.group_hide_desktop}', then: 'ns-whatsapp-hide-desktop')}">
+                                        <f:render partial="Group/group{group_style_mobile}" arguments="{whatsapp: whatsapp}" />
+                                    </div>
+                                </f:if>
+                            </f:then>
+                        </f:if>
+                    </f:if>
                 </f:for>
             </div>
         </div>
     </main>
-
 </f:section>

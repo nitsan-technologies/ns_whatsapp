@@ -1,0 +1,33 @@
+<f:asset.css identifier="17163596836">
+    .style2 {
+    background-color: {whatsapp.bgcolor} !important;
+    }
+    .style21 {
+    color: {whatsapp.textcolor} !important;
+    }
+    .style2:hover {
+    background-color: {whatsapp.hbgcolor} !important;
+    }
+    .style21:hover *{
+    color: {whatsapp.htextcolor} !important;
+    }
+</f:asset.css>
+<div class="ns-whatsapp-variant ns-whatsapp-variant--two">
+    <f:link.external  class="style21" uri="{urlConnection}chat.whatsapp.com/{settings.group_id}" target="_blank">
+        <f:if condition="{whatsapp.image}">
+            <f:then>
+                <f:for each="{whatsapp.image}" as="img">
+                    <f:image image="{img}" alt="ns whatsapp" />
+                </f:for>
+            </f:then>
+            <f:else>
+                <f:image src="EXT:ns_whatsapp/Resources/Public/Icons/icon-whatsapp.svg" />
+            </f:else>
+        </f:if>
+        <div class="ns-whatsapp-text-wrap style2 style21">
+            <div class="ns-whatsapp-shape"></div>
+            <div class="ns-whatsapp-headline style21">{whatsapp.heading}</div>
+            <div class="ns-whatsapp-text style21">{whatsapp.text}</div>
+        </div>
+    </f:link.external>
+</div>

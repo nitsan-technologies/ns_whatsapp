@@ -34,36 +34,34 @@
             </f:if>
         </f:then>
         <f:else>
-
-    <f:be.pageRenderer
-        includeCssFiles="{
-            0: 'EXT:ns_whatsapp/Resources/Public/Css/global.css',
-            1: 'EXT:ns_whatsapp/Resources/Public/Css/main.css',
-            3: 'EXT:ns_whatsapp/Resources/Public/Css/font-awesome.css'
-        }"
-
-        includeJavaScriptModules="{
-            0: '@typo3/backend/context-menu.js',
-            1: '@typo3/backend/element/immediate-action-element.js',
-            4: '@typo3/tstemplate/constant-editor.js',
-            5: '@nitsan/ns-whatsapp/fieldToggle.js'
-        }"
-    />
-    <f:variable name="args" value="{0: 'nitsan', 1: pageUid}" />
-    <f:render
-        partial="ConstantEditorOptions"
-        arguments="{
-            allTemplatesOnPage: allTemplatesOnPage,
-            pageUid: pageUid,
-            selectedTemplateUid: selectedTemplateUid,
-            relevantCategories: relevantCategories,
-            selectedCategory: selectedCategory
-        }"
-    />
-    <f:render partial="ConstantEditorFields" arguments="{_all}" />
-</f:else>
-</f:if>
-
+            <f:be.pageRenderer
+                includeCssFiles="{
+                    0: 'EXT:ns_whatsapp/Resources/Public/Css/global.css',
+                    1: 'EXT:ns_whatsapp/Resources/Public/Css/main.css',
+                    3: 'EXT:ns_whatsapp/Resources/Public/Css/font-awesome.css'
+                }"
+        
+                includeJavaScriptModules="{
+                    0: '@typo3/backend/context-menu.js',
+                    1: '@typo3/backend/element/immediate-action-element.js',
+                    4: '@typo3/tstemplate/constant-editor.js',
+                    5: '@nitsan/ns-whatsapp/fieldToggle.js'
+                }"
+            />
+            <f:variable name="args" value="{0: 'nitsan', 1: pageUid}" />
+            <f:render
+                partial="ConstantEditorOptions"
+                arguments="{
+                    allTemplatesOnPage: allTemplatesOnPage,
+                    pageUid: pageUid,
+                    selectedTemplateUid: selectedTemplateUid,
+                    relevantCategories: relevantCategories,
+                    selectedCategory: selectedCategory
+                }"
+            />
+            <f:render partial="ConstantEditorFields" arguments="{_all}" />
+        </f:else>
+    </f:if>
 </f:section>
 
 </html>

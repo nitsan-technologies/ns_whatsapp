@@ -1,9 +1,8 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
-{namespace n=Nitsan\NsWhatsapp\ViewHelpers}
 <f:layout name="Backend/Default" />
-
 <f:section name="content">
-    
+
+<f:flashMessages />
 <f:if condition="{whatsappstyle} == ''">
    <f:then>
        <div class="alert alert-danger" role="alert">
@@ -17,27 +16,37 @@
         </div>
     </f:then>
     <f:else>
-        <style>
-            .style1 {
-            background-color: {whatsappstyle.0.bgcolor} !important;
-            border: {whatsappstyle.0.bordercolor} {whatsappstyle.0.border}px solid !important;
-            color: {whatsappstyle.0.textcolor} !important;
-            }
-            .style1:hover {
-            background-color: {whatsappstyle.0.hbgcolor} !important;
-            border: {whatsappstyle.0.hboredrcolor} {whatsappstyle.0.border}px solid !important;
-            color: {whatsappstyle.0.htextcolor} !important;
-            }
-        </style>
-
-        <f:if condition="{whatsappstyle.0}">
-            <f:render section="style1" arguments="{whatsappstyle: whatsappstyle.0}" />
-        </f:if>
+        <f:for each="{whatsappstyle}" as="whatsapp" iteration="i">
+            
+            <f:switch expression="{whatsapp.style}">
+                <f:case value="1">
+                    <f:render section="style1" arguments="{whatsappstyle: whatsappstyle.0, middleAttribute: middleAttribute, style1: style1}" />
+                </f:case>
+                <f:case value="2">
+                    
+                    <f:render section="style2" arguments="{whatsappstyle: whatsappstyle.1, middleAttribute: middleAttribute}" />
+                </f:case>
+                <f:case value="3">
+                    <f:render section="style3" arguments="{whatsappstyle: whatsappstyle.2, middleAttribute: middleAttribute}" />
+                </f:case>
+                <f:case value="4">
+                    <f:render section="style4" arguments="{whatsappstyle: whatsappstyle.3, middleAttribute: middleAttribute}" />
+                </f:case>
+                <f:case value="5">
+                    <f:render section="style5" arguments="{whatsappstyle: whatsappstyle.4, middleAttribute: middleAttribute}" />
+                </f:case>
+                <f:case value="6">
+                    <f:render section="style6" arguments="{whatsappstyle: whatsappstyle.5, middleAttribute: middleAttribute}" />
+                </f:case>
+                <f:case value="7">
+                    <f:render section="style7" arguments="{whatsappstyle: whatsappstyle.6, middleAttribute: middleAttribute}" />
+                </f:case>
+            </f:switch>
+        </f:for>
         
-        <div class="ns-ext-form-wrap panel-group" id="accordion" role="tablist" aria-multiselectable="false ">
             <f:section name="style1">
                 <div class="ns-backup-table-block-wrap">
-                    <div class="card">
+                    <div class="card custom-card">
                         <div class="card-header">
                             <div class="d-flex flex-column flex-md-row justify-content-md-between align-items-md-center">
                                 <h5>
@@ -50,12 +59,11 @@
                                 <div class="row">
                                     <div class="col-sm-12">
                                         <div class="ns-whatsapp-variant ns-whatsapp-variant--one text-center">
-                                            <a class="ns-whatsapp-btn style1" role="button" data-parent="#accordion" data-toggle="collapse" href="#collapseone" aria-expanded="true" aria-controls="collapseone" >{f:if(condition: whatsappstyle.text, then: whatsappstyle.text, else:
-                                                'WhatsApp Us')}</a>
+                                            <a class="ns-whatsapp-btn style1" role="button" {middleAttribute}parent="#accordion" {middleAttribute}toggle="collapse" href="#collapseone" aria-expanded="true" aria-controls="collapseone" >{whatsappstyle.text}</a>
                                         </div>
                                     </div>
-                                    <div class="col-sm-12 collapse in" role="tabpanel" id="collapseone" >
-                                        <f:form action="update"  enctype="multipart/form-data"  name="whatsappstyle" arguments="{whatsappstyle:whatsappstyle.0}" object="{whatsappstyle}">
+                                    <div class="col-sm-12 collapse {style1}" role="tabpanel" id="collapseone" >
+                                        <f:form action="update"  enctype="multipart/form-data"  name="whatsappstyle" arguments="{whatsappstyle:whatsappstyle.0}" object="{whatsappstyle}" class="ns-ext-form ns-ext-form--style-1">
                                             <f:form.hidden property="style" value="1" />
                                             <div class="row">
                                                 <div class="col-sm-6">
@@ -64,7 +72,7 @@
                                                             <label><f:translate key="buttontext" extensionName="ns_whatsapp"/></label>
                                                         </div>
                                                         <div class="col-sm-6">
-                                                            <f:form.textfield property="text"  class="form-control" maxlength="50" />
+                                                            <f:form.textfield property="text" class="form-control" required="1" maxlength="255"/>
                                                         </div>
                                                     </div>
                                                     <div class="row pb-3">
@@ -141,9 +149,740 @@
                     </div>
                 </div>
             </f:section>
-        </div>
+            <f:section name="style2">
+                <div class="ns-backup-table-block-wrap">
+                    <div class="card custom-card">
+                        <div class="card-header">
+                            <div class="d-flex flex-column flex-md-row justify-content-md-between align-items-md-center">
+                                <h5>
+                                    <f:translate key="style2" extensionName="ns_whatsapp"/>
+                                </h5>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="ns-backup-table-wrap ns-whatsapp-style">
+                                <div class="row">
+                                     <div class="col-sm-12">
+                                        <div class="ns-whatsapp-variant ns-whatsapp-variant--two text-center">
+                                            <a class="ns-whatsapp-btn style21" role="button" {middleAttribute}parent="#accordion" {middleAttribute}toggle="collapse" href="#collapsetwo" aria-expanded="true" aria-controls="collapsetwo">
+                                                <f:if condition="{whatsappstyle.image}">
+                                                    <f:then>
+                                                        <f:for each="{whatsappstyle.image}" as="img">
+                                                            <f:image image="{img}" alt="ns whatsapp" class="object-fit-cover" width="60" height="60"/>
+                                                        </f:for>
+                                                    </f:then>
+                                                    <f:else>
+                                                        <f:image src="EXT:ns_whatsapp/Resources/Public/Icons/icon-whatsapp.svg" />
+                                                    </f:else>
+                                                </f:if>
+                                                <div class="ns-whatsapp-text-wrap style2 style21">
+                                                    <div class="ns-whatsapp-shape"></div>
+                                                    <div class="ns-whatsapp-headline style21">{whatsappstyle.heading}</div>
+                                                    <div class="ns-whatsapp-text style21">{whatsappstyle.text}</div>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12 collapse" role="tabpanel" id="collapsetwo">
+                                        <f:form action="update" controller="Whatsapp" name="whatsappstyle" arguments="{whatsappstyle:whatsappstyle.1}" object="{whatsappstyle}" enctype="multipart/form-data" class="ns-ext-form ns-ext-form--style-2">
+                                            <f:form.hidden property="style" value="2" />
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <div class="row pb-3">
+                                                        <div class="col-sm-3">
+                                                            <label><f:translate key="headline" extensionName="ns_whatsapp"/></label>
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <f:form.textfield property="heading" class="form-control" maxlength="255" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="row pb-3">
+                                                        <div class="col-sm-3">      
+                                                            <label><f:translate key="buttontext" extensionName="ns_whatsapp"/></label>
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <f:form.textfield property="text" class="form-control" required="1" maxlength="255"/>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row pb-3">
+                                                        <div class="col-sm-3">
+                                                            <label><f:translate key="textcolor" extensionName="ns_whatsapp"/></label>
+                                                        </div>
+                                                        <div class="col-sm-1">
+                                                            <f:form.textfield property="textcolor" type="color" class="form-control" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="row pb-3">
+                                                        <div class="col-sm-3 ">
+                                                            <label><f:translate key="image" extensionName="ns_whatsapp"/></label>
+                                                        </div>
+                                                        <div class="col-sm-5 ">
+                                                            <f:form.upload name="image" accept=".jpg,.jpeg,.png,.svg" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                     <div class="row pb-3">
+                                                        <div class="col-sm-3">
+                                                            <label><f:translate key="bgcolor" extensionName="ns_whatsapp"/></label>
+                                                        </div>
+                                                        <div class="col-sm-1">
+                                                            <f:form.textfield property="bgcolor" type="color" class="form-control" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="row pb-3">
+                                                        <div class="col-sm-3">
+                                                            <label><f:translate key="hovertextcolor" extensionName="ns_whatsapp"/></label>
+                                                        </div>
+                                                        <div class="col-sm-1">
+                                                            <f:form.textfield property="htextcolor" type="color" class="form-control" />
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row pb-3">
+                                                        <div class="col-sm-3">
+                                                            <label><f:translate key="hoverbgcolor" extensionName="ns_whatsapp"/></label>
+                                                        </div>
+                                                        <div class="col-sm-1">
+                                                            <f:form.textfield property="hbgcolor" type="color" class="form-control" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="row pb-3">
+                                                        <div class="col-sm-3 ">
+                                                            <label>Image name</label>
+                                                        </div>
+                                                        <div class="col-sm-5 ">
+                                                            <f:if condition="{whatsappstyle.image}">
+                                                                <f:then>
+                                                                    <f:for each="{whatsappstyle.image}" as="img">
+                                                                        {img.originalResource.originalFile.name}
+                                                                    </f:for>
+                                                                </f:then>
+                                                                <f:else>
+                                                                    Please select Image
+                                                                </f:else>
+                                                            </f:if>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row pb-3">
+                                                <div class="col-sm-2">
+                                                    <f:form.submit value="{f:translate(key: 'save', extensionName: 'ns_whatsapp')}" class="form-control btn btn-success" />
+                                                </div>
+                                            </div>
+                                        </f:form>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </f:section>
+            <f:section name="style3">
+                <div class="ns-backup-table-block-wrap">
+                    <div class="card custom-card">
+                        <div class="card-header">
+                            <div class="d-flex flex-column flex-md-row justify-content-md-between align-items-md-center">
+                                <h5>
+                                    <f:translate key="style3" extensionName="ns_whatsapp"/>
+                                </h5>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="ns-backup-table-wrap ns-whatsapp-style">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="ns-whatsapp-variant ns-whatsapp-variant--three text-center">
+                                            <a class="ns-whatsapp-btn style21" role="button" {middleAttribute}toggle="collapse" href="#collapseExample3" aria-expanded="false" aria-controls="collapseExample" >
+                                                <f:if condition="{whatsappstyle.image}">
+                                                   <f:then>
+                                                       <f:if condition="{whatsappstyle.image}">
+                                                           <f:for each="{whatsappstyle.image}" as="img">
+                                                               <f:image image="{img}" alt="ns whatsapp" class="object-fit-cover" width="60" height="60" />
+                                                           </f:for>
+                                                       </f:if>
+                                                   </f:then>
+                                                    <f:else>
+                                                        <f:image src="EXT:ns_whatsapp/Resources/Public/Icons/icon-whatsapp.svg" />
+                                                    </f:else>
+                                                </f:if>
+
+                                                <div class="ns-whatsapp-headline style3">{whatsappstyle.text}</div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12 collapse" id="collapseExample3">
+                                        <f:form action="update" controller="Whatsapp" name="whatsappstyle" arguments="{whatsappstyle:whatsappstyle.2}" object="{whatsappstyle}" enctype="multipart/form-data" class="ns-ext-form ns-ext-form--style-3">
+                                            <f:form.hidden property="style" value="3"  />
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <div class="row pb-3">
+                                                        <div class="col-sm-3">
+                                                            <label><f:translate key="text" extensionName="ns_whatsapp"/></label>
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <f:form.textfield property="text" class="form-control" required="1" maxlength="255" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="row pb-3">
+                                                        <div class="col-sm-3">
+                                                            <label><f:translate key="textsize" extensionName="ns_whatsapp"/></label>
+                                                        </div>
+                                                        <div class="col-sm-1 ">
+                                                            <f:form.textfield property="size" type="number" additionalAttributes="{min:0}" class="form-control"  />
+                                                        </div>
+                                                    </div>
+                                                    <div class="row pb-3">
+                                                        <div class="col-sm-3 ">
+                                                            <label><f:translate key="image" extensionName="ns_whatsapp"/></label>
+                                                        </div>
+                                                        <div class="col-sm-5 ">
+                                                            <f:form.upload name="image" accept=".jpg,.jpeg,.png,.svg" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="row pb-3">
+                                                        <div class="col-sm-3">
+                                                            <label><f:translate key="textcolor" extensionName="ns_whatsapp"/></label>
+                                                        </div>
+                                                        <div class="col-sm-1">
+                                                            <f:form.textfield property="textcolor" type="color" class="form-control"  />
+                                                        </div>
+                                                    </div>
+                                                    <div class="row pb-3">
+                                                        <div class="col-sm-3">
+                                                            <label><f:translate key="hovertextcolor" extensionName="ns_whatsapp"/></label>
+                                                        </div>
+                                                        <div class="col-sm-1">
+                                                            <f:form.textfield property="htextcolor" type="color" class="form-control"  />
+                                                        </div>
+                                                    </div>
+                                                    <div class="row pb-3">
+                                                        <div class="col-sm-3 ">
+                                                            <label>Image name</label>
+                                                        </div>
+                                                        <div class="col-sm-5 ">
+                                                            <f:if condition="{whatsappstyle.image}">
+                                                                <f:then>
+                                                                    <f:for each="{whatsappstyle.image}" as="img">
+                                                                        {img.originalResource.originalFile.name}
+                                                                    </f:for>
+                                                                </f:then>
+                                                                <f:else>
+                                                                    Please select Image
+                                                                </f:else>
+                                                            </f:if>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-2">
+                                                    <f:form.submit value="{f:translate(key: 'save', extensionName: 'ns_whatsapp')}" class="form-control btn btn-success" />
+                                                </div>
+                                            </div>
+                                        </f:form>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </f:section>
+            <f:section name="style4">
+                <div class="ns-backup-table-block-wrap">
+                    <div class="card custom-card">
+                        <div class="card-header">
+                            <div class="d-flex flex-column flex-md-row justify-content-md-between align-items-md-center">
+                                <h5>
+                                    <f:translate key="style4" extensionName="ns_whatsapp"/>
+                                </h5>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="ns-backup-table-wrap ns-whatsapp-style">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="ns-whatsapp-variant ns-whatsapp-variant--four text-center">
+                                            <a class="ns-whatsapp-btn ns-whatsapp-link style4" role="button" {middleAttribute}toggle="collapse" href="#collapseExample4" aria-expanded="false" aria-controls="collapseExample">{whatsappstyle.text}</a>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12 collapse" id="collapseExample4">
+                                        <f:form action="update" name="whatsappstyle"  object="{whatsappstyle}" controller="Whatsapp" enctype="multipart/form-data" class="ns-ext-form ns-ext-form--style-4">
+                                            <f:form.hidden property="style" value="4"/>
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <div class="row pb-3">
+                                                        <div class="col-sm-3">
+                                                            <label><f:translate key="text" extensionName="ns_whatsapp"/></label>
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <f:form.textfield property="text" class="form-control" required="1" maxlength="255" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="row pb-3">
+                                                        <div class="col-sm-3">
+                                                            <label><f:translate key="textsize" extensionName="ns_whatsapp"/></label>
+                                                        </div>
+                                                        <div class="col-sm-1 ">
+                                                            <f:form.textfield property="size" type="number" additionalAttributes="{min:0}" class="form-control"  />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="row pb-3">
+                                                        <div class="col-sm-3">
+                                                            <label><f:translate key="textcolor" extensionName="ns_whatsapp"/></label>
+                                                        </div>
+                                                        <div class="col-sm-1">
+                                                            <f:form.textfield property="textcolor" type="color" class="form-control"  />
+                                                        </div>
+                                                    </div>
+                                                    <div class="row pb-3">
+                                                        <div class="col-sm-3">
+                                                            <label><f:translate key="hovertextcolor" extensionName="ns_whatsapp"/></label>
+                                                        </div>
+                                                        <div class="col-sm-1">
+                                                            <f:form.textfield property="htextcolor" type="color" class="form-control"  />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-sm-2">
+                                                    <f:form.submit value="{f:translate(key: 'save', extensionName: 'ns_whatsapp')}" class="form-control btn btn-success" />
+                                                </div>
+                                            </div>
+                                        </f:form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </f:section>
+            <f:section name="style5">
+                <div class="ns-backup-table-block-wrap">
+                    <div class="card custom-card">
+                        <div class="card-header">
+                            <div class="d-flex flex-column flex-md-row justify-content-md-between align-items-md-center">
+                                <h5>
+                                    <f:translate key="style5" extensionName="ns_whatsapp"/>
+                                </h5>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="ns-backup-table-wrap ns-whatsapp-style">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="ns-whatsapp-variant ns-whatsapp-variant--three text-center">
+                                            <div class="ns-whatsapp-variant ns-whatsapp-variant--fifth">
+                                                <a class="ns-whatsapp-btn ns-whatsapp-custom-img style51" role="button" {middleAttribute}toggle="collapse" href="#collapseExample5" aria-expanded="false" aria-controls="collapseExample" class="ns-whatsapp-custom-img style51">
+                                                    <f:if condition="{whatsappstyle.image}">
+                                                        <f:then>
+                                                            <f:if condition="{whatsappstyle.image}">
+                                                                <f:for each="{whatsappstyle.image}" as="img">
+                                                                    <f:image image="{img}" alt="ns whatsapp" class="{whatsappstyle.imageposition}" />
+                                                                </f:for>
+                                                            </f:if>
+                                                        </f:then>
+                                                        <f:else>
+                                                            <f:image src="EXT:ns_whatsapp/Resources/Public/Icons/placeholder.png" />
+                                                        </f:else>
+                                                    </f:if>
+                                                    <div class="ns-whatsapp-text-wrap style5 style51">
+                                                        <div class="ns-whatsapp-headline style51">{whatsappstyle.heading}</div>
+                                                        <div class="ns-whatsapp-text style51">{whatsappstyle.text}</div>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12 collapse" id="collapseExample5">
+                                        <f:form action="update" name="whatsappstyle"  object="{whatsappstyle}"  controller="Whatsapp" enctype="multipart/form-data" class="ns-ext-form ns-ext-form--style-5">
+                                            <f:form.hidden property="style" value="5" />
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <div class="row pb-3 pb-3">
+                                                        <div class="col-sm-3">
+                                                            <label><f:translate key="headline" extensionName="ns_whatsapp"/></label>
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <f:form.textfield property="heading" class="form-control" maxlength="255" />
+                                                        </div>
+                                                    </div>
+                                                     <div class="row pb-3 pb-3">
+                                                        <div class="col-sm-3">
+                                                            <label><f:translate key="text" extensionName="ns_whatsapp"/></label>
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <f:form.textfield property="text" class="form-control" required="1" maxlength="255" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="row pb-3">
+                                                        <div class="col-sm-3">
+                                                            <label><f:translate key="border" extensionName="ns_whatsapp"/></label>
+                                                        </div>
+                                                        <div class="col-sm-1 ">
+                                                            <f:form.textfield property="border" additionalAttributes="{min:0,max:3}" type="number"  class="form-control"  />
+                                                        </div>
+                                                    </div>
+                                                    <div class="row pb-3">
+                                                        <div class="col-sm-3">
+                                                            <label><f:translate key="image" extensionName="ns_whatsapp"/></label>
+                                                        </div>
+                                                        <div class="col-sm-2">
+                                                            <f:form.upload name="image" accept=".jpg,.jpeg,.png,.svg" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="row pb-3">
+                                                        <div class="col-sm-3 ">
+                                                            <label><f:translate key="imageposition" extensionName="ns_whatsapp"/></label>
+                                                        </div>
+                                                        <div class="col-sm-5 ">
+                                                            <f:form.radio property="imageposition" value="left" />  <f:translate key="left" extensionName="ns_whatsapp"/>
+                                                            <f:form.radio property="imageposition" value="right" />  <f:translate key="right" extensionName="ns_whatsapp"/>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row pb-3">
+                                                        <div class="col-sm-3">
+                                                            <label><f:translate key="textcolor" extensionName="ns_whatsapp"/></label>
+                                                        </div>
+                                                        <div class="col-sm-1">
+                                                            <f:form.textfield property="textcolor" type="color" class="form-control" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="row pb-3">
+                                                        <div class="col-sm-3">
+                                                            <label><f:translate key="bordercolor" extensionName="ns_whatsapp"/></label>
+                                                        </div>
+                                                        <div class="col-sm-1">
+                                                            <f:form.textfield property="bordercolor" type="color" class="form-control" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="row pb-3">
+                                                        <div class="col-sm-3">
+                                                            <label><f:translate key="bgcolor" extensionName="ns_whatsapp"/></label>
+                                                        </div>
+                                                        <div class="col-sm-1">
+                                                            <f:form.textfield property="bgcolor" type="color" class="form-control" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="row pb-3">
+                                                        <div class="col-sm-3">
+                                                            <label><f:translate key="hovertextcolor" extensionName="ns_whatsapp"/></label>
+                                                        </div>
+                                                        <div class="col-sm-1">
+                                                            <f:form.textfield property="htextcolor" type="color" class="form-control" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="row pb-3">
+                                                        <div class="col-sm-3 ">
+                                                            <label>Image name</label>
+                                                        </div>
+                                                        <div class="col-sm-5 ">
+                                                            <f:if condition="{whatsappstyle.image}">
+                                                                <f:then>
+                                                                    <f:for each="{whatsappstyle.image}" as="img">
+                                                                        {img.originalResource.originalFile.name}
+                                                                    </f:for>
+                                                                </f:then>
+                                                                <f:else>
+                                                                    Please select Image
+                                                                </f:else>
+                                                            </f:if>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row pb-3">
+                                                        <div class="col-sm-3">
+                                                            <label><f:translate key="hoverbordercolor" extensionName="ns_whatsapp"/></label>
+                                                        </div>
+                                                        <div class="col-sm-1">
+                                                            <f:form.textfield property="hboredrcolor" type="color" class="form-control" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="row pb-3">
+                                                        <div class="col-sm-3">
+                                                            <label><f:translate key="hoverbgcolor" extensionName="ns_whatsapp"/></label>
+                                                        </div>
+                                                        <div class="col-sm-1">
+                                                            <f:form.textfield property="hbgcolor" type="color" class="form-control" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-2">
+                                                    <f:form.submit value="{f:translate(key: 'save', extensionName: 'ns_whatsapp')}" class="form-control btn btn-success" />
+                                                </div>
+                                            </div>
+                                        </f:form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </f:section>
+            <f:section name="style6">
+                <div class="ns-backup-table-block-wrap">
+                    <div class="card custom-card">
+                        <div class="card-header">
+                            <div class="d-flex flex-column flex-md-row justify-content-md-between align-items-md-center">
+                                <h5>
+                                    <f:translate key="style6" extensionName="ns_whatsapp"/>
+                                </h5>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="ns-backup-table-wrap ns-whatsapp-style">
+                                <div class="row">
+                                    <div class="col-sm-12 ">
+                                        <div class="ns-whatsapp-variant ns-whatsapp-variant--six text-center">
+                                            <a class="ns-whatsapp-btn style21" role="button" {middleAttribute}toggle="collapse" href="#collapseExample6" aria-expanded="false" aria-controls="collapseExample" class="ns-whatsapp-img-link">
+                                                <f:if condition="{whatsappstyle.image}">
+                                                    <f:then>
+                                                        <f:for each="{whatsappstyle.image}" as="img">
+                                                            <f:image image="{img}" alt="ns whatsapp" class="object-fit-cover" width="60" height="60"/>
+                                                        </f:for>
+                                                    </f:then>
+                                                    <f:else>
+                                                        <f:image src="EXT:ns_whatsapp/Resources/Public/Icons/icon-whatsapp.svg" />
+                                                    </f:else>
+                                                </f:if>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12 collapse" id="collapseExample6">
+                                        <f:form action="update" controller="Whatsapp" enctype="multipart/form-data" name="whatsappstyle"  object="{whatsappstyle}" class="ns-ext-form ns-ext-form--style-6">
+                                            <f:form.hidden property="style" value="6" />
+                                            <f:form.hidden property="deleteImg" id="deleteImage" value="0" />
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <div class="row pb-3">
+                                                        <div class="col-sm-3">
+                                                            <label><f:translate key="image" extensionName="ns_whatsapp"/></label>
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <f:form.upload name="image" id="file" class="form-control image-upload" accept=".jpg,.jpeg,.png,.svg" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="row pb-3">
+                                                        <div class="col-sm-3">
+                                                            <label class="text-nowrap">Image name</label>
+                                                        </div>
+                                                        <div class="col-sm-3">
+                                                            <f:if condition="{whatsappstyle.image}">
+                                                                <f:then>
+                                                                    <f:for each="{whatsappstyle.image}" as="img">
+                                                                        {img.originalResource.originalFile.name}
+                                                                    </f:for>
+                                                                </f:then>
+                                                                <f:else>
+                                                                    Please select Image
+                                                                </f:else>
+                                                            </f:if>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row pt-3">
+                                                <div class="col-sm-2">
+                                                    <f:form.submit id="submit6"
+                                                                value="{f:translate(key: 'save', extensionName: 'ns_whatsapp')}"
+                                                                class="form-control btn btn-success" />
+                                                </div>
+                                                <div class="col-sm-4"></div>
+                                                <div class="col-sm-2">
+                                                    <button id="resetStyle6"
+                                                            type="button"
+                                                            class="form-control btn btn-success">
+                                                        Reset
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </f:form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </f:section>
+            <f:section name="style7">
+                <div class="ns-backup-table-block-wrap">
+                    <div class="card custom-card">
+                        <div class="card-header">
+                            <div class="d-flex flex-column flex-md-row justify-content-md-between align-items-md-center">
+                                <h5>
+                                    <f:translate key="style7" extensionName="ns_whatsapp"/>
+                                </h5>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="ns-backup-table-wrap ns-whatsapp-style">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="ns-whatsapp-variant ns-whatsapp-variant--six text-center">
+                                            <a class="ns-whatsapp-btn style21" role="button" {middleAttribute}toggle="collapse" href="#collapseExample7" aria-expanded="false" aria-controls="collapseExample" class="ns-whatsapp-img-link">
+                                                <f:if condition="{whatsappstyle.image} || {whatsappstyle.imageurl}">
+                                                    <f:then>
+                                                        <f:if condition="{whatsappstyle.upload} == 0">
+                                                            <img src="{whatsappstyle.imageurl}" />
+                                                        </f:if>
+                                                        <f:if condition="{whatsappstyle.upload} == 1">
+                                                            <f:if condition="{whatsappstyle.image}">
+                                                                <f:then>
+                                                                    <f:for each="{whatsappstyle.image}" as="img">
+                                                                        <f:image image="{img}" alt="ns whatsapp" class="object-fit-cover" width="60" height="60" class="object-fit-cover"/>
+                                                                    </f:for>
+                                                                </f:then>
+                                                                <f:else>
+                                                                    <img src="{whatsappstyle.imageurl}" />
+                                                                </f:else>
+                                                            </f:if>
+                                                        </f:if>
+                                                    </f:then>
+                                                    <f:else>
+                                                        <f:image src="EXT:ns_whatsapp/Resources/Public/Icons/icon-whatsapp.svg" />
+                                                    </f:else>
+                                                </f:if>
+
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12 collapse" id="collapseExample7">
+                                        <f:form action="update" controller="Whatsapp" name="whatsappstyle"  object="{whatsappstyle}" enctype="multipart/form-data" class="ns-ext-form ns-ext-form--style-7">
+                                            <f:form.hidden property="style" value="7" />
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <div class="row pb-3 pb-3">
+                                                        <div class="col-sm-3">
+                                                            <label><f:translate key="image" extensionName="ns_whatsapp"/></label>
+                                                        </div>
+                                                        <div class="col-sm-9">
+                                                            <div class="form-inline custom-form-inline addValidrequired" data-id="0">
+                                                                <f:form.radio property="upload" value="1" class="upload" />
+                                                                <f:form.upload name="image" class="form-control image-upload" id="image-upload" accept=".jpg,.jpeg,.png,.svg" />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row pb-3 pb-3">
+                                                        <div class="col-sm-3">
+                                                            <label><f:translate key="imageurl" extensionName="ns_whatsapp"/></label>
+                                                        </div>
+                                                        <div class="col-sm-8">
+                                                            <div class="form-inline custom-form-inline addValidrequired" data-id="0">
+                                                                <f:form.radio property="upload" value="0" class="url" id="imageurlradio"/>
+                                                                <f:form.textfield property="imageurl"  class="form-control add-url" id="imageurl"/>
+                                                            </div>
+                                                            <p class="alert alert-danger d-none mt-2 urlvalid"><f:translate key="error.url.valid" /></p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="row pb-3">
+                                                        <div class="col-sm-4">
+                                                            <label class="text-nowrap">Image name</label>
+                                                        </div>
+                                                        <div class="col-sm-8">
+                                                            <f:if condition="{whatsappstyle.image}">
+                                                                <f:then>
+                                                                    <f:for each="{whatsappstyle.image}" as="img">
+                                                                        {img.originalResource.originalFile.name}
+                                                                    </f:for>
+                                                                </f:then>
+                                                                <f:else>
+                                                                    Please select Image
+                                                                </f:else>
+                                                            </f:if>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-2">
+                                                    <f:form.submit value="{f:translate(key: 'save', extensionName: 'ns_whatsapp')}" id="validStyle7" class="form-control btn btn-success" />
+                                                </div>
+                                            </div>
+                                        </f:form>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </f:section>
+        
     </f:else>
 </f:if>
+
+<style identifier="1716359688">
+    .style1 {
+    background-color: {whatsappstyle.0.bgcolor} !important;
+    border: {whatsappstyle.0.bordercolor} {whatsappstyle.0.border}px solid !important;
+    color: {whatsappstyle.0.textcolor} !important;
+    }
+    .style1:hover {
+    background-color: {whatsappstyle.0.hbgcolor} !important;
+    border: {whatsappstyle.0.hboredrcolor} {whatsappstyle.0.border}px solid !important;
+    color: {whatsappstyle.0.htextcolor} !important;
+    }
+    .style2 {
+    background-color: {whatsappstyle.1.bgcolor} !important;
+    }
+    .style21 {
+    color: {whatsappstyle.1.textcolor} !important;
+    }
+    .style2:hover {
+    background-color: {whatsappstyle.1.hbgcolor} !important;
+    }
+    .style21:hover *{
+    color: {whatsappstyle.1.htextcolor} !important;
+    }
+    .style3 {
+    font-size: {whatsappstyle.2.size}px !important;
+    color: {whatsappstyle.2.textcolor} !important;
+    }
+    .style3:hover {
+    font-size: {whatsappstyle.2.size}px !important;
+    color: {whatsappstyle.2.htextcolor} !important;
+    }
+    .style4 {
+    font-size: {whatsappstyle.3.size}px !important;
+    color: {whatsappstyle.3.textcolor} !important;
+    }
+    .style4:hover {
+    font-size: {whatsappstyle.3.size}px !important;
+    color: {whatsappstyle.3.htextcolor} !important;
+    }
+    .style5 {
+    background-color: {whatsappstyle.4.bgcolor} !important;
+    border: {whatsappstyle.4.bordercolor} {whatsappstyle.4.border}px solid !important;
+    color: {whatsappstyle.4.textcolor} !important;
+    }
+    .style5:hover {
+    background-color: {whatsappstyle.4.hbgcolor} !important;
+    border: {whatsappstyle.4.hboredrcolor} {whatsappstyle.4.border}px solid !important;
+    color: {whatsappstyle.4.htextcolor} !important;
+    }
+    .style51 {
+    color: {whatsappstyle.4.textcolor} !important;
+    }
+    .style51:hover * {
+    color: {whatsappstyle.4.htextcolor} !important;
+    }
+</style>
 
 </f:section>
 

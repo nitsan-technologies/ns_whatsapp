@@ -1,0 +1,32 @@
+<f:variable name="whatsappUrl">{urlConnection}{f:if(condition: '{settings.share_web_whatsapp}', then: 'web', else: 'api')}.whatsapp.com/send?text={settings.share_text_message}&preview_nonce=4e8a64c693&preview=true</f:variable>
+<f:if condition="{settings.mobile}">
+    <f:variable name="whatsappUrl">whatsapp://send?text={settings.share_text_message}&preview_nonce=4e8a64c693&preview=true</f:variable>
+</f:if>
+
+<div class="ns-whatsapp-variant ns-whatsapp-variant--seven">
+    <f:link.external  class="ns-whatsapp-img-link"  uri="{whatsappUrl}" target="_blank">
+       <f:if condition="{whatsapp.image} || {whatsapp.imageurl}">
+            <f:then>
+                <f:if condition="{whatsapp.upload} == 0">
+                    <img src="{whatsapp.imageurl}" height="50c" width="50c" />
+                    <f:if condition="{settings.share_call_to_action}">
+                        <div class="ns-whatsapp-text">{settings.share_call_to_action}</div>
+                    </f:if>
+                </f:if>
+                <f:if condition="{whatsapp.upload} == 1">
+                    <f:if condition="{whatsapp.image}">
+                        <f:for each="{whatsapp.image}" as="img">
+                            <f:image image="{img}" alt="ns whatsapp" height="50c" width="50c" />
+                            <f:if condition="{settings.share_call_to_action}">
+                                <div class="ns-whatsapp-text">{settings.share_call_to_action}</div>
+                            </f:if>
+                        </f:for>
+                    </f:if>
+                </f:if>
+            </f:then>
+            <f:else>
+                <f:image src="EXT:ns_whatsapp/Resources/Public/Icons/icon-whatsapp.svg" />
+            </f:else>
+        </f:if>
+    </f:link.external>
+</div>

@@ -1,0 +1,20 @@
+<f:asset.css identifier="17163596815">
+.style1 {
+    background-color: {whatsapp.bgcolor} !important;
+    border: {whatsapp.bordercolor} {whatsapp.border}px solid !important;
+    color: {whatsapp.textcolor} !important;
+    }
+    .style1:hover {
+    background-color: {whatsapp.hbgcolor} !important;
+    border: {whatsapp.hboredrcolor} {whatsapp.border}px solid !important;
+    color: {whatsapp.htextcolor} !important;
+	}
+</f:asset.css>
+<f:variable name="whatsappUrl">{urlConnection}{f:if(condition: '{settings.share_web_whatsapp}', then: 'web', else: 'api')}.whatsapp.com/send?text={settings.share_text_message}&preview_nonce=4e8a64c693&preview=true</f:variable>
+<f:if condition="{settings.mobile}">
+    <f:variable name="whatsappUrl">whatsapp://send?text={settings.share_text_message}&preview_nonce=4e8a64c693&preview=true</f:variable>
+</f:if>
+
+<div class="ns-whatsapp-variant ns-whatsapp-variant--one">
+    <f:link.external class="ns-whatsapp-btn style1" uri="{whatsappUrl}" target="_blank">{whatsapp.text}</f:link.external>
+</div>

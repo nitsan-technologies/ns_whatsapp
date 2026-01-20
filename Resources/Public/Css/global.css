@@ -880,17 +880,6 @@ label {
     padding: 0px !important;
 }
 
-.custom-alert-container {
-    margin-top: 20px; /* Add space below .module-body */
-    padding: 15px;
-    background-color: #fff3cd; /* Light yellow background */
-    border: 1px solid #ffeeba; /* Border matching Bootstrap alert-warning */
-    color: #856404; /* Dark text for warning */
-    border-radius: 5px;
-    font-weight: bold;
-    text-align: center;
-}
-
 /*
 New Common Style
 */
@@ -1572,75 +1561,4 @@ div.dt-container .dt-paging .dt-paging-button.disabled:active {
 .typo3-fullDoc {
     overflow: auto;
     height: 100%;
-}
-
-@media (prefers-color-scheme: dark) {
-    body {
-        background: #262626;
-        color: #fff;
-    }
-
-    a.navbar-brand,
-    a.navbar-brand:focus,
-    a.navbar-brand:hover {
-        color: #d9d9d9;
-    }
-
-    .ns-ext-navigation .nav-item.active>.nav-link,
-    .ns-ext-navigation .nav-item:hover>.nav-link {
-        background-color: #000;
-    }
-
-    .ns-ext-navigation .navbar-nav .nav-link {
-        background-color: #262626;
-        color: #d9d9d9;
-        border-color: #464646;
-    }
-
-    .card {
-        border-color:#464646;
-    }
-
-    .card .card-header {
-        background-color: #333;
-        color: #d9d9d9;
-    }
-
-    .card .card-body {
-        background-color: #262626;
-        color:  #d9d9d9;
-    }
-
-    .callout.callout-info {
-        background-color: #333;
-    }
-
-    .modal .modal-body {
-        background-color: #333;
-        color:#d9d9d9;
-    }
-
-    .table {
-        border: 1px solid #464646;
-    }
-
-    .table>:not(caption)>*>* {
-        color: #d9d9d9;
-    }
-
-    .table-striped>tbody>tr:nth-of-type(odd)>* {
-        background-color: rgba(26, 26, 26, 0.3);
-    }
-
-    .table>:not(caption)>*>* {
-        background-color: rgba(20, 20, 20, 0.3);
-    }
-
-    .form-control,
-    .form-control:focus {
-        background-color: transparent;
-        color:  #fff;
-        border-color:#464646;
-    }
-
 }
