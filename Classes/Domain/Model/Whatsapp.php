@@ -17,6 +17,4 @@ use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 /**
  * Whatsapp
  */
-class Whatsapp extends AbstractEntity
-{
-}
+class Whatsapp extends AbstractEntity {}

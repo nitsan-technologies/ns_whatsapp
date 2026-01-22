@@ -5,9 +5,7 @@ namespace Nitsan\NsWhatsapp\Controller;
 use TYPO3\CMS\Core\Resource\Exception;
 use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Core\Information\Typo3Version;
 use Nitsan\NsWhatsapp\Domain\Model\Whatsappstyle;
-use TYPO3\CMS\Core\Utility\File\ExtendedFileUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 use Nitsan\NsWhatsapp\Domain\Repository\WhatsappstyleRepository;
@@ -15,6 +13,8 @@ use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Extbase\Persistence\Exception\UnknownObjectException;
 use TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException;
 use TYPO3\CMS\Core\Type\ContextualFeedbackSeverity;
+use TYPO3\CMS\Core\Utility\VersionNumberUtility;
+use TYPO3\CMS\Core\Resource\StorageRepository;
 
 /***
  *
@@ -34,11 +34,8 @@ class WhatsappController extends ActionController
 {
     public function __construct(
         protected WhatsappstyleRepository $whatsappstyleRepository
-    ) {
-    }
-
+    ) {}
     protected $constants;
-
     protected $contentObject = null;
 
     /**
@@ -62,7 +59,7 @@ class WhatsappController extends ActionController
     {
         $configurationManager = GeneralUtility::makeInstance(ConfigurationManagerInterface::class);
         $typoScriptSetup = $configurationManager->getConfiguration(ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT);
-        $this->constants = $typoScriptSetup['plugin.']['tx_nswhasapp_whatsapp.']['settings.']??[];
+        $this->constants = $typoScriptSetup['plugin.']['tx_nswhasapp_whatsapp.']['settings.'] ?? [];
     }
 
     /**
@@ -72,14 +69,18 @@ class WhatsappController extends ActionController
      */
     public function listAction(): ResponseInterface
     {
-        //@extensionScannerIgnoreLine
-        $currentPid = $GLOBALS['TSFE']->id;
+        $versionNumber =  VersionNumberUtility::convertVersionStringToArray(VersionNumberUtility::getCurrentTypo3Version());
+        if ($versionNumber['version_main'] <= '12') {
+            // @extensionScannerIgnoreLine
+            $currentPid = $GLOBALS['TSFE']->page;
+        } else {
+            $currentPid = $GLOBALS['TYPO3_REQUEST']->getAttribute('frontend.page.information')->getPageRecord();
+        }
 
-         // set js value for slider
+        // set js value for slider
         $configurationManager = GeneralUtility::makeInstance(ConfigurationManagerInterface::class);
         $typoScriptSetup = $configurationManager->getConfiguration(ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT);
         $constant = $typoScriptSetup['plugin.']['tx_nswhasapp_whatsapp.']['settings.'];
-
 
         $chat_showpage = GeneralUtility::trimExplode(
             ',',
@@ -93,15 +94,15 @@ class WhatsappController extends ActionController
             ',',
             rtrim($constant['group_show_pages'], ', ')
         );
-        if(($constant['show_all']) || ($chat_showpage && (in_array($currentPid, $chat_showpage)))) {
+        if (($constant['show_all']) || ($chat_showpage && (in_array($currentPid, $chat_showpage)))) {
             $chatFlag = 1;
         }
 
-        if($constant['share_show_all'] || ($share_showpage && in_array($currentPid, $share_showpage))) {
+        if ($constant['share_show_all'] || ($share_showpage && in_array($currentPid, $share_showpage))) {
             $shareFlag = 1;
         }
 
-        if($constant['group_show_all'] || ($group_showpage && in_array($currentPid, $group_showpage))) {
+        if ($constant['group_show_all'] || ($group_showpage && in_array($currentPid, $group_showpage))) {
             $groupFlag = 1;
         }
 
@@ -131,37 +132,39 @@ class WhatsappController extends ActionController
      */
     public function updateAction(Whatsappstyle $whatsappstyle): ResponseInterface
     {
-        $namespace = key($_FILES);
-        $targetFalDirectory = '1:/user_upload/';
-        // Register every upload field from the form:
-        $fileData = [];
-        if(!empty($_FILES['image']['name'])) {
-            $this->registerUploadField($fileData, $namespace, $targetFalDirectory);
-        }
-
         $this->processImageRemove($whatsappstyle);
 
-        // Initializing:
-        /** @var ExtendedFileUtility $fileProcessor */
-        $fileProcessor = GeneralUtility::makeInstance(ExtendedFileUtility::class);
-        $fileProcessor->setActionPermissions(['addFile' => true]);
-        if ((GeneralUtility::makeInstance(Typo3Version::class))->getMajorVersion() == 12) {
-            $rename = \TYPO3\CMS\Core\Resource\DuplicationBehavior::RENAME;
-        } else {
-            $rename = \TYPO3\CMS\Core\Resource\Enum\DuplicationBehavior::RENAME;
-        }
+        // Handle file upload
+        if (!empty($_FILES['image']['name'])) {
 
-        $fileProcessor->setExistingFilesConflictMode( $rename);
-        $fileProcessor->start($fileData);
-        $fileAddedresult = $fileProcessor->processData();
+            /** @var \TYPO3\CMS\Core\Resource\StorageRepository $storageRepository */
+            $storageRepository = GeneralUtility::makeInstance(StorageRepository::class);
 
-        $this->whatsappstyleRepository->update($whatsappstyle);
+            $storage = $storageRepository->getDefaultStorage();
 
-        $fileAddedresult['upload'][0] = $fileAddedresult['upload'][0] ?? '';
-        if($fileAddedresult['upload'][0]) {
-            foreach ($fileAddedresult['upload'][0] as $file) {
+            $folderIdentifier = 'user_upload';
+            if (!$storage->hasFolder($folderIdentifier)) {
+                $storage->createFolder($folderIdentifier);
+            }
+
+            $folder = $storage->getFolder($folderIdentifier);
+
+            // Uploaded file data
+            $tmpFilePath = $_FILES['image']['tmp_name'];
+            $originalFileName = $_FILES['image']['name'];
+
+            if (is_uploaded_file($tmpFilePath)) {
+
+                /** @var \TYPO3\CMS\Core\Resource\File $file */
+                $file = $storage->addFile(
+                    $tmpFilePath,
+                    $folder,
+                    $originalFileName
+                );
+
+                // Create sys_file_reference (same as your old logic)
                 $this->whatsappstyleRepository->updateSysFileReferenceRecord(
-                    $file->getProperties()['uid'],
+                    $file->getUid(),
                     $whatsappstyle->getUid(),
                     $whatsappstyle->getPid(),
                     'tx_nswhatsapp_domain_model_whatsappstyle',
@@ -170,6 +173,8 @@ class WhatsappController extends ActionController
                 );
             }
         }
+
+        $this->whatsappstyleRepository->update($whatsappstyle);
 
         $this->addFlashMessage(
             'Great choice! Your new WhatsApp style is now active.',
@@ -194,6 +199,7 @@ class WhatsappController extends ActionController
             }
         }
     }
+
     /**
      * action styleSettings
      *
@@ -207,39 +213,9 @@ class WhatsappController extends ActionController
             $this->view->assignMultiple([
                 'whatsappstyle' => $whatsappstyle,
                 'middleAttribute' => 'data-bs-',
-                'style1' => 'show'
+                'style1' => 'show',
             ]);
         }
         return $this->htmlResponse();
     }
-
-
-    /**
-     * Registers an uploaded file for TYPO3 native upload handling.
-     *
-     * @param array &$data
-     * @param string $namespace
-     * @param string $targetDirectory
-     * @return void
-     */
-    protected function registerUploadField(array &$data, string $namespace, string $targetDirectory = '1:/_temp_/')
-    {
-        if (!isset($data['upload'])) {
-            $data['upload'] = array();
-        }
-        $counter = count($data['upload']) + 1;
-        $_FILES[$namespace] = $_FILES[$namespace] ?? '';
-
-        if($_FILES[$namespace]) {
-            $keys = array_keys($_FILES[$namespace]);
-            foreach ($keys as $key) {
-                $_FILES['upload_' . $counter][$key] = $_FILES[$namespace][$key];
-            }
-            $data['upload'][$counter] = array(
-                'data' => $counter,
-                'target' => $targetDirectory,
-            );
-        }
-    }
-
 }

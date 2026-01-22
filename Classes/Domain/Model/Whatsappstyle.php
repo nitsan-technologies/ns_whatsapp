@@ -350,7 +350,7 @@ class Whatsappstyle extends AbstractEntity
     /**
      * Returns the font
      *
-     * @return string 
+     * @return string
      */
     public function getFont(): string
     {
@@ -398,7 +398,7 @@ class Whatsappstyle extends AbstractEntity
     /**
      * Returns the animation
      *
-     * @return string 
+     * @return string
      */
     public function getAnimation(): string
     {
@@ -419,7 +419,7 @@ class Whatsappstyle extends AbstractEntity
     /**
      * Returns the imageposition
      *
-     * @return string 
+     * @return string
      */
     public function getImageposition(): string
     {
@@ -440,7 +440,7 @@ class Whatsappstyle extends AbstractEntity
     /**
      * Returns the style
      *
-     * @return string 
+     * @return string
      */
     public function getStyle(): string
     {
@@ -461,7 +461,7 @@ class Whatsappstyle extends AbstractEntity
     /**
      * Returns the bordercolor
      *
-     * @return string 
+     * @return string
      */
     public function getBordercolor(): string
     {
@@ -481,7 +481,7 @@ class Whatsappstyle extends AbstractEntity
     /**
      * Returns the htextcolor
      *
-     * @return string 
+     * @return string
      */
     public function getHtextcolor(): string
     {
@@ -502,7 +502,7 @@ class Whatsappstyle extends AbstractEntity
     /**
      * Returns the hbgcolor
      *
-     * @return string 
+     * @return string
      */
     public function getHbgcolor(): string
     {
@@ -523,7 +523,7 @@ class Whatsappstyle extends AbstractEntity
     /**
      * Returns the hboredrcolor
      *
-     * @return string 
+     * @return string
      */
     public function getHboredrcolor(): string
     {
@@ -544,7 +544,7 @@ class Whatsappstyle extends AbstractEntity
     /**
      * Returns the imageurl
      *
-     * @return string 
+     * @return string
      */
     public function getImageurl(): string
     {

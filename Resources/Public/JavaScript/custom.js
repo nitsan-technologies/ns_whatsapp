@@ -66,16 +66,20 @@ $( document ).ready(function() {
       $('#submit6').click();
     })
   }
-if (document.querySelectorAll(".addValidrequired").length>0){
-  document.querySelectorAll(".addValidrequired").forEach(el => el.addEventListener('click', event => {
-    if (el.getAttribute("data-id") == 0) {
-      $("#imageurl").attr('required', 'required')
-      $("#image-upload").removeAttr('required', 'required')
-    } else {
-      $("#imageurl").removeAttr('required', 'required')
-      $("#image-upload").attr('required', 'required')
-    }
-  }));
+if (document.querySelectorAll(".addValidrequired").length > 0) {
+  document.querySelectorAll(".addValidrequired input[type='radio']").forEach(radio => {
+    radio.addEventListener('change', function () {
+      if (this.value === '0') {
+        // URL selected
+        $("#imageurl").attr('required', true);
+        $("#image-upload").removeAttr('required');
+      } else {
+        // Image upload selected
+        $("#image-upload").attr('required', true);
+        $("#imageurl").removeAttr('required');
+      }
+    });
+  });
 }
   if (document.getElementById("validStyle7")) {
     document.getElementById("validStyle7").addEventListener("click",function (e){

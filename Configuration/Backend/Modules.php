@@ -11,8 +11,8 @@ $module = [
         'access' => 'user',
         'path' => '/module/nitsan/NsWhatsappWhatsappmodule',
         'icon'   => 'EXT:ns_whatsapp/Resources/Public/Icons/whats_app.svg',
-        'labels' => 'LLL:EXT:ns_whatsapp/Resources/Private/Language/BackendModule.xlf:chat_configuration',
-        'navigationComponent' => '@typo3/backend/page-tree/page-tree-element',
+        'labels' => 'LLL:EXT:ns_whatsapp/Resources/Private/Language/WhatsappConfiguration.xlf',
+        'navigationComponent' => '@typo3/backend/tree/page-tree-element',
         'extensionName' => 'NsWhatsapp',
         'routes' => [
             '_default' => [
@@ -30,13 +30,13 @@ $module = [
         'access' => 'user',
         'path' => '/module/nitsan/NsWhatsappConstant/',
         'icon'   => 'EXT:ns_whatsapp/Resources/Public/Icons/whats_app.svg',
-        'labels' => 'LLL:EXT:ns_whatsapp/Resources/Private/Language/BackendModule.xlf:style_configuration',
-        'navigationComponent' => '@typo3/backend/page-tree/page-tree-element',
+        'labels' => 'LLL:EXT:ns_whatsapp/Resources/Private/Language/WhatsappStyle.xlf',
+        'navigationComponent' => '@typo3/backend/tree/page-tree-element',
         'extensionName' => 'NsWhatsapp',
         'controllerActions' => [
             WhatsappController::class => [
-                'styleSettings', 
-                'update',                
+                'styleSettings',
+                'update',
             ],
         ],
     ],
@@ -46,7 +46,7 @@ if (!ExtensionManagementUtility::isLoaded('ns_basetheme')) {
     $module['nitsan_module'] = [
         'labels' => 'LLL:EXT:ns_whatsapp/Resources/Private/Language/BackendModule.xlf',
         'iconIdentifier' => 'module-nswhatsapp',
-        'navigationComponent' => '@typo3/backend/page-tree/page-tree-element',
+        'navigationComponent' => '@typo3/backend/tree/page-tree-element',
         'position' => ['after' => 'web'],
     ];
 }

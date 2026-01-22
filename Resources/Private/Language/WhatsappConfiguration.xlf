@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="EXT:ns_whatsapp/Resources/Private/Language/BackendModule.xlf" date="2020-12-29T09:56:32Z" product-name="ns_whatsapp">
+		<header/>
+		<body>
+			<trans-unit id="mlang_tabs_tab">
+				<source>Whatsapp Configure</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>
