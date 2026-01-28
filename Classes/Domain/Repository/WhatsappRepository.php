@@ -17,4 +17,6 @@ use TYPO3\CMS\Extbase\Persistence\Repository;
 /**
  * The repository for Whatsapps
  */
-class WhatsappRepository extends Repository {}
+class WhatsappRepository extends Repository
+{
+}

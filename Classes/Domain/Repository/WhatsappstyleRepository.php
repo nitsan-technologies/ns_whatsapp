@@ -63,7 +63,7 @@ class WhatsappstyleRepository extends Repository
         int $empty
     ): void {
         $tableConnectionCategoryMM = $this->getConnectionPool();
-        if ($empty == 0) {
+        if($empty == 0) {
             $tableConnectionCategoryMM->delete(
                 'sys_file_reference',
                 [ 'uid_foreign' => $uid_foreign ]
@@ -75,10 +75,10 @@ class WhatsappstyleRepository extends Repository
             'tablenames' => $table,
             'fieldname' => $field,
             'sorting_foreign' => 1,
-            'pid' => $pid,
+            'pid' => $pid
         ];
 
-        if ($empty == 1 && $uid_foreign == 6) {
+        if($empty == 1 && $uid_foreign == 6) {
             $tableConnectionCategoryMM->delete(
                 'sys_file_reference',
                 [ 'uid_foreign' => $uid_foreign ]

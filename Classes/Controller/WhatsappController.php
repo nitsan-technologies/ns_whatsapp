@@ -5,6 +5,7 @@ namespace Nitsan\NsWhatsapp\Controller;
 use TYPO3\CMS\Core\Resource\Exception;
 use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Information\Typo3Version;
 use Nitsan\NsWhatsapp\Domain\Model\Whatsappstyle;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
@@ -13,7 +14,6 @@ use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Extbase\Persistence\Exception\UnknownObjectException;
 use TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException;
 use TYPO3\CMS\Core\Type\ContextualFeedbackSeverity;
-use TYPO3\CMS\Core\Utility\VersionNumberUtility;
 use TYPO3\CMS\Core\Resource\StorageRepository;
 
 /***
@@ -34,8 +34,11 @@ class WhatsappController extends ActionController
 {
     public function __construct(
         protected WhatsappstyleRepository $whatsappstyleRepository
-    ) {}
+    ) {
+    }
+
     protected $constants;
+
     protected $contentObject = null;
 
     /**
@@ -59,7 +62,7 @@ class WhatsappController extends ActionController
     {
         $configurationManager = GeneralUtility::makeInstance(ConfigurationManagerInterface::class);
         $typoScriptSetup = $configurationManager->getConfiguration(ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT);
-        $this->constants = $typoScriptSetup['plugin.']['tx_nswhasapp_whatsapp.']['settings.'] ?? [];
+        $this->constants = $typoScriptSetup['plugin.']['tx_nswhasapp_whatsapp.']['settings.']??[];
     }
 
     /**
@@ -69,18 +72,18 @@ class WhatsappController extends ActionController
      */
     public function listAction(): ResponseInterface
     {
-        $versionNumber =  VersionNumberUtility::convertVersionStringToArray(VersionNumberUtility::getCurrentTypo3Version());
-        if ($versionNumber['version_main'] <= '12') {
+        if ((GeneralUtility::makeInstance(Typo3Version::class))->getMajorVersion() == 12) {
             // @extensionScannerIgnoreLine
             $currentPid = $GLOBALS['TSFE']->page;
         } else {
             $currentPid = $GLOBALS['TYPO3_REQUEST']->getAttribute('frontend.page.information')->getPageRecord();
         }
 
-        // set js value for slider
+         // set js value for slider
         $configurationManager = GeneralUtility::makeInstance(ConfigurationManagerInterface::class);
         $typoScriptSetup = $configurationManager->getConfiguration(ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT);
         $constant = $typoScriptSetup['plugin.']['tx_nswhasapp_whatsapp.']['settings.'];
+
 
         $chat_showpage = GeneralUtility::trimExplode(
             ',',
@@ -94,15 +97,15 @@ class WhatsappController extends ActionController
             ',',
             rtrim($constant['group_show_pages'], ', ')
         );
-        if (($constant['show_all']) || ($chat_showpage && (in_array($currentPid, $chat_showpage)))) {
+        if(($constant['show_all']) || ($chat_showpage && (in_array($currentPid, $chat_showpage)))) {
             $chatFlag = 1;
         }
 
-        if ($constant['share_show_all'] || ($share_showpage && in_array($currentPid, $share_showpage))) {
+        if($constant['share_show_all'] || ($share_showpage && in_array($currentPid, $share_showpage))) {
             $shareFlag = 1;
         }
 
-        if ($constant['group_show_all'] || ($group_showpage && in_array($currentPid, $group_showpage))) {
+        if($constant['group_show_all'] || ($group_showpage && in_array($currentPid, $group_showpage))) {
             $groupFlag = 1;
         }
 
@@ -199,7 +202,6 @@ class WhatsappController extends ActionController
             }
         }
     }
-
     /**
      * action styleSettings
      *
@@ -213,9 +215,39 @@ class WhatsappController extends ActionController
             $this->view->assignMultiple([
                 'whatsappstyle' => $whatsappstyle,
                 'middleAttribute' => 'data-bs-',
-                'style1' => 'show',
+                'style1' => 'show'
             ]);
         }
         return $this->htmlResponse();
     }
+
+
+    /**
+     * Registers an uploaded file for TYPO3 native upload handling.
+     *
+     * @param array &$data
+     * @param string $namespace
+     * @param string $targetDirectory
+     * @return void
+     */
+    protected function registerUploadField(array &$data, string $namespace, string $targetDirectory = '1:/_temp_/')
+    {
+        if (!isset($data['upload'])) {
+            $data['upload'] = array();
+        }
+        $counter = count($data['upload']) + 1;
+        $_FILES[$namespace] = $_FILES[$namespace] ?? '';
+
+        if($_FILES[$namespace]) {
+            $keys = array_keys($_FILES[$namespace]);
+            foreach ($keys as $key) {
+                $_FILES['upload_' . $counter][$key] = $_FILES[$namespace][$key];
+            }
+            $data['upload'][$counter] = array(
+                'data' => $counter,
+                'target' => $targetDirectory,
+            );
+        }
+    }
+
 }

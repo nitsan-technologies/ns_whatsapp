@@ -1,0 +1,55 @@
+@import 'EXT:ns_whatsapp/Configuration/TypoScript/setup.typoscript'
+
+plugin {
+    tx_nswhasapp_whatsapp {
+        settings {
+            is_enable = {$ns_whatsapp.chat.isEnable}
+            whatsapp_number = {$ns_whatsapp.chat.whatsappNumber}
+            pre_filled_message = {$ns_whatsapp.chat.preFilledMessage}
+            call_to_action = {$ns_whatsapp.chat.callToAction}
+            style_desktop = {$ns_whatsapp.chat.styleDesktop}
+            style_mobile = {$ns_whatsapp.chat.styleMobile}
+            position = {$ns_whatsapp.chat.position}
+            web_whatsapp = {$ns_whatsapp.chat.webWhatsapp}
+            show_all = {$ns_whatsapp.chat.showAll}
+            show_pages = {$ns_whatsapp.chat.showPages}
+            hide_mobile = {$ns_whatsapp.chat.hideMobile}
+            hide_desktop = {$ns_whatsapp.chat.hideDesktop}
+            share_is_enable = {$ns_whatsapp.share.isEnable}
+            share_text_message = {$ns_whatsapp.share.textMessage}
+            share_call_to_action = {$ns_whatsapp.share.callToAction}
+            share_style_desktop = {$ns_whatsapp.share.styleDesktop}
+            share_style_mobile = {$ns_whatsapp.share.styleMobile}
+            share_position = {$ns_whatsapp.share.position}
+            share_web_whatsapp = {$ns_whatsapp.share.webWhatsapp}
+            share_show_all = {$ns_whatsapp.share.showAll}
+            share_show_pages = {$ns_whatsapp.share.showPages}
+            share_hide_mobile = {$ns_whatsapp.share.hideMobile}
+            share_hide_desktop = {$ns_whatsapp.share.hideDesktop}
+            group_is_enable = {$ns_whatsapp.group.isEnable}
+            group_id = {$ns_whatsapp.group.groupId}
+            group_text_message = {$ns_whatsapp.group.group_text_message}
+            group_call_to_action = {$ns_whatsapp.group.callToAction}
+            group_style_desktop = {$ns_whatsapp.group.styleDesktop}
+            group_style_mobile = {$ns_whatsapp.group_style_mobile}
+            group_position = {$ns_whatsapp.group.position}
+            group_web_whatsapp = {$ns_whatsapp.group_web_whatsapp}
+            group_show_all = {$ns_whatsapp.group.showAll}
+            group_show_pages = {$ns_whatsapp.group.showPages}
+            group_hide_mobile = {$ns_whatsapp.group.hideMobile}
+            group_hide_desktop = {$ns_whatsapp.group.hideDesktop}
+
+        }
+        view {
+            templateRootPaths {
+                10 = {$ns_whatsapp.view.templateRootPath}
+            }
+            partialRootPaths {
+                10 = {$ns_whatsapp.view.partialRootPath}
+            }
+            layoutRootPaths {
+                10 = {$ns_whatsapp.view.layoutRootPath}
+            }
+        }
+    }
+}
