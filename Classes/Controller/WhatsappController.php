@@ -34,8 +34,7 @@ class WhatsappController extends ActionController
 {
     public function __construct(
         protected WhatsappstyleRepository $whatsappstyleRepository
-    ) {
-    }
+    ) {}
 
     protected $constants;
 
@@ -84,7 +83,6 @@ class WhatsappController extends ActionController
         $typoScriptSetup = $configurationManager->getConfiguration(ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT);
         $constant = $typoScriptSetup['plugin.']['tx_nswhasapp_whatsapp.']['settings.'];
 
-
         $chat_showpage = GeneralUtility::trimExplode(
             ',',
             rtrim($constant['show_pages'], ', ')
@@ -119,6 +117,7 @@ class WhatsappController extends ActionController
                 'chatFlag' => $chatFlag ?? '',
                 'shareFlag' => $shareFlag ?? '',
                 'groupFlag' => $groupFlag ?? '',
+                'settings' => $constant,
             ]
         );
         return $this->htmlResponse();
@@ -135,6 +134,7 @@ class WhatsappController extends ActionController
      */
     public function updateAction(Whatsappstyle $whatsappstyle): ResponseInterface
     {
+        \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($whatsappstyle, __FILE__.' '.__LINE__);die;
         $this->processImageRemove($whatsappstyle);
 
         // Handle file upload
