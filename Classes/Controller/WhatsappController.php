@@ -130,39 +130,47 @@ class WhatsappController extends ActionController
      */
     public function listAction(): ResponseInterface
     {
-        if ((GeneralUtility::makeInstance(Typo3Version::class))->getMajorVersion() == 12) {
+        // Determine current page id (pid) in a version-safe way
+        $typo3Version = GeneralUtility::makeInstance(Typo3Version::class);
+        if ($typo3Version->getMajorVersion() === 12) {
             // @extensionScannerIgnoreLine
-            $currentPid = $GLOBALS['TSFE']->page;
+            $pageRecord = $GLOBALS['TSFE']->page ?? [];
         } else {
-            $currentPid = $GLOBALS['TYPO3_REQUEST']->getAttribute('frontend.page.information')->getPageRecord();
+            $pageRecord = $GLOBALS['TYPO3_REQUEST']->getAttribute('frontend.page.information')->getPageRecord() ?? [];
         }
+        $currentPid = (int)($pageRecord['uid'] ?? 0);
 
-         // set js value for slider
+        // set js value for slider / read constants
         $configurationManager = GeneralUtility::makeInstance(ConfigurationManagerInterface::class);
         $typoScriptSetup = $configurationManager->getConfiguration(ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT);
-        $constant = $typoScriptSetup['plugin.']['tx_nswhasapp_whatsapp.']['settings.'];
+        $constant = $typoScriptSetup['plugin.']['tx_nswhasapp_whatsapp.']['settings.'] ?? [];
 
+        // Page based visibility (lists of PIDs from constants)
         $chat_showpage = GeneralUtility::trimExplode(
             ',',
-            rtrim($constant['show_pages'], ', ')
+            rtrim($constant['show_pages'] ?? '', ', '),
+            true
         );
         $share_showpage = GeneralUtility::trimExplode(
             ',',
-            rtrim($constant['share_show_pages'], ', ')
+            rtrim($constant['share_show_pages'] ?? '', ', '),
+            true
         );
         $group_showpage = GeneralUtility::trimExplode(
             ',',
-            rtrim($constant['group_show_pages'], ', ')
+            rtrim($constant['group_show_pages'] ?? '', ', '),
+            true
         );
-        if(($constant['show_all']) || ($chat_showpage && (in_array($currentPid, $chat_showpage)))) {
+
+        if (($constant['show_all'] ?? false) || (!empty($chat_showpage) && in_array((string)$currentPid, $chat_showpage, false))) {
             $chatFlag = 1;
         }
 
-        if($constant['share_show_all'] || ($share_showpage && in_array($currentPid, $share_showpage))) {
+        if (($constant['share_show_all'] ?? false) || (!empty($share_showpage) && in_array((string)$currentPid, $share_showpage, false))) {
             $shareFlag = 1;
         }
 
-        if($constant['group_show_all'] || ($group_showpage && in_array($currentPid, $group_showpage))) {
+        if (($constant['group_show_all'] ?? false) || (!empty($group_showpage) && in_array((string)$currentPid, $group_showpage, false))) {
             $groupFlag = 1;
         }
 
@@ -172,7 +180,7 @@ class WhatsappController extends ActionController
             [
                 'urlConnection' => $urlConnection,
                 'whatsappstyle' => $whatsappstyle,
-                'currentpid' => $currentPid ?? '',
+                'currentpid' => $currentPid,
                 'chatFlag' => $chatFlag ?? '',
                 'shareFlag' => $shareFlag ?? '',
                 'groupFlag' => $groupFlag ?? '',

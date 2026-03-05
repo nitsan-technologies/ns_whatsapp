@@ -31,9 +31,9 @@ plugin {
             group_text_message = {$ns_whatsapp.group.group_text_message}
             group_call_to_action = {$ns_whatsapp.group.callToAction}
             group_style_desktop = {$ns_whatsapp.group.styleDesktop}
-            group_style_mobile = {$ns_whatsapp.group_style_mobile}
+            group_style_mobile = {$ns_whatsapp.group.styleMobile}
             group_position = {$ns_whatsapp.group.position}
-            group_web_whatsapp = {$ns_whatsapp.group_web_whatsapp}
+            group_web_whatsapp = {$ns_whatsapp.group.webWhatsapp}
             group_show_all = {$ns_whatsapp.group.showAll}
             group_show_pages = {$ns_whatsapp.group.showPages}
             group_hide_mobile = {$ns_whatsapp.group.hideMobile}
