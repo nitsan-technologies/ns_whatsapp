@@ -28,14 +28,6 @@
             <trans-unit id="sorry">
                 <source>Sorry!</source>
             </trans-unit>
-            <trans-unit id="noconstantline1">
-                <source>No Extension TypoScript available for this Page.</source>
-            </trans-unit>
-            <trans-unit id="noconstantline2">
-                <source>Please go the TypoScript Module and create new extension TypoScript for this page.</source>
-            </trans-unit>
-            <trans-unit id="noconstantline3">
-                <source>Please click here</source>
             </trans-unit>
             <trans-unit id="templatelinkText">
                 <source>Template</source>
@@ -49,14 +41,6 @@
             <trans-unit id="sorry">
                 <source>Sorry!</source>
             </trans-unit>
-            <trans-unit id="noconstantline1">
-                <source>No Extension TypoScript available for this Page.</source>
-            </trans-unit>
-            <trans-unit id="noconstantline2">
-                <source>Please go the TypoScript Module and create new extension TypoScript for this page.</source>
-            </trans-unit>
-            <trans-unit id="noconstantline3">
-                <source>Please click here</source>
             </trans-unit>
             <trans-unit id="templatelinkText">
                 <source>Template</source>
