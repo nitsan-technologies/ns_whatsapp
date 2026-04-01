@@ -1,0 +1,316 @@
+categories:
+  ns_whatsapp:
+    label: LLL:EXT:ns_whatsapp/Resources/Private/Language/locallang.xlf:brandname
+
+  ns_whatsapp.view:
+    label: View Settings
+    parent: ns_whatsapp
+
+  ns_whatsapp.chat:
+    label: LLL:EXT:ns_whatsapp/Resources/Private/Language/locallang.xlf:cat_chat
+    parent: ns_whatsapp
+
+  ns_whatsapp.share:
+    label: LLL:EXT:ns_whatsapp/Resources/Private/Language/locallang.xlf:cat_share
+    parent: ns_whatsapp
+
+  ns_whatsapp.group:
+    label: LLL:EXT:ns_whatsapp/Resources/Private/Language/locallang.xlf:cat_group
+    parent: ns_whatsapp
+
+
+settings:
+
+  # -------------------------------------------------
+  # View paths (FE)
+  # -------------------------------------------------
+  ns_whatsapp.view.templateRootPath:
+    label: Path to template root (FE)
+    category: ns_whatsapp.view
+    type: string
+    default: EXT:ns_whatsapp/Resources/Private/Templates/
+
+  ns_whatsapp.view.partialRootPath:
+    label: Path to template partials (FE)
+    category: ns_whatsapp.view
+    type: string
+    default: EXT:ns_whatsapp/Resources/Private/Partials/
+
+  ns_whatsapp.view.layoutRootPath:
+    label: Path to template layouts (FE)
+    category: ns_whatsapp.view
+    type: string
+    default: EXT:ns_whatsapp/Resources/Private/Layouts/
+
+
+  # =================================================
+  # CHAT SETTINGS
+  # =================================================
+  ns_whatsapp.chat.isEnable:
+    label: Is Enable
+    category: ns_whatsapp.chat
+    type: bool
+    default: true
+
+  ns_whatsapp.chat.whatsappNumber:
+    label: Whatsapp Number (Enter Country code and Whatsapp Number)
+    category: ns_whatsapp.chat
+    type: string
+    default: ''
+
+  ns_whatsapp.chat.preFilledMessage:
+    label: Pre-Filled Message
+    category: ns_whatsapp.chat
+    type: string
+    default: ''
+
+  ns_whatsapp.chat.callToAction:
+    label: Call to Action (For style6 and style7)
+    category: ns_whatsapp.chat
+    type: string
+    default: Whatsapp Us
+
+  ns_whatsapp.chat.styleDesktop:
+    label: Style for Desktop
+    category: ns_whatsapp.chat
+    type: string
+    enum:
+      Style1: Style 1
+      Style2: Style 2
+      Style3: Style 3
+      Style4: Style 4
+      Style5: Style 5
+      Style6: Style 6
+      Style7: Style 7
+    default: Style1
+
+  ns_whatsapp.chat.styleMobile:
+    label: Style for Mobile
+    category: ns_whatsapp.chat
+    type: string
+    enum:
+      Style1: Style 1
+      Style2: Style 2
+      Style3: Style 3
+      Style4: Style 4
+      Style5: Style 5
+      Style6: Style 6
+      Style7: Style 7
+    default: Style1
+
+  ns_whatsapp.chat.position:
+    label: Position (Display location)
+    category: ns_whatsapp.chat
+    type: string
+    enum:
+      Top-left: Top Left
+      Top-right: Top Right
+      Bottom-left: Bottom Left
+      Bottom-right: Bottom Right
+    default: Top-left
+
+  ns_whatsapp.chat.webWhatsapp:
+    label: Web Whatsapp
+    category: ns_whatsapp.chat
+    type: bool
+    default: true
+
+  ns_whatsapp.chat.showAll:
+    label: Show on All Pages
+    category: ns_whatsapp.chat
+    type: bool
+    default: false
+
+  ns_whatsapp.chat.showPages:
+    label: Show on selected pages (comma separated IDs)
+    category: ns_whatsapp.chat
+    type: string
+    default: ''
+
+  ns_whatsapp.chat.hideMobile:
+    label: Hide on Mobile
+    category: ns_whatsapp.chat
+    type: bool
+    default: false
+
+  ns_whatsapp.chat.hideDesktop:
+    label: Hide on Desktop
+    category: ns_whatsapp.chat
+    type: bool
+    default: false
+
+
+  # =================================================
+  # SHARE SETTINGS
+  # =================================================
+  ns_whatsapp.share.isEnable:
+    label: Is Enable
+    category: ns_whatsapp.share
+    type: bool
+    default: true
+
+  ns_whatsapp.share.textMessage:
+    label: Share Text Message (Checkout this Awesome Page url)
+    category: ns_whatsapp.share
+    type: string
+    default: ''
+
+  ns_whatsapp.share.callToAction:
+    label: Call to Action (For style6 and style7)
+    category: ns_whatsapp.share
+    type: string
+    default: Whatsapp Us
+
+  ns_whatsapp.share.styleDesktop:
+    label: Style for Desktop
+    category: ns_whatsapp.share
+    type: string
+    enum:
+      Style1: Style 1
+      Style2: Style 2
+      Style3: Style 3
+      Style4: Style 4
+      Style5: Style 5
+      Style6: Style 6
+      Style7: Style 7
+    default: Style1
+
+  ns_whatsapp.share.styleMobile:
+    label: Style for Mobile
+    category: ns_whatsapp.share
+    type: string
+    enum:
+      Style1: Style 1
+      Style2: Style 2
+      Style3: Style 3
+      Style4: Style 4
+      Style5: Style 5
+      Style6: Style 6
+      Style7: Style 7
+    default: Style1
+
+  ns_whatsapp.share.position:
+    label: Position (Display location)
+    category: ns_whatsapp.share
+    type: string
+    enum:
+      Top-left: Top Left
+      Top-right: Top Right
+      Bottom-left: Bottom Left
+      Bottom-right: Bottom Right
+    default: Top-right
+
+  ns_whatsapp.share.webWhatsapp:
+    label: Web Whatsapp on Desktop
+    category: ns_whatsapp.share
+    type: bool
+    default: true
+
+  ns_whatsapp.share.showAll:
+    label: Show on All Pages
+    category: ns_whatsapp.share
+    type: bool
+    default: false
+
+  ns_whatsapp.share.showPages:
+    label: Show on selected pages (comma separated IDs)
+    category: ns_whatsapp.share
+    type: string
+    default: ''
+
+  ns_whatsapp.share.hideMobile:
+    label: Hide on Mobile
+    category: ns_whatsapp.share
+    type: bool
+    default: false
+
+  ns_whatsapp.share.hideDesktop:
+    label: Hide on Desktop
+    category: ns_whatsapp.share
+    type: bool
+    default: false
+
+
+  # =================================================
+  # GROUP SETTINGS
+  # =================================================
+  ns_whatsapp.group.isEnable:
+    label: Is Enable
+    category: ns_whatsapp.group
+    type: bool
+    default: true
+
+  ns_whatsapp.group.groupId:
+    label: Whatsapp Group ID
+    category: ns_whatsapp.group
+    type: string
+    default: ''
+
+  ns_whatsapp.group.callToAction:
+    label: Call to Action (For style6 and style7)
+    category: ns_whatsapp.group
+    type: string
+    default: Whatsapp Us
+
+  ns_whatsapp.group.styleDesktop:
+    label: Style for Desktop
+    category: ns_whatsapp.group
+    type: string
+    enum:
+      Style1: Style 1
+      Style2: Style 2
+      Style3: Style 3
+      Style4: Style 4
+      Style5: Style 5
+      Style6: Style 6
+      Style7: Style 7
+    default: Style1
+
+  ns_whatsapp.group.styleMobile:
+    label: Style for Mobile
+    category: ns_whatsapp.group
+    type: string
+    enum:
+      Style1: Style 1
+      Style2: Style 2
+      Style3: Style 3
+      Style4: Style 4
+      Style5: Style 5
+      Style6: Style 6
+      Style7: Style 7
+    default: Style1
+
+  ns_whatsapp.group.position:
+    label: Position (Display location)
+    category: ns_whatsapp.group
+    type: string
+    enum:
+      Top-left: Top Left
+      Top-right: Top Right
+      Bottom-left: Bottom Left
+      Bottom-right: Bottom Right
+    default: Bottom-left
+
+  ns_whatsapp.group.showAll:
+    label: Show on All Pages
+    category: ns_whatsapp.group
+    type: bool
+    default: false
+
+  ns_whatsapp.group.showPages:
+    label: Show on selected pages (comma separated IDs)
+    category: ns_whatsapp.group
+    type: string
+    default: ''
+
+  ns_whatsapp.group.hideMobile:
+    label: Hide on Mobile
+    category: ns_whatsapp.group
+    type: bool
+    default: false
+
+  ns_whatsapp.group.hideDesktop:
+    label: Hide on Desktop
+    category: ns_whatsapp.group
+    type: bool
+    default: false

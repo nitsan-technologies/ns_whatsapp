@@ -86,11 +86,11 @@ plugin.tx_nswhasapp_whatsapp {
         #cat = ns_whatsapp_share/share/11; type=boolean; label=Hide on desktop
         share_hide_desktop = 0
 
-        #cat = ns_whatsapp_group/group/02; type=string; label=Whatsapp Group ID
-        group_id =
-
         #cat = ns_whatsapp_group/group/01; type=boolean; label=Is Enable
         group_is_enable = 1
+
+        #cat = ns_whatsapp_group/group/02; type=string; label=Whatsapp Group ID
+        group_id =
 
         #cat = ns_whatsapp_group/group/03; type=string; label=Call to Action: For style6 and style7
         group_call_to_action = Whatsapp Us

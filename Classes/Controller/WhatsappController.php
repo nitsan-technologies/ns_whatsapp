@@ -6,15 +6,18 @@ use TYPO3\CMS\Core\Resource\Exception;
 use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Information\Typo3Version;
+use TYPO3\CMS\Core\Crypto\HashAlgo;
 use Nitsan\NsWhatsapp\Domain\Model\Whatsappstyle;
-use TYPO3\CMS\Core\Utility\File\ExtendedFileUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
+use TYPO3\CMS\Extbase\Mvc\RequestInterface;
+use TYPO3\CMS\Extbase\Security\HashScope;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 use Nitsan\NsWhatsapp\Domain\Repository\WhatsappstyleRepository;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Extbase\Persistence\Exception\UnknownObjectException;
 use TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException;
 use TYPO3\CMS\Core\Type\ContextualFeedbackSeverity;
+use TYPO3\CMS\Core\Resource\StorageRepository;
 
 /***
  *
@@ -34,8 +37,7 @@ class WhatsappController extends ActionController
 {
     public function __construct(
         protected WhatsappstyleRepository $whatsappstyleRepository
-    ) {
-    }
+    ) {}
 
     protected $constants;
 
@@ -66,42 +68,109 @@ class WhatsappController extends ActionController
     }
 
     /**
+     * Normalize trusted properties token: ensure string keys and remove stray top-level numeric keys.
+     * Fixes: hasArgument() must be of type string, int given (e.g. top-level key "0" from form).
+     */
+    public function processRequest(RequestInterface $request): \Psr\Http\Message\ResponseInterface
+    {
+        $extbaseParams = $request->getAttribute('extbase');
+        if ($extbaseParams !== null) {
+            $token = $extbaseParams->getInternalArgument('__trustedProperties');
+            if (is_string($token) && $token !== '') {
+                try {
+                    $encoded = $this->hashService->validateAndStripHmac(
+                        $token,
+                        HashScope::TrustedProperties->prefix(),
+                        HashAlgo::SHA3_256
+                    );
+                    $decoded = json_decode($encoded, true);
+                    if (is_array($decoded)) {
+                        $normalized = $this->normalizeTrustedPropertiesKeys($decoded);
+                        // Remove top-level numeric keys (e.g. "0") so core only sees "whatsappstyle"
+                        foreach (array_keys($normalized) as $key) {
+                            if (is_numeric($key) && (string)(int)$key === (string)$key) {
+                                unset($normalized[$key]);
+                            }
+                        }
+                        $reEncoded = json_encode($normalized);
+                        $newToken = $this->hashService->appendHmac(
+                            $reEncoded,
+                            HashScope::TrustedProperties->prefix(),
+                            HashAlgo::SHA3_256
+                        );
+                        $extbaseParams->setArgument('__trustedProperties', $newToken);
+                    }
+                } catch (\Throwable $e) {
+                    // Leave token unchanged if validation fails
+                }
+            }
+        }
+        return parent::processRequest($request);
+    }
+
+    /**
+     * Recursively convert integer array keys to string (JSON decodes "0" to 0).
+     */
+    private function normalizeTrustedPropertiesKeys(array $data): array
+    {
+        $result = [];
+        foreach ($data as $key => $value) {
+            $stringKey = is_int($key) ? (string)$key : $key;
+            $result[$stringKey] = is_array($value)
+                ? $this->normalizeTrustedPropertiesKeys($value)
+                : $value;
+        }
+        return $result;
+    }
+
+    /**
      * action list
      *
      * @return ResponseInterface
      */
     public function listAction(): ResponseInterface
     {
-        //@extensionScannerIgnoreLine
-        $currentPid = $GLOBALS['TSFE']->id;
+        // Determine current page id (pid) in a version-safe way
+        $typo3Version = GeneralUtility::makeInstance(Typo3Version::class);
+        if ($typo3Version->getMajorVersion() === 12) {
+            // @extensionScannerIgnoreLine
+            $pageRecord = $GLOBALS['TSFE']->page ?? [];
+        } else {
+            $pageRecord = $GLOBALS['TYPO3_REQUEST']->getAttribute('frontend.page.information')->getPageRecord() ?? [];
+        }
+        $currentPid = (int)($pageRecord['uid'] ?? 0);
 
-         // set js value for slider
+        // set js value for slider / read constants
         $configurationManager = GeneralUtility::makeInstance(ConfigurationManagerInterface::class);
         $typoScriptSetup = $configurationManager->getConfiguration(ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT);
-        $constant = $typoScriptSetup['plugin.']['tx_nswhasapp_whatsapp.']['settings.'];
+        $constant = $typoScriptSetup['plugin.']['tx_nswhasapp_whatsapp.']['settings.'] ?? [];
 
-
+        // Page based visibility (lists of PIDs from constants)
         $chat_showpage = GeneralUtility::trimExplode(
             ',',
-            rtrim($constant['show_pages'], ', ')
+            rtrim($constant['show_pages'] ?? '', ', '),
+            true
         );
         $share_showpage = GeneralUtility::trimExplode(
             ',',
-            rtrim($constant['share_show_pages'], ', ')
+            rtrim($constant['share_show_pages'] ?? '', ', '),
+            true
         );
         $group_showpage = GeneralUtility::trimExplode(
             ',',
-            rtrim($constant['group_show_pages'], ', ')
+            rtrim($constant['group_show_pages'] ?? '', ', '),
+            true
         );
-        if(($constant['show_all']) || ($chat_showpage && (in_array($currentPid, $chat_showpage)))) {
+
+        if (($constant['show_all'] ?? false) || (!empty($chat_showpage) && in_array((string)$currentPid, $chat_showpage, false))) {
             $chatFlag = 1;
         }
 
-        if($constant['share_show_all'] || ($share_showpage && in_array($currentPid, $share_showpage))) {
+        if (($constant['share_show_all'] ?? false) || (!empty($share_showpage) && in_array((string)$currentPid, $share_showpage, false))) {
             $shareFlag = 1;
         }
 
-        if($constant['group_show_all'] || ($group_showpage && in_array($currentPid, $group_showpage))) {
+        if (($constant['group_show_all'] ?? false) || (!empty($group_showpage) && in_array((string)$currentPid, $group_showpage, false))) {
             $groupFlag = 1;
         }
 
@@ -111,10 +180,11 @@ class WhatsappController extends ActionController
             [
                 'urlConnection' => $urlConnection,
                 'whatsappstyle' => $whatsappstyle,
-                'currentpid' => $currentPid ?? '',
+                'currentpid' => $currentPid,
                 'chatFlag' => $chatFlag ?? '',
                 'shareFlag' => $shareFlag ?? '',
                 'groupFlag' => $groupFlag ?? '',
+                'settings' => $constant,
             ]
         );
         return $this->htmlResponse();
@@ -131,37 +201,40 @@ class WhatsappController extends ActionController
      */
     public function updateAction(Whatsappstyle $whatsappstyle): ResponseInterface
     {
-        $namespace = key($_FILES);
-        $targetFalDirectory = '1:/user_upload/';
-        // Register every upload field from the form:
-        $fileData = [];
-        if(!empty($_FILES['image']['name'])) {
-            $this->registerUploadField($fileData, $namespace, $targetFalDirectory);
-        }
-
         $this->processImageRemove($whatsappstyle);
 
-        // Initializing:
-        /** @var ExtendedFileUtility $fileProcessor */
-        $fileProcessor = GeneralUtility::makeInstance(ExtendedFileUtility::class);
-        $fileProcessor->setActionPermissions(['addFile' => true]);
-        if ((GeneralUtility::makeInstance(Typo3Version::class))->getMajorVersion() == 12) {
-            $rename = \TYPO3\CMS\Core\Resource\DuplicationBehavior::RENAME;
-        } else {
-            $rename = \TYPO3\CMS\Core\Resource\Enum\DuplicationBehavior::RENAME;
-        }
+        // Handle file upload
+        if (!empty($_FILES['image']['name'])) {
 
-        $fileProcessor->setExistingFilesConflictMode( $rename);
-        $fileProcessor->start($fileData);
-        $fileAddedresult = $fileProcessor->processData();
+            /** @var \TYPO3\CMS\Core\Resource\StorageRepository $storageRepository */
+            $storageRepository = GeneralUtility::makeInstance(StorageRepository::class);
 
-        $this->whatsappstyleRepository->update($whatsappstyle);
+            // @extensionScannerIgnoreLine
+            $storage = $storageRepository->getDefaultStorage();
 
-        $fileAddedresult['upload'][0] = $fileAddedresult['upload'][0] ?? '';
-        if($fileAddedresult['upload'][0]) {
-            foreach ($fileAddedresult['upload'][0] as $file) {
+            $folderIdentifier = 'user_upload';
+            if (!$storage->hasFolder($folderIdentifier)) {
+                $storage->createFolder($folderIdentifier);
+            }
+
+            $folder = $storage->getFolder($folderIdentifier);
+
+            // Uploaded file data
+            $tmpFilePath = $_FILES['image']['tmp_name'];
+            $originalFileName = $_FILES['image']['name'];
+
+            if (is_uploaded_file($tmpFilePath)) {
+
+                /** @var \TYPO3\CMS\Core\Resource\File $file */
+                $file = $storage->addFile(
+                    $tmpFilePath,
+                    $folder,
+                    $originalFileName
+                );
+
+                // Create sys_file_reference (same as your old logic)
                 $this->whatsappstyleRepository->updateSysFileReferenceRecord(
-                    $file->getProperties()['uid'],
+                    $file->getUid(),
                     $whatsappstyle->getUid(),
                     $whatsappstyle->getPid(),
                     'tx_nswhatsapp_domain_model_whatsappstyle',
@@ -170,6 +243,8 @@ class WhatsappController extends ActionController
                 );
             }
         }
+
+        $this->whatsappstyleRepository->update($whatsappstyle);
 
         $this->addFlashMessage(
             'Great choice! Your new WhatsApp style is now active.',
@@ -201,15 +276,12 @@ class WhatsappController extends ActionController
      */
     public function styleSettingsAction(): ResponseInterface
     {
-        $id = (int) $this->request->getArguments();
-        if ($id != 0) {
-            $whatsappstyle = $this->whatsappstyleRepository->findAll();
-            $this->view->assignMultiple([
-                'whatsappstyle' => $whatsappstyle,
-                'middleAttribute' => 'data-bs-',
-                'style1' => 'show'
-            ]);
-        }
+        $whatsappstyle = $this->whatsappstyleRepository->findAll();
+        $this->view->assignMultiple([
+            'whatsappstyle' => $whatsappstyle,
+            'middleAttribute' => 'data-bs-',
+            'style1' => 'show'
+        ]);
         return $this->htmlResponse();
     }
 
