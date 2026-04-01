@@ -28,7 +28,6 @@
             <trans-unit id="sorry">
                 <source>Sorry!</source>
             </trans-unit>
-            </trans-unit>
             <trans-unit id="templatelinkText">
                 <source>Template</source>
             </trans-unit>
@@ -40,7 +39,6 @@
             </trans-unit>
             <trans-unit id="sorry">
                 <source>Sorry!</source>
-            </trans-unit>
             </trans-unit>
             <trans-unit id="templatelinkText">
                 <source>Template</source>
