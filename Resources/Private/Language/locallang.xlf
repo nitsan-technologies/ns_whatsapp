@@ -25,23 +25,17 @@
             <trans-unit id="noThemeConfiguration">
                 <source>Sorry, Configuration not available for this!</source>
             </trans-unit>
-            <trans-unit id="sorry">
+            <trans-unit id="sorry_heading">
                 <source>Sorry!</source>
             </trans-unit>
-            <trans-unit id="templatelinkText">
-                <source>Template</source>
+			<trans-unit id="sorry_message">
+                <source>Please re-import the database from the extension module.</source>
             </trans-unit>
             <trans-unit id="save_changes">
                 <source>Save Changes</source>
             </trans-unit>
             <trans-unit id="opps">
                 <source>Oops!</source>
-            </trans-unit>
-            <trans-unit id="sorry">
-                <source>Sorry!</source>
-            </trans-unit>
-            <trans-unit id="templatelinkText">
-                <source>Template</source>
             </trans-unit>
 			<trans-unit id="chatSettings">
 				<source>Chat</source>

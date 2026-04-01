@@ -6,9 +6,8 @@
 <f:if condition="{whatsappstyle} == ''">
    <f:then>
        <div class="alert alert-danger" role="alert">
-            <h4 class="alert-heading"><f:translate key="sorry" extensionName="ns_whatsapp"/></h4>
-            <p><f:translate key="noconstantline1" extensionName="ns_whatsapp" /></p>
-            <p><f:translate key="noconstantline2" extensionName="ns_whatsapp" /></p>
+        <h4 class="alert-heading"><f:translate key="sorry_heading" extensionName="ns_whatsapp"/></h4>
+        <p><f:translate key="sorry_message" extensionName="ns_whatsapp" /></p>
             <f:if condition="{link}">
                 <hr>
                 <p class="mb-0"><f:translate key="noconstantline3" extensionName="ns_whatsapp" /><a href="{link}" class="alert-link" style="text-decoration: none;"><f:translate key="templatelinkText" extensionName="your_extension_key" /></a></p>
