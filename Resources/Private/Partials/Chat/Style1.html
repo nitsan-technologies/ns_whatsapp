@@ -1,14 +1,22 @@
+<f:variable name="style1Text">{f:if(condition: settings.style1_text, then: settings.style1_text, else: whatsapp.text)}</f:variable>
+<f:variable name="style1TextColor">{f:if(condition: settings.style1_textcolor, then: settings.style1_textcolor, else: whatsapp.textcolor)}</f:variable>
+<f:variable name="style1BgColor">{f:if(condition: settings.style1_bgcolor, then: settings.style1_bgcolor, else: whatsapp.bgcolor)}</f:variable>
+<f:variable name="style1BorderWidth">{f:if(condition: settings.style1_border, then: settings.style1_border, else: whatsapp.border)}</f:variable>
+<f:variable name="style1BorderColor">{f:if(condition: settings.style1_bordercolor, then: settings.style1_bordercolor, else: whatsapp.bordercolor)}</f:variable>
+<f:variable name="style1HoverTextColor">{f:if(condition: settings.style1_htextcolor, then: settings.style1_htextcolor, else: whatsapp.htextcolor)}</f:variable>
+<f:variable name="style1HoverBgColor">{f:if(condition: settings.style1_hbgcolor, then: settings.style1_hbgcolor, else: whatsapp.hbgcolor)}</f:variable>
+<f:variable name="style1HoverBorderColor">{f:if(condition: settings.style1_hbordercolor, then: settings.style1_hbordercolor, else: whatsapp.hboredrcolor)}</f:variable>
 <f:asset.css identifier="1716359682">
 .style1 {
-    background-color: {whatsapp.bgcolor} !important;
-    border: {whatsapp.bordercolor} {whatsapp.border}px solid !important;
-    color: {whatsapp.textcolor} !important;
-    }
-    .style1:hover {
-    background-color: {whatsapp.hbgcolor} !important;
-    border: {whatsapp.hboredrcolor} {whatsapp.border}px solid !important;
-    color: {whatsapp.htextcolor} !important;
-	}
+    background-color: {style1BgColor} !important;
+    border: {style1BorderColor} {style1BorderWidth}px solid !important;
+    color: {style1TextColor} !important;
+}
+.style1:hover {
+    background-color: {style1HoverBgColor} !important;
+    border: {style1HoverBorderColor} {style1BorderWidth}px solid !important;
+    color: {style1HoverTextColor} !important;
+}
 </f:asset.css>
 <f:variable name="whatsappUrl">{urlConnection}{f:if(condition: '{settings.web_whatsapp}', then: 'web', else: 'api')}.whatsapp.com/send/?phone={settings.whatsapp_number}&text={settings.pre_filled_message}{f:if(condition: '{settings.web_whatsapp}',then: '',  else: '&app_absent=0')}</f:variable>
 <f:if condition="{settings.mobile}">
@@ -17,5 +25,5 @@
 
 <div class="ns-whatsapp-variant ns-whatsapp-variant--one ">
     <f:link.external class="ns-whatsapp-btn style1"
-    uri="{whatsappUrl}" target="_blank">{whatsapp.text}</f:link.external>
+    uri="{whatsappUrl}" target="_blank">{f:if(condition: style1Text, then: style1Text, else: 'WhatsApp Us')}</f:link.external>
 </div>
