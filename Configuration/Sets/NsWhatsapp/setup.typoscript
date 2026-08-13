@@ -35,3 +35,6 @@ plugin {
         }
     }
 }
+
+# Re-copy after Site Set overrides so USER cObject gets the final settings
+page.111246.settings < plugin.tx_nswhasapp_whatsapp.settings

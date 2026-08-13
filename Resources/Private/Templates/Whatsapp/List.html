@@ -32,12 +32,12 @@
                                 </f:switch>
                                 <f:if condition="{stylename}=={settings.style_desktop}">
                                     <div class="ns-whatsapp-wrap {top-left} {bottom-left} {top-right} ns-whatsapp-hide-mobile {f:if(condition: '{settings.hide_mobile}', then: 'ns-whatsapp-hide-mobile')} {f:if(condition: '{settings.hide_desktop}', then: 'ns-whatsapp-hide-desktop')}">
-                                        <f:render partial="Chat/{settings.style_desktop}" arguments="{whatsapp: whatsapp}" />
+                                        <f:render partial="Chat/{settings.style_desktop}" arguments="{_all}" />
                                     </div>
                                 </f:if>
                                 <f:if condition="{stylename}=={settings.style_mobile}">
                                     <div class="ns-whatsapp-wrap {top-left} {bottom-left} {top-right} ns-whatsapp-hide-desktop {f:if(condition: '{settings.hide_mobile}', then: 'ns-whatsapp-hide-mobile')} {f:if(condition: '{settings.hide_desktop}', then: 'ns-whatsapp-hide-desktop')}">
-                                        <f:render partial="Chat/{settings.style_mobile}" arguments="{whatsapp: whatsapp}" />
+                                        <f:render partial="Chat/{settings.style_mobile}" arguments="{_all}" />
                                     </div>
                                 </f:if>
                             </f:then>

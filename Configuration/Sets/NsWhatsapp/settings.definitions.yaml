@@ -97,6 +97,7 @@ settings:
 
   # =================================================
   # STYLE SETTINGS (Style 1 optional overrides)
+  # Empty = keep values from Whatsapp Style backend module
   # =================================================
   ns_whatsapp.style.style1Text:
     label: Style 1 Button Text Override
@@ -109,6 +110,7 @@ settings:
     category: ns_whatsapp.style
     type: string
     enum:
+      default: Use default (Whatsapp Style module)
       '#ffffff': White
       '#000000': Black
       '#337ab7': Primary Blue
@@ -117,13 +119,14 @@ settings:
       '#dc3545': Danger Red
       '#ffc107': Warning Yellow
       '#6c757d': Gray
-    default: ''
+    default: default
 
   ns_whatsapp.style.style1BackgroundColor:
     label: Style 1 Background Color
     category: ns_whatsapp.style
     type: string
     enum:
+      default: Use default (Whatsapp Style module)
       '#337ab7': Primary Blue
       '#0059a5': Deep Blue
       '#28a745': Success Green
@@ -132,7 +135,7 @@ settings:
       '#000000': Black
       '#f8f9fa': Light Gray
       '#6c757d': Gray
-    default: ''
+    default: default
 
   ns_whatsapp.style.style1BorderWidth:
     label: Style 1 Border Width (px)
@@ -145,6 +148,7 @@ settings:
     category: ns_whatsapp.style
     type: string
     enum:
+      default: Use default (Whatsapp Style module)
       '#337ab7': Primary Blue
       '#0059a5': Deep Blue
       '#28a745': Success Green
@@ -153,13 +157,14 @@ settings:
       '#000000': Black
       '#6c757d': Gray
       '#8d8d8d': Mid Gray
-    default: ''
+    default: default
 
   ns_whatsapp.style.style1HoverTextColor:
     label: Style 1 Hover Text Color
     category: ns_whatsapp.style
     type: string
     enum:
+      default: Use default (Whatsapp Style module)
       '#ffffff': White
       '#000000': Black
       '#337ab7': Primary Blue
@@ -168,13 +173,14 @@ settings:
       '#dc3545': Danger Red
       '#ffc107': Warning Yellow
       '#6c757d': Gray
-    default: ''
+    default: default
 
   ns_whatsapp.style.style1HoverBackgroundColor:
     label: Style 1 Hover Background Color
     category: ns_whatsapp.style
     type: string
     enum:
+      default: Use default (Whatsapp Style module)
       '#0059a5': Deep Blue
       '#337ab7': Primary Blue
       '#28a745': Success Green
@@ -183,13 +189,14 @@ settings:
       '#000000': Black
       '#f8f9fa': Light Gray
       '#6c757d': Gray
-    default: ''
+    default: default
 
   ns_whatsapp.style.style1HoverBorderColor:
     label: Style 1 Hover Border Color
     category: ns_whatsapp.style
     type: string
     enum:
+      default: Use default (Whatsapp Style module)
       '#0059a5': Deep Blue
       '#337ab7': Primary Blue
       '#28a745': Success Green
@@ -198,4 +205,4 @@ settings:
       '#000000': Black
       '#6c757d': Gray
       '#8d8d8d': Mid Gray
-    default: ''
+    default: default

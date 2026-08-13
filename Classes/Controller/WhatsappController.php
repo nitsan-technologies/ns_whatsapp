@@ -146,13 +146,32 @@ class WhatsappController extends ActionController
             true
         );
 
+        // Keep mobile detection available inside Fluid settings
+        $constant['mobile'] = (bool)($this->settings['mobile'] ?? false);
+
+        // Site Settings color enums use "default" sentinel = keep Whatsapp Style module values
+        foreach ([
+            'style1_textcolor',
+            'style1_bgcolor',
+            'style1_bordercolor',
+            'style1_htextcolor',
+            'style1_hbgcolor',
+            'style1_hbordercolor',
+        ] as $styleKey) {
+            if (($constant[$styleKey] ?? '') === 'default') {
+                $constant[$styleKey] = '';
+            }
+        }
+
         $whatsappstyle = $this->whatsappstyleRepository->findAllstyle();
+        $urlConnection = GeneralUtility::getIndpEnv('TYPO3_SSL') ? 'https://' : 'http://';
         $this->view->assignMultiple(
             [
                 'whatsappstyle' => $whatsappstyle,
                 'currentpid' => $currentPid,
                 'chat_hidepage' => $chatHidepage,
                 'settings' => $constant,
+                'urlConnection' => $urlConnection,
             ]
         );
         return $this->htmlResponse();

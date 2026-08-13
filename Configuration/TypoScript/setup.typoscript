@@ -14,15 +14,15 @@ plugin {
         }
         view {
             templateRootPaths {
-                0 = EXT:ns_whasapp/Resources/Private/Templates/
+                0 = EXT:ns_whatsapp/Resources/Private/Templates/
                 1 = {$plugin.tx_nswhasapp_whatsapp.view.templateRootPath}
             }
             partialRootPaths {
-                0 = EXT:ns_whasapp/Resources/Private/Partials/
+                0 = EXT:ns_whatsapp/Resources/Private/Partials/
                 1 = {$plugin.tx_nswhasapp_whatsapp.view.partialRootPath}
             }
             layoutRootPaths {
-                0 = EXT:ns_whasapp/Resources/Private/Layouts/
+                0 = EXT:ns_whatsapp/Resources/Private/Layouts/
                 1 = {$plugin.tx_nswhasapp_whatsapp.view.layoutRootPath}
             }
         }
