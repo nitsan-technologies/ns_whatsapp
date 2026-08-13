@@ -14,13 +14,14 @@ plugin {
             hide_mobile = {$ns_whatsapp.chat.hideMobile}
             hide_desktop = {$ns_whatsapp.chat.hideDesktop}
             style1_text = {$ns_whatsapp.style.style1Text}
-            style1_textcolor = {$ns_whatsapp.style.style1TextColor}
-            style1_bgcolor = {$ns_whatsapp.style.style1BackgroundColor}
+            # Quote colors: unquoted #hex is a TypoScript comment and drops the value
+            style1_textcolor = "{$ns_whatsapp.style.style1TextColor}"
+            style1_bgcolor = "{$ns_whatsapp.style.style1BackgroundColor}"
             style1_border = {$ns_whatsapp.style.style1BorderWidth}
-            style1_bordercolor = {$ns_whatsapp.style.style1BorderColor}
-            style1_htextcolor = {$ns_whatsapp.style.style1HoverTextColor}
-            style1_hbgcolor = {$ns_whatsapp.style.style1HoverBackgroundColor}
-            style1_hbordercolor = {$ns_whatsapp.style.style1HoverBorderColor}
+            style1_bordercolor = "{$ns_whatsapp.style.style1BorderColor}"
+            style1_htextcolor = "{$ns_whatsapp.style.style1HoverTextColor}"
+            style1_hbgcolor = "{$ns_whatsapp.style.style1HoverBackgroundColor}"
+            style1_hbordercolor = "{$ns_whatsapp.style.style1HoverBorderColor}"
         }
         view {
             templateRootPaths {
