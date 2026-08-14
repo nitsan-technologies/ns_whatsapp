@@ -2,7 +2,6 @@
 
 namespace Nitsan\NsWhatsapp\Controller;
 
-use TYPO3\CMS\Core\Resource\Exception;
 use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Information\Typo3Version;
@@ -14,10 +13,7 @@ use TYPO3\CMS\Extbase\Security\HashScope;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 use Nitsan\NsWhatsapp\Domain\Repository\WhatsappstyleRepository;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
-use TYPO3\CMS\Extbase\Persistence\Exception\UnknownObjectException;
-use TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException;
 use TYPO3\CMS\Core\Type\ContextualFeedbackSeverity;
-use TYPO3\CMS\Core\Resource\StorageRepository;
 
 /***
  *
@@ -140,51 +136,42 @@ class WhatsappController extends ActionController
         }
         $currentPid = (int)($pageRecord['uid'] ?? 0);
 
-        // set js value for slider / read constants
         $configurationManager = GeneralUtility::makeInstance(ConfigurationManagerInterface::class);
         $typoScriptSetup = $configurationManager->getConfiguration(ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT);
         $constant = $typoScriptSetup['plugin.']['tx_nswhasapp_whatsapp.']['settings.'] ?? [];
 
-        // Page based visibility (lists of PIDs from constants)
-        $chat_showpage = GeneralUtility::trimExplode(
+        $chatHidepage = GeneralUtility::trimExplode(
             ',',
-            rtrim($constant['show_pages'] ?? '', ', '),
-            true
-        );
-        $share_showpage = GeneralUtility::trimExplode(
-            ',',
-            rtrim($constant['share_show_pages'] ?? '', ', '),
-            true
-        );
-        $group_showpage = GeneralUtility::trimExplode(
-            ',',
-            rtrim($constant['group_show_pages'] ?? '', ', '),
+            rtrim($constant['hide_pages'] ?? '', ', '),
             true
         );
 
-        if (($constant['show_all'] ?? false) || (!empty($chat_showpage) && in_array((string)$currentPid, $chat_showpage, false))) {
-            $chatFlag = 1;
-        }
+        // Keep mobile detection available inside Fluid settings
+        $constant['mobile'] = (bool)($this->settings['mobile'] ?? false);
 
-        if (($constant['share_show_all'] ?? false) || (!empty($share_showpage) && in_array((string)$currentPid, $share_showpage, false))) {
-            $shareFlag = 1;
-        }
-
-        if (($constant['group_show_all'] ?? false) || (!empty($group_showpage) && in_array((string)$currentPid, $group_showpage, false))) {
-            $groupFlag = 1;
+        // Site Settings color enums use "default" sentinel = keep Whatsapp Style module values
+        foreach ([
+            'style1_textcolor',
+            'style1_bgcolor',
+            'style1_bordercolor',
+            'style1_htextcolor',
+            'style1_hbgcolor',
+            'style1_hbordercolor',
+        ] as $styleKey) {
+            if (($constant[$styleKey] ?? '') === 'default') {
+                $constant[$styleKey] = '';
+            }
         }
 
         $whatsappstyle = $this->whatsappstyleRepository->findAllstyle();
         $urlConnection = GeneralUtility::getIndpEnv('TYPO3_SSL') ? 'https://' : 'http://';
         $this->view->assignMultiple(
             [
-                'urlConnection' => $urlConnection,
                 'whatsappstyle' => $whatsappstyle,
                 'currentpid' => $currentPid,
-                'chatFlag' => $chatFlag ?? '',
-                'shareFlag' => $shareFlag ?? '',
-                'groupFlag' => $groupFlag ?? '',
+                'chat_hidepage' => $chatHidepage,
                 'settings' => $constant,
+                'urlConnection' => $urlConnection,
             ]
         );
         return $this->htmlResponse();
@@ -193,57 +180,10 @@ class WhatsappController extends ActionController
     /**
      * action update
      *
-     * @param Whatsappstyle $whatsappstyle
      * @return ResponseInterface
-     * @throws Exception
-     * @throws IllegalObjectTypeException
-     * @throws UnknownObjectException
      */
     public function updateAction(Whatsappstyle $whatsappstyle): ResponseInterface
     {
-        $this->processImageRemove($whatsappstyle);
-
-        // Handle file upload
-        if (!empty($_FILES['image']['name'])) {
-
-            /** @var \TYPO3\CMS\Core\Resource\StorageRepository $storageRepository */
-            $storageRepository = GeneralUtility::makeInstance(StorageRepository::class);
-
-            // @extensionScannerIgnoreLine
-            $storage = $storageRepository->getDefaultStorage();
-
-            $folderIdentifier = 'user_upload';
-            if (!$storage->hasFolder($folderIdentifier)) {
-                $storage->createFolder($folderIdentifier);
-            }
-
-            $folder = $storage->getFolder($folderIdentifier);
-
-            // Uploaded file data
-            $tmpFilePath = $_FILES['image']['tmp_name'];
-            $originalFileName = $_FILES['image']['name'];
-
-            if (is_uploaded_file($tmpFilePath)) {
-
-                /** @var \TYPO3\CMS\Core\Resource\File $file */
-                $file = $storage->addFile(
-                    $tmpFilePath,
-                    $folder,
-                    $originalFileName
-                );
-
-                // Create sys_file_reference (same as your old logic)
-                $this->whatsappstyleRepository->updateSysFileReferenceRecord(
-                    $file->getUid(),
-                    $whatsappstyle->getUid(),
-                    $whatsappstyle->getPid(),
-                    'tx_nswhatsapp_domain_model_whatsappstyle',
-                    'image',
-                    0
-                );
-            }
-        }
-
         $this->whatsappstyleRepository->update($whatsappstyle);
 
         $this->addFlashMessage(
@@ -254,20 +194,6 @@ class WhatsappController extends ActionController
         );
 
         return $this->redirect('styleSettings');
-    }
-
-    /**
-     * @param Whatsappstyle $whatsappstyle
-     * @return void
-     */
-    private function processImageRemove(Whatsappstyle $whatsappstyle): void
-    {
-        $images = $whatsappstyle->getImage();
-        if (count($images) > 0 && $whatsappstyle->getDeleteImg() == 1) {
-            foreach ($images as $img) {
-                $whatsappstyle->removeImage($img);
-            }
-        }
     }
     /**
      * action styleSettings
