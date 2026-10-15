@@ -3,6 +3,8 @@
 namespace Nitsan\NsWhatsapp\Controller;
 
 use Psr\Http\Message\ResponseInterface;
+use TYPO3\CMS\Backend\Routing\Exception\RouteNotFoundException;
+use TYPO3\CMS\Backend\Routing\UriBuilder as BackendUriBuilder;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Information\Typo3Version;
 use TYPO3\CMS\Core\Crypto\HashAlgo;
@@ -31,6 +33,9 @@ use TYPO3\CMS\Core\Type\ContextualFeedbackSeverity;
  */
 class WhatsappController extends ActionController
 {
+    protected const NS_LICENSE_MODULE = 'nitsan_nslicensemodule';
+    protected const NS_LICENSE_FREE_SECTION_ANCHOR = '#free-section';
+
     public function __construct(
         protected WhatsappstyleRepository $whatsappstyleRepository
     ) {}
@@ -206,9 +211,24 @@ class WhatsappController extends ActionController
         $this->view->assignMultiple([
             'whatsappstyle' => $whatsappstyle,
             'middleAttribute' => 'data-bs-',
-            'style1' => 'show'
+            'style1' => 'show',
+            'trialUrl' => $this->getTrialUrl(),
         ]);
         return $this->htmlResponse();
+    }
+
+    /**
+     * Free-trial link to the ns_license module; empty when ns_license (and its route) is not available.
+     */
+    protected function getTrialUrl(): string
+    {
+        try {
+            return (string)GeneralUtility::makeInstance(BackendUriBuilder::class)
+                ->buildUriFromRoute(self::NS_LICENSE_MODULE, ['trial' => 'ns_whatsapp'])
+                . self::NS_LICENSE_FREE_SECTION_ANCHOR;
+        } catch (RouteNotFoundException) {
+            return '';
+        }
     }
 
 
